@@ -1,6 +1,6 @@
 import unittest
 import pycipher
-import enigma as en
+import old_enigma as en
 
 
 class EnsureCypher(unittest.TestCase):
