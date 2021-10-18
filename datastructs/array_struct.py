@@ -2,7 +2,13 @@ import ctypes
 
 
 class Array:
-    def __init__(self, type: type, size: int = 1, values: str | list | tuple = None):
+    def __init__(
+        self,
+        type: type,
+        size: int = 1,
+        values=None,
+        *morevals,
+    ):
         assert size > 0, "array size must be greater than 0"
         if values:
             if size < len(values) and size != 1:
@@ -17,9 +23,10 @@ class Array:
         self.elements = PyArrayType()
         self.itemcount = 0
         self.count = 0
-        if values:
-            for val in values:
-                self.insert(val)
+        for val in values:
+            self.insert(val)
+        for val in morevals:
+            self.insert(val)
 
     def __len__(self):
         return self.size

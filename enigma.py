@@ -1,3 +1,5 @@
+from datastructs.array_struct import Array
+
 """
 The Enigma M3 cipher consists of a few parameters
 
@@ -20,6 +22,18 @@ tuples of 2-tuples
 """
 
 
+class Rotor:
+    def __init__(self, tyre: str, notch: str | tuple[str, ...]) -> None:
+        assert 27 == len(tyre), "Rotor Tyre must be equal to Alphabets entered"
+        self.tyre = Array(str, values=tyre)
+        self.notch = Array(str, values=notch)
+        self.curr_pos = 0
+        self.ring_offset = 0
+
+    def __repr__(self):
+        pass
+
+
 class Enigma:
     def __init__(
         self,
@@ -29,51 +43,71 @@ class Enigma:
         ringstellung: tuple[str, str, str] = ("A", "A", "A"),
         steckers: list[tuple[str, str]] = [],
     ) -> None:
-        self.initsettings = [settings, rotors, reflector, ringstellung, steckers]
         self.settings = settings
         self.rotors = rotors
         self.selec_reflector = reflector
         self.ringstellung = ringstellung
         self.steckers = steckers
         self.rotorkeys = [
-            ("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q"),
-            ("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E"),
-            ("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V"),
-            ("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J"),
-            ("VZBRGITYUPSDNHLXAWMJQOFECK", "Z"),
-            ("JPGVOUMFYQBENHZRDKASXLICTW", ("Z", "M")),
-            ("NZJHGRCXMYSWBOUFAIVLPEKQDT", ("Z", "M")),
-            ("FKQHTLXOCBJSPDZRAMEWNIUYGV", ("Z", "M")),
+            Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q"),
+            Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E"),
+            Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V"),
+            Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J"),
+            Rotor("VZBRGITYUPSDNHLXAWMJQOFECK", "Z"),
+            Rotor("JPGVOUMFYQBENHZRDKASXLICTW", ("Z", "M")),
+            Rotor("NZJHGRCXMYSWBOUFAIVLPEKQDT", ("Z", "M")),
+            Rotor("FKQHTLXOCBJSPDZRAMEWNIUYGV", ("Z", "M")),
         ]
         self.reflectorkeys = [
             "EJMZALYXVBWFCRQUONTSPIKHGD",
             "YRUHQSLDPXNGOKMIEBFZCWVJAT",
             "FVPJIAOYEDRZXWGCTKUQSBNMHL",
         ]
+        self.initsettings = [
+            settings,
+            rotors,
+            reflector,
+            ringstellung,
+            steckers,
+            self.rotorkeys,
+            self.reflectorkeys,
+        ]
 
-    def __str__(self):
+    def __str__(self) -> str:
         raise NotImplementedError
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         raise NotImplementedError
 
-    def resetSettings(self, parameter_list):
+    def resetSettings(self) -> None:
+        """
+        Resets the settings for the enigma machine to the settings it was initialized with
+        """
+        self.settings = self.initsettings[0]
+        self.rotors = self.initsettings[1]
+        self.selec_reflector = self.initsettings[2]
+        self.ringstellung = self.initsettings[3]
+        self.steckers = self.initsettings[4]
+        self.rotorkeys = self.initsettings[5]
+        self.reflectorkeys = self.initsettings[6]
+        self.applySettings()
+
+    def applySettings(self) -> None:
         """
         docstring
         """
         raise NotImplementedError
 
-    def applySettings(self, parameter_list):
+    def advanceRotor(self) -> None:
         """
-        docstring
+        Advances the rotors acording to the notch and their positions
         """
+        # if self.settings[1] in self.rotorkeys[self.rotors[1]]:
         raise NotImplementedError
 
-    def advanceRotor(self, parameter_list):
-        """
-        docstring
-        """
-        raise NotImplementedError
+    def substr(self, string: str) -> str:
+
+        return ""
 
     def applySteckers(self, parameter_list):
         """
@@ -93,17 +127,24 @@ class Enigma:
         """
         raise NotImplementedError
 
-    def encipherChar(self, parameter_list):
+    def encipherChar(self, char: str) -> str:
         """
         docstring
         """
+        self.advanceRotor()
         raise NotImplementedError
 
-    def encipher(self, parameter_list):
+    def encipher(self, string: str) -> str:
         """
         docstring
         """
-        raise NotImplementedError
+        retstr = ""
+        for char in string.upper():
+            if char.isalpha():
+                retstr += self.encipherChar(char)
+            else:
+                retstr += char
+        return retstr
 
     def decipher(self, parameter_list):
         """

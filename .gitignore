@@ -129,6 +129,5 @@ dmypy.json
 .pyre/
 
 f.py
-old_enigma.py
 requirements.txt
 requirement3s.txt
