@@ -115,18 +115,6 @@ class Enigma:
         """
         raise NotImplementedError
 
-    def index2alpha(self, parameter_list):
-        """
-        docstring
-        """
-        raise NotImplementedError
-
-    def alpha2index(self, parameter_list):
-        """
-        docstring
-        """
-        raise NotImplementedError
-
     def encipherChar(self, char: str) -> str:
         """
         docstring
