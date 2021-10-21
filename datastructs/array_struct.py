@@ -80,11 +80,6 @@ class Array:
             print("list is full")
             return 1
 
-    def strconv(self, string: str):
-        for char in string:
-            self.insert(char)
-        return 0
-
     def index(self, val):
         for i in range(self.itemcount):
             if self.elements[i] == val:
