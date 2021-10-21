@@ -33,6 +33,16 @@ class Rotor:
     def __repr__(self):
         pass
 
+    def reset(self):
+        """Reset the rotor"""
+        pass
+
+    def changeRingsett(self, parameter_list):
+        """
+        docstring
+        """
+        raise NotImplementedError
+
 
 class Enigma:
     def __init__(

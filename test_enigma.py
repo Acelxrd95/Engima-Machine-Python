@@ -24,3 +24,7 @@ class EnsureCypher(unittest.TestCase):
             mach1.encipher("ABCDEFGHIJKLMNOPQRSTUVWXYZ"),
         )
         pass
+
+
+if __name__ == "__main__":
+    unittest.main()
