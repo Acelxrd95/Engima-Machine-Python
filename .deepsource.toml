@@ -2,6 +2,8 @@ version = 1
 
 test_patterns = ["test_*.py"]
 
+exclude_patterns = ["old_enigma.py"]
+
 [[analyzers]]
 name = "python"
 enabled = true
