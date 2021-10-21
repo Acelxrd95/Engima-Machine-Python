@@ -63,6 +63,9 @@ class Array:
                 f"Array indices must be integers or slices, not {type(i).__name__}"
             ) from TypeError
 
+    def __contains__(self, key):
+        return key in self.elements
+
     def insert(self, item, index=-1):
         if self.size > self.itemcount:
             assert (

@@ -78,13 +78,13 @@ class Map:
 
 
 if __name__ == "__main__":
-    fk = Map({"f": "a7a", 3: 3, "fk": "aaaaaa", 1: 54})
-    fk.update({3: "55"})
-    print(fk)
-    print(repr(fk))
-    print(fk[3])
-    f = {"3": "a7a", "fk": "aaaa"}
-    print(fk.pop("f"))
-    print(fk)
-    # print(fk.items())
-    print(fk[344])
+    fs = Map({"f": "aaa", 3: 3, "fs": "aaaaaa", 1: 54})
+    fs.update({3: "55"})
+    print(fs)
+    print(repr(fs))
+    print(fs[3])
+    f = {"3": "afa", "fs": "aaaa"}
+    print(fs.pop("f"))
+    print(fs)
+    # print(fs.items())
+    print(fs[344])

@@ -18,6 +18,8 @@ Description
 
 # Features
 
+Settings -> apply steckers settings -> apply rotor offset -> apply rotor starting position -> input -> edit non chars and capitals -> apply steckers -> apply rotors forward -> apply reflector -> apply rotors backward -> apply steckers
+
 # Prerequisite
 
 -   Python 3.10+
@@ -31,9 +33,11 @@ Description
 # Todo
 
 -   [ ] Encryption of Capital Letters
+-   [ ] CHoose correct Data Structures
 -   [ ] Encryption of Numbers and Symbols
 -   [ ] Addition of custom reflectors
 -   [ ] Addition of Custom Rotors
+-   [ ] Add error messages
 -   [ ] Unit tests
 -   [ ] Plugboard
 -   [ ] Argparser
