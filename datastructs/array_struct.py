@@ -87,8 +87,7 @@ class Array:
         for i in range(self.itemcount):
             if self.elements[i] == val:
                 return i
-        else:
-            return f"Value {val} doesn't exist in this array"
+        return f"Value {val} doesn't exist in this array"
 
     def pop(self, index=-1):
         if index == -1 or index >= self.size:
@@ -103,7 +102,7 @@ class Array:
         return returnval
 
     def shift(self, shift: int, direction: int = 1) -> None:
-        if direction == 1 or direction == -1:
+        if direction in (1, -1):
             oldLi = (
                 self.elements[shift * direction :] + self.elements[: shift * direction]
             )

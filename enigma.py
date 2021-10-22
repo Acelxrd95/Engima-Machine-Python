@@ -169,7 +169,7 @@ class Enigma:
                 retstr += char
         return retstr
 
-    def decipher(self, parameter_list):
+    def decipher(self, string):
         """
         docstring
         """
