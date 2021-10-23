@@ -72,8 +72,9 @@ def n2c(num: int, upper: bool = True) -> str:
     """
     Converts Number to a character
     """
-    if num > 25:
-        num %= 26
+    num %= 26
+    if num < 0:
+        num += 25
     if upper:
         char = chr(num + 65)
     else:
@@ -92,3 +93,9 @@ def num2word(number: str) -> str:
         retNum += nm_dict[num]
         retNum += "X"
     return f"JJ{retNum}JJ"
+
+
+if __name__ == "__main__":
+    for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+        print(c2n(char))
+        print(n2c(c2n(char)))

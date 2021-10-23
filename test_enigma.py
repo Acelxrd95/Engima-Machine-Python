@@ -31,14 +31,14 @@ class EnsureCypher(unittest.TestCase):
             settings=("A", "F", "A"),
             rotors=(1, 2, 3),
             reflector="B",
-            ringstellung=("A", "Z", "A"),
+            ringstellung=("A", "B", "A"),
             steckers=[],
         )
         mach1 = en2.Enigma(
             settings=("A", "F", "A"),
             rotors=(1, 2, 3),
             reflector="B",
-            ringstellung=("A", "Z", "A"),
+            ringstellung=("A", "B", "A"),
             steckers=[],
         )
         self.assertEqual(

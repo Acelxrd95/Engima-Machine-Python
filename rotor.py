@@ -23,6 +23,7 @@ class Rotor:
         assert 26 == len(tyre), "Rotor Tyre must be equal to Alphabets entered"
         self.tyre = Array(str, values=tyre)
         self.notch = Array(str, values=notch)
+        self.invtyre = self.invertRotorTyre()
         self.curr_pos = 0
         self.ring_offset = 0
 
@@ -71,3 +72,23 @@ class Rotor:
             self.curr_pos += pos * dirct
         if self.abs_pos == 26:
             self.curr_pos = self.ring_offset
+
+    def invertRotorTyre(self) -> Array:
+        invrt = Array(str, self.tyre.size)
+        alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        for char in alphabet:
+            invr_char = alphabet[int(self.tyre.index(char))]
+            invrt.insert(invr_char)
+        return invrt
+
+
+if __name__ == "__main__":
+    x = Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "Q")
+    print(x.tyre)
+    print(x.invtyre)
+
+"""
+BDFHJLCPRTXVZNYEIWGAKMUSQO
+ABCDEFGHIJKLMNOPQRSTUVWXYZ
+TAGBPCSDQEUFVNZHYIXJWLRKOM
+"""

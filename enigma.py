@@ -81,7 +81,13 @@ class Enigma:
         raise NotImplementedError
 
     def __repr__(self) -> str:
-        raise NotImplementedError
+        x = []
+        y = []
+        for rot in self.rotors:
+            x.append(self.rotorkeys[rot].tyre[0])
+        for i in [0, 1, 2]:
+            y.append(self.rotorkeys[self.rotors[i]].tyre[0 + c2n(self.ringstellung[i])])
+        return f"Real: {x}\nCurrent: {y}"
 
     def resetSettings(self) -> None:
         """
@@ -135,23 +141,29 @@ class Enigma:
         eChar: int = c2n(char)
         # forward encipher
         for i in range(2, -1, -1):
-            eChar = (
-                c2n(str(self.rotorkeys[self.rotors[i]].tyre[eChar]))
-                - self.rotorkeys[self.rotors[i]].curr_pos
-            )
-            print(n2c(eChar))
+            convChar = c2n(str(self.rotorkeys[self.rotors[i]].tyre[eChar]))
+            offset = self.rotorkeys[self.rotors[i]].abs_pos
+            eChar = (convChar - offset) % 26
+            print(n2c(eChar), self.rotorkeys[self.rotors[i]].abs_pos)
         # reflector encipher
         eChar = c2n(self.reflectorkeys[self.selec_reflector][eChar])
         print(n2c(eChar))
 
         # backward encipher
         for i in range(3):
-            eChar = int(
-                self.rotorkeys[self.rotors[i]].tyre.index(
-                    n2c(eChar + self.rotorkeys[self.rotors[i]].curr_pos)
-                )
-            )
-            print(n2c(eChar))
+            if eChar == 23:
+                pass
+            # realChar = eChar - self.rotorkeys[self.rotors[i]].curr_pos
+            offset = self.rotorkeys[self.rotors[i]].abs_pos
+            eChar = int(self.rotorkeys[self.rotors[i]].tyre.index(n2c(eChar + offset)))
+
+            # eChar = (
+            #     c2n(str(self.rotorkeys[self.rotors[i]].invtyre[eChar]))
+            #     + self.rotorkeys[self.rotors[i]].abs_pos
+            # ) % 26
+            print(n2c(eChar), eChar % 26, self.rotorkeys[self.rotors[i]].abs_pos)
+        print(repr(self))
+        print("===========")
         return n2c(eChar)
 
     def encipher(self, string: str) -> str:
@@ -178,9 +190,12 @@ class Enigma:
 
 if __name__ == "__main__":
     x = Enigma(
-        settings=("A", "A", "A"),
+        settings=("A", "A", "B"),
         rotors=(1, 2, 3),
         reflector="B",
-        ringstellung=("A", "A", "A"),
+        ringstellung=("A", "A", "B"),
         steckers=[],
     )
+    print(repr(x))
+    print(x.encipher("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+    print(repr(x))

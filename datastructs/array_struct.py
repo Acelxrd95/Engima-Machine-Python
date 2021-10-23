@@ -23,6 +23,8 @@ class Array:
         self.elements = PyArrayType()
         self.itemcount = 0
         self.count = 0
+        if values == None:
+            values = []
         for val in values:
             self.insert(val)
         for val in morevals:
