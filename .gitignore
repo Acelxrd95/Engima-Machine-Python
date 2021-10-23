@@ -129,6 +129,4 @@ dmypy.json
 .pyre/
 
 f.py
-requirements.txt
-requirement3s.txt
 rainbowTables.py

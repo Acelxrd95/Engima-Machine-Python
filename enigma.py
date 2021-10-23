@@ -24,28 +24,34 @@ which characters are mapped to eachother. Consists of max 10
 tuples of 2-tuples
 """
 
+Tup3Str = tuple[str, str, str]
+Tup3Int = tuple[int, int, int]
+LiTup2Str = list[tuple[str, str]]
+
 
 class Enigma:
     def __init__(
         self,
-        settings: tuple[str, str, str] = ("A", "A", "A"),
-        rotors: tuple[int, int, int] | tuple[str, str, str] = ("I", "II", "III"),
+        settings: Tup3Str = ("A", "A", "A"),
+        rotors: Tup3Int | Tup3Str = ("I", "II", "III"),
         reflector: str = "B",
-        ringstellung: tuple[str, str, str] = ("A", "A", "A"),
-        steckers: list[tuple[str, str]] = [],
+        ringstellung: Tup3Str = ("A", "A", "A"),
+        steckers: LiTup2Str = None,
     ) -> None:
-        self.settings = settings
+        self.settings: Tup3Str = settings  # TODO could be array
         temp_rot = []
         for rot in rotors:
             if type(rot) is str:
                 temp_rot.append(str(roman2den(rot)))
             else:
                 temp_rot.append(str(rot))
-        self.rotors = tuple(temp_rot)
-        self.selec_reflector = reflector
-        self.ringstellung = ringstellung
-        self.steckers = steckers
-        self.rotorkeys = {
+        self.rotors: tuple = tuple(temp_rot)  # TODO could be array
+        self.selec_reflector: str = reflector
+        self.ringstellung: Tup3Str = ringstellung  # TODO could be array
+        if steckers == None:
+            steckers = []
+        self.steckers: LiTup2Str = steckers  # TODO could be array
+        self.rotorkeys = {  # TODO could be map
             "1": Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q"),
             "2": Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E"),
             "3": Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V"),
@@ -55,22 +61,12 @@ class Enigma:
             "7": Rotor("NZJHGRCXMYSWBOUFAIVLPEKQDT", ("Z", "M")),
             "8": Rotor("FKQHTLXOCBJSPDZRAMEWNIUYGV", ("Z", "M")),
         }
-        self.invrotors = {
-            "1": "UWYGADFPVZBECKMTHXSLRINQOJ",  # inverse rotor keys
-            "2": "AJPCZWRLFBDKOTYUQGENHXMIVS",
-            "3": "TAGBPCSDQEUFVNZHYIXJWLRKOM",
-            "4": "HZWVARTNLGUPXQCEJMBSKDYOIF",
-            "5": "QCYLXWENFTZOSMVJUDKGIARPHB",
-            "6": "SKXQLHCNWARVGMEBJPTYFDZUIO",
-            "7": "QMGYVPEDRCWTIANUXFKZOSLHJB",
-            "8": "QJINSAYDVKBFRUHMCPLEWZTGXO",
-        }
-        self.reflectorkeys = {
+        self.reflectorkeys = {  # TODO could be map
             "A": "EJMZALYXVBWFCRQUONTSPIKHGD",
             "B": "YRUHQSLDPXNGOKMIEBFZCWVJAT",
             "C": "FVPJIAOYEDRZXWGCTKUQSBNMHL",
         }
-        self.initsettings = [
+        self.initsettings = [  # TODO could be Array
             settings,
             tuple(temp_rot),
             reflector,
@@ -130,9 +126,10 @@ class Enigma:
         """
         raise NotImplementedError
 
-    def encipherChar(self, char: str) -> str:
+    def encryptChar(self, char: str) -> str:
         """
-        docstring
+        Loops the character on the selected rotors for encryption.
+        Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
         """
         self.advanceRotor()
         eChar: int = c2n(char)
@@ -159,21 +156,24 @@ class Enigma:
 
     def encipher(self, string: str) -> str:
         """
-        docstring
+        Loops on the string and sends each character to the encryptChar function to be encrypted
+        calls the sp2norm function if the character is a special character or num2word if the
+        character is a number or small2cap if the character is not a capital letter before sending
+        it to the encryptChar function
         """
         retstr = ""
         for char in string.upper():
             if char.isalpha():
-                retstr += self.encipherChar(char)
+                retstr += self.encryptChar(char)
             else:
                 retstr += char
         return retstr
 
-    def decipher(self, string):
+    def decipher(self, string: str) -> str:
         """
-        docstring
+        Calls the encipher function to decipherthe string
         """
-        raise NotImplementedError
+        return self.encipher(string)
 
 
 """
@@ -229,7 +229,7 @@ class Rotor:
 
     def changeRingsett(self, pos: int) -> None:
         """
-        docstring
+        Changes the ring offset setting
         """
         if self.ring_offset != 0:
             self.shiftPosition(self.ring_offset)
@@ -237,6 +237,10 @@ class Rotor:
         self.ring_offset = pos
 
     def shiftPosition(self, pos: int, dirct: int = 1) -> None:
+        """
+        Shift the rotor position according :param pos for number of steps and the :param dirct for
+        the direction of the shift
+        """
         self.tyre.shift(pos, dirct)
         if dirct == 1:
             self.curr_pos += pos * dirct
