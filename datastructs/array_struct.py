@@ -44,10 +44,10 @@ class Array:
         return iter(self.elements)
 
     def __next__(self) -> object:
+        self.count += 1
         if self.count > self.itemcount:
-            raise StopIteration
+            raise StopIteration()
         else:
-            self.count += 1
             return self.count - 1
 
     def __getitem__(self, i: int | slice | str):
