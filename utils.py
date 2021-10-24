@@ -1,6 +1,6 @@
 from datastructs.map_struct import Map
 from datastructs.array_struct import Array
-
+import re
 
 r_dict = Map({"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1})
 nm_dict = {
@@ -17,19 +17,21 @@ nm_dict = {
     "9": "NINE",
 }
 sp_dict = {
-    ".": "YY",
-    ",": "ZZ",
-    "(": "KK",
-    ")": "KK",
-    "{": "KK",
-    "}": "KK",
-    "[": "KK",
-    "]": "KK",
-    "?": "UD",
+    ".": "YJY",
+    ",": "ZZZ",
+    "(": "KZK",
+    ")": "KZK",
+    "{": "KZK",
+    "}": "KZK",
+    "[": "KZK",
+    "]": "KZK",
+    "?": "UDU",
+    "$": "JMJ",
+    "^": "JX",
+    "/": "XYX",
+    "\\": "YZY",
     '"': "XX",
     "'": "XX",
-    "/": "XYX",
-    "\\": "YXY",
 }
 
 
@@ -82,8 +84,16 @@ def n2c(num: int, upper: bool = True) -> str:
     return char
 
 
+def isspecial(char: str) -> bool:
+    if char in sp_dict.keys():
+        return True
+    else:
+        return False
+
+
 def sp2norm(char: str) -> str:
-    char = sp_dict[char]
+    if isspecial(char):
+        char = sp_dict[char]
     return char
 
 
@@ -91,11 +101,67 @@ def num2word(number: str) -> str:
     retNum = ""
     for num in number:
         retNum += nm_dict[num]
-        retNum += "X"
-    return f"JJ{retNum}JJ"
+        retNum += "$"
+    return f"${retNum}"
+
+
+def up2low(char: str) -> str:
+    return f"^{char}"
+
+
+def transformsp(char: str) -> str:
+    if char.isalpha():
+        if char.islower():
+            char = char.upper()
+        elif char.isupper():
+            char = up2low(char)
+    elif char.isnumeric():
+        char = num2word(char)
+    if isspecial(char[0]):
+        if char[0] == "$":
+            char = sp2norm(char[0]) + char[1:-1] + sp2norm(char[-1])
+        else:
+            char = sp2norm(char[0]) + char[1:]
+    else:
+        char = char
+    return char
+
+
+def rmspecial(word: str) -> str:
+    word = re.sub(r"KZK(.*)KZK", r"(\g<1>)", word)
+    for key, val in sp_dict.items():
+        word = word.replace(val, key)
+    nextact = ""
+    numvar = ""
+    x = list(nm_dict.values())
+    newstr = ""
+    for i in range(len(word)):
+        char = word[i]
+        if char == "$" and nextact == "$":
+            char = list(nm_dict.keys())[x.index(numvar)]
+            newstr += char
+            numvar = ""
+            nextact = ""
+        elif nextact == "$":
+            numvar += char
+        elif char == "$":
+            nextact = char
+        elif char == "^":
+            nextact = char
+        elif nextact == "^":
+            newstr += char.upper()
+            nextact = ""
+        else:
+            newstr += char.lower()
+    return newstr
+
+
+# def norm2sp(string: str) -> str:
+#     x = re.sub(r"JX([A-Z])", r"^\g<1>", retstr)
 
 
 if __name__ == "__main__":
-    for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-        print(c2n(char))
-        print(n2c(c2n(char)))
+    # for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
+    #     print(c2n(char))
+    #     print(n2c(c2n(char)))
+    print(transformsp("1"))

@@ -164,26 +164,30 @@ class Enigma:
         # print("===========") DEV debuging character encoding
         return n2c(eChar)
 
-    def encipher(self, string: str) -> str:
+    def encipher(self, string: str, decipher=False) -> str:
         """
         Loops on the string and sends each character to the encryptChar function to be encrypted
         calls the sp2norm function if the character is a special character or num2word if the
         character is a number or small2cap if the character is not a capital letter before sending
         it to the encryptChar function
         """
+        string = string.replace(" ", "")
+        normalized_str = ""
         retstr = ""
-        for char in string.upper():
-            if char.isalpha():
-                retstr += self.encryptChar(char)
-            else:
-                retstr += char
+        if not decipher:
+            for char in string:
+                normalized_str += transformsp(char)
+        else:
+            normalized_str = string
+        for char in normalized_str:
+            retstr += self.encryptChar(char)
         return retstr
 
     def decipher(self, string: str) -> str:
         """
         Calls the encipher function to decipherthe string
         """
-        return self.encipher(string)
+        return rmspecial(self.encipher(string, True))
 
 
 if __name__ == "__main__":
@@ -194,4 +198,6 @@ if __name__ == "__main__":
         ringstellung=("A", "A", "B"),
         steckers=[],
     )
-    print(x.encipher("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+    print(x.encipher("Ahmed"))
+    x.resetSettings()
+    print(x.decipher("SSZKHNF"))

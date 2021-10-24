@@ -32,9 +32,9 @@ Settings -> apply steckers settings -> apply rotor offset -> apply rotor startin
 
 # Todo
 
--   [ ] Encryption of Capital Letters
+-   [x] Encryption of Capital Letters
 -   [ ] CHoose correct Data Structures
--   [ ] Encryption of Numbers and Symbols
+-   [x] Encryption of Numbers and Symbols
 -   [ ] Addition of custom reflectors
 -   [ ] Addition of Custom Rotors
 -   [ ] Add error messages
