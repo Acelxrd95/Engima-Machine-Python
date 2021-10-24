@@ -37,7 +37,9 @@ class Enigma:
         ringstellung: Tup3Str = ("A", "A", "A"),
         steckers: LiTup2Str = None,
     ) -> None:
+
         self.settings: Tup3Str = settings  # TODO could be array
+
         temp_rot = []
         for rot in rotors:
             rot = str(rot)
@@ -45,49 +47,50 @@ class Enigma:
                 temp_rot.append(str(roman2den(rot)))
             else:
                 temp_rot.append(rot)
+
         self.rotors: tuple = tuple(temp_rot)  # TODO could be array
+
         self.selec_reflector: str = reflector
+
         self.ringstellung: Tup3Str = ringstellung  # TODO could be array
+
         if steckers == None:
             steckers = []
         self.steckers: LiTup2Str = steckers  # TODO could be array
-        self.rotorkeys = {  # TODO could be map
-            "1": Rotor("EKMFLGDQVZNTOWYHXUSPAIBRCJ", "Q"),
-            "2": Rotor("AJDKSIRUXBLHWTMCQGZNPYFVOE", "E"),
-            "3": Rotor("BDFHJLCPRTXVZNYEIWGAKMUSQO", "V"),
-            "4": Rotor("ESOVPZJAYQUIRHXLNFTGKDCMWB", "J"),
-            "5": Rotor("VZBRGITYUPSDNHLXAWMJQOFECK", "Z"),
-            "6": Rotor("JPGVOUMFYQBENHZRDKASXLICTW", ("Z", "M")),
-            "7": Rotor("NZJHGRCXMYSWBOUFAIVLPEKQDT", ("Z", "M")),
-            "8": Rotor("FKQHTLXOCBJSPDZRAMEWNIUYGV", ("Z", "M")),
+
+        self.rotorkeys_store = {  # TODO could be map
+            "1": {"key": "EKMFLGDQVZNTOWYHXUSPAIBRCJ", "notch": "Q"},
+            "2": {"key": "AJDKSIRUXBLHWTMCQGZNPYFVOE", "notch": "E"},
+            "3": {"key": "BDFHJLCPRTXVZNYEIWGAKMUSQO", "notch": "V"},
+            "4": {"key": "ESOVPZJAYQUIRHXLNFTGKDCMWB", "notch": "J"},
+            "5": {"key": "VZBRGITYUPSDNHLXAWMJQOFECK", "notch": "Z"},
+            "6": {"key": "JPGVOUMFYQBENHZRDKASXLICTW", "notch": ("Z", "M")},
+            "7": {"key": "NZJHGRCXMYSWBOUFAIVLPEKQDT", "notch": ("Z", "M")},
+            "8": {"key": "FKQHTLXOCBJSPDZRAMEWNIUYGV", "notch": ("Z", "M")},
         }
+        self.rotorkeys = []  # TODO could be array
+        for i in self.rotors:
+            rotkey = self.rotorkeys_store[i]["key"]
+            rotnotch = self.rotorkeys_store[i]["notch"]
+            self.rotorkeys.append(self.spawnRotorInstances(rotkey, rotnotch))
+
         self.reflectorkeys = {  # TODO could be map
             "A": "EJMZALYXVBWFCRQUONTSPIKHGD",
             "B": "YRUHQSLDPXNGOKMIEBFZCWVJAT",
             "C": "FVPJIAOYEDRZXWGCTKUQSBNMHL",
         }
+
         self.initsettings = [  # TODO could be Array
             settings,
             tuple(temp_rot),
             reflector,
             ringstellung,
             steckers,
-            self.rotorkeys,
+            self.rotorkeys_store,
             self.reflectorkeys,
         ]
+
         self.applySettings()
-
-    def __str__(self) -> str:
-        raise NotImplementedError
-
-    def __repr__(self) -> str:
-        x = []
-        y = []
-        for rot in self.rotors:
-            x.append(self.rotorkeys[rot].tyre[0])
-        for i in [0, 1, 2]:
-            y.append(self.rotorkeys[self.rotors[i]].tyre[0 + c2n(self.ringstellung[i])])
-        return f"Real: {x}\nCurrent: {y}"
 
     def resetSettings(self) -> None:
         """
@@ -95,14 +98,15 @@ class Enigma:
         """
         iniset = self.initsettings
         self.__init__(iniset[0], iniset[1], iniset[2], iniset[3], iniset[4])
+        self.rotorkeys_store = iniset[5]
+        self.reflectorkeys = iniset[6]
 
     def applySettings(self, reset=False) -> None:
         """
         Applies the settings to the individual components of the enigma
         """
         for i in range(3):
-            rotid = self.rotors[i]
-            currot = self.rotorkeys[rotid]
+            currot = self.rotorkeys[i]
             if reset:
                 currot.shiftPosition(c2n(self.settings[i]), -1)
             else:
@@ -110,18 +114,21 @@ class Enigma:
             currot.changeRingsett(c2n(self.ringstellung[i]))
         # self.applySteckers()
 
+    def spawnRotorInstances(self, key: str, notch: tuple) -> Rotor:
+        return Rotor(key, notch)
+
     def advanceRotor(self) -> None:
         """
         Advances the rotors acording to the notch and their positions
         """
-        if self.rotorkeys[self.rotors[1]].check_notch:
-            self.rotorkeys[self.rotors[1]].shiftPosition(1)
-            self.rotorkeys[self.rotors[0]].shiftPosition(1)
+        if self.rotorkeys[1].check_notch:
+            self.rotorkeys[1].shiftPosition(1)
+            self.rotorkeys[0].shiftPosition(1)
 
-        if self.rotorkeys[self.rotors[2]].check_notch:
-            self.rotorkeys[self.rotors[1]].shiftPosition(1)
+        if self.rotorkeys[2].check_notch:
+            self.rotorkeys[1].shiftPosition(1)
 
-        self.rotorkeys[self.rotors[2]].shiftPosition(1)
+        self.rotorkeys[2].shiftPosition(1)
 
     def applySteckers(self):
         """
@@ -138,8 +145,8 @@ class Enigma:
         eChar: int = c2n(char)
         # NOTE forward encipher
         for i in range(2, -1, -1):
-            convChar = c2n(str(self.rotorkeys[self.rotors[i]].tyre[eChar]))
-            offset = self.rotorkeys[self.rotors[i]].abs_pos
+            convChar = c2n(str(self.rotorkeys[i].tyre[eChar]))
+            offset = self.rotorkeys[i].abs_pos
             eChar = (convChar - offset) % 26
             # print(n2c(eChar), self.rotorkeys[self.rotors[i]].abs_pos) DEV debuging character encoding
         # NOTE reflector encipher
@@ -150,9 +157,8 @@ class Enigma:
         for i in range(3):
             if eChar == 23:
                 pass
-            # realChar = eChar - self.rotorkeys[self.rotors[i]].curr_pos
-            offset = self.rotorkeys[self.rotors[i]].abs_pos
-            eChar = int(self.rotorkeys[self.rotors[i]].tyre.index(n2c(eChar + offset)))
+            offset = self.rotorkeys[i].abs_pos
+            eChar = int(self.rotorkeys[i].tyre.index(n2c(eChar + offset)))
             # print(n2c(eChar), eChar % 26, self.rotorkeys[self.rotors[i]].abs_pos) DEV debuging character encoding
         # print(repr(self)) DEV debuging character encoding
         # print("===========") DEV debuging character encoding
@@ -188,7 +194,4 @@ if __name__ == "__main__":
         ringstellung=("A", "A", "B"),
         steckers=[],
     )
-    print(repr(x))
     print(x.encipher("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
-    x.resetSettings()
-    print(repr(x))
