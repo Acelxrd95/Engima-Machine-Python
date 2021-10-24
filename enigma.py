@@ -1,4 +1,3 @@
-from datastructs.array_struct import Array
 from utils import *
 from rotor import Rotor
 
@@ -24,8 +23,8 @@ which characters are mapped to eachother. Consists of max 10
 tuples of 2-tuples
 """
 
-Tup3Str = tuple[str, str, str]
-Tup3Int = tuple[int, int, int]
+Tup3Str = tuple[str, str, str] | list[str]
+Tup3Int = tuple[int, int, int] | list[int]
 LiTup2Str = list[tuple[str, str]]
 
 
@@ -41,10 +40,11 @@ class Enigma:
         self.settings: Tup3Str = settings  # TODO could be array
         temp_rot = []
         for rot in rotors:
-            if type(rot) is str:
+            rot = str(rot)
+            if isroman(rot):
                 temp_rot.append(str(roman2den(rot)))
             else:
-                temp_rot.append(str(rot))
+                temp_rot.append(rot)
         self.rotors: tuple = tuple(temp_rot)  # TODO could be array
         self.selec_reflector: str = reflector
         self.ringstellung: Tup3Str = ringstellung  # TODO could be array
@@ -93,23 +93,20 @@ class Enigma:
         """
         Resets the settings for the enigma machine to the settings it was initialized with
         """
-        self.settings = self.initsettings[0]
-        self.rotors = self.initsettings[1]
-        self.selec_reflector = self.initsettings[2]
-        self.ringstellung = self.initsettings[3]
-        self.steckers = self.initsettings[4]
-        self.rotorkeys = self.initsettings[5]
-        self.reflectorkeys = self.initsettings[6]
-        self.applySettings()
+        iniset = self.initsettings
+        self.__init__(iniset[0], iniset[1], iniset[2], iniset[3], iniset[4])
 
-    def applySettings(self) -> None:
+    def applySettings(self, reset=False) -> None:
         """
         Applies the settings to the individual components of the enigma
         """
         for i in range(3):
             rotid = self.rotors[i]
             currot = self.rotorkeys[rotid]
-            currot.shiftPosition(c2n(self.settings[i]))
+            if reset:
+                currot.shiftPosition(c2n(self.settings[i]), -1)
+            else:
+                currot.shiftPosition(c2n(self.settings[i]))
             currot.changeRingsett(c2n(self.ringstellung[i]))
         # self.applySteckers()
 
@@ -139,31 +136,26 @@ class Enigma:
         """
         self.advanceRotor()
         eChar: int = c2n(char)
-        # forward encipher
+        # NOTE forward encipher
         for i in range(2, -1, -1):
             convChar = c2n(str(self.rotorkeys[self.rotors[i]].tyre[eChar]))
             offset = self.rotorkeys[self.rotors[i]].abs_pos
             eChar = (convChar - offset) % 26
-            print(n2c(eChar), self.rotorkeys[self.rotors[i]].abs_pos)
-        # reflector encipher
+            # print(n2c(eChar), self.rotorkeys[self.rotors[i]].abs_pos) DEV debuging character encoding
+        # NOTE reflector encipher
         eChar = c2n(self.reflectorkeys[self.selec_reflector][eChar])
-        print(n2c(eChar))
+        # print(n2c(eChar)) DEV debuging character encoding
 
-        # backward encipher
+        # NOTE backward encipher
         for i in range(3):
             if eChar == 23:
                 pass
             # realChar = eChar - self.rotorkeys[self.rotors[i]].curr_pos
             offset = self.rotorkeys[self.rotors[i]].abs_pos
             eChar = int(self.rotorkeys[self.rotors[i]].tyre.index(n2c(eChar + offset)))
-
-            # eChar = (
-            #     c2n(str(self.rotorkeys[self.rotors[i]].invtyre[eChar]))
-            #     + self.rotorkeys[self.rotors[i]].abs_pos
-            # ) % 26
-            print(n2c(eChar), eChar % 26, self.rotorkeys[self.rotors[i]].abs_pos)
-        print(repr(self))
-        print("===========")
+            # print(n2c(eChar), eChar % 26, self.rotorkeys[self.rotors[i]].abs_pos) DEV debuging character encoding
+        # print(repr(self)) DEV debuging character encoding
+        # print("===========") DEV debuging character encoding
         return n2c(eChar)
 
     def encipher(self, string: str) -> str:
@@ -198,4 +190,5 @@ if __name__ == "__main__":
     )
     print(repr(x))
     print(x.encipher("ABCDEFGHIJKLMNOPQRSTUVWXYZ"))
+    x.resetSettings()
     print(repr(x))
