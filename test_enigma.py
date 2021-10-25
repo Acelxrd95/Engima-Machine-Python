@@ -47,6 +47,48 @@ class EnsureCipher(unittest.TestCase):
             mach1.encipher(alphastr.lower()).upper(),
         )
 
+    def test_steckers(self):
+        enigma = pycipher.Enigma(
+            settings=("A", "A", "A"),
+            rotors=(1, 2, 3),
+            reflector="B",
+            ringstellung=("A", "A", "A"),
+            steckers=[
+                ("P", "O"),
+                ("M", "L"),
+                ("I", "U"),
+                ("K", "J"),
+                ("N", "H"),
+                ("Y", "T"),
+                ("G", "B"),
+                ("V", "F"),
+                ("R", "E"),
+                ("D", "C"),
+            ],
+        )
+        mach1 = en2.Enigma(
+            settings=("A", "A", "A"),
+            rotors=(1, 2, 3),
+            reflector="B",
+            ringstellung=("A", "A", "A"),
+            steckers=[
+                ("P", "O"),
+                ("M", "L"),
+                ("I", "U"),
+                ("K", "J"),
+                ("N", "H"),
+                ("Y", "T"),
+                ("G", "B"),
+                ("V", "F"),
+                ("R", "E"),
+                ("D", "C"),
+            ],
+        )
+        self.assertEqual(
+            enigma.encipher(alphastr),
+            mach1.encipher(alphastr.lower()).upper(),
+        )
+
     def test_random_settings_cipher(self):
         settin_test = []
         rot_test = []

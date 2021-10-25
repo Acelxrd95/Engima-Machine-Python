@@ -130,11 +130,16 @@ class Enigma:
 
         self.rotorkeys[2].shiftPosition(1)
 
-    def applySteckers(self):
+    def applySteckers(self, char: str) -> str:
         """
         docstring
         """
-        raise NotImplementedError
+        for l1, l2 in self.steckers:
+            if char == l1:
+                char = l2
+            elif char == l2:
+                char = l1
+        return char
 
     def encryptChar(self, char: str) -> str:
         """
@@ -142,6 +147,7 @@ class Enigma:
         Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
         """
         self.advanceRotor()
+        char = self.applySteckers(char)
         eChar: int = c2n(char)
         # NOTE forward encipher
         for i in range(2, -1, -1):
@@ -162,7 +168,9 @@ class Enigma:
             # print(n2c(eChar), eChar % 26, self.rotorkeys[self.rotors[i]].abs_pos) DEV debuging character encoding
         # print(repr(self)) DEV debuging character encoding
         # print("===========") DEV debuging character encoding
-        return n2c(eChar)
+        char = n2c(eChar)
+        char = self.applySteckers(char)
+        return char
 
     def encipher(self, string: str, decipher=False) -> str:
         """
@@ -200,4 +208,4 @@ if __name__ == "__main__":
     )
     print(x.encipher("Ahmed"))
     x.resetSettings()
-    print(x.decipher("SSZKHNF"))
+    print(x.decipher("SSLKHNF"))
