@@ -29,7 +29,7 @@ class EnsureCipher(unittest.TestCase):
 
     def test_cipher(self):
         enigma = pycipher.Enigma(
-            settings=("A", "A", "A"),
+            settings=("A", "B", "A"),
             rotors=(1, 2, 3),
             reflector="B",
             ringstellung=("A", "A", "A"),
