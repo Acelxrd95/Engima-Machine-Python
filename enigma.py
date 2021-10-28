@@ -27,6 +27,17 @@ Tup3Str = tuple[str, str, str] | list[str]
 Tup3Int = tuple[int, int, int] | list[int]
 LiTup2Str = list[tuple[str, str]]
 
+"""
+settings to add
+3- process spaces (remove/ignore/encrypt)
+4- numbers (remove/ignore/encrypt)
+5- capitals (remove/ignore/encrypt)
+6- special characters (remove/ignore/encrypt)
+7- rotor size bigger than 26
+8- deffer init function
+9- reflector into rotor
+"""
+
 
 class Enigma:
     def __init__(
@@ -40,17 +51,7 @@ class Enigma:
 
         self.settings: Tup3Str = settings  # TODO could be array
 
-        temp_rot = []
-        for rot in rotors:
-            rot = str(rot)
-            if isroman(rot):
-                temp_rot.append(str(roman2den(rot)))
-            else:
-                temp_rot.append(rot)
-
-        self.rotors: tuple = tuple(temp_rot)  # TODO could be array
-
-        self.selec_reflector: str = reflector
+        self.setReflector(reflector)
 
         self.ringstellung: Tup3Str = ringstellung  # TODO could be array
 
@@ -68,13 +69,9 @@ class Enigma:
             "7": {"key": "NZJHGRCXMYSWBOUFAIVLPEKQDT", "notch": ("Z", "M")},
             "8": {"key": "FKQHTLXOCBJSPDZRAMEWNIUYGV", "notch": ("Z", "M")},
         }
-        self.rotorkeys = []  # TODO could be array
-        for i in self.rotors:
-            rotkey = self.rotorkeys_store[i]["key"]
-            rotnotch = self.rotorkeys_store[i]["notch"]
-            self.rotorkeys.append(self.spawnRotorInstances(rotkey, rotnotch))
+        self.setRotor(*rotors)  # TODO could be array
 
-        self.reflectorkeys = {  # TODO could be map
+        self.reflectorkeys_store = {  # TODO could be map
             "A": "EJMZALYXVBWFCRQUONTSPIKHGD",
             "B": "YRUHQSLDPXNGOKMIEBFZCWVJAT",
             "C": "FVPJIAOYEDRZXWGCTKUQSBNMHL",
@@ -82,57 +79,133 @@ class Enigma:
 
         self.initsettings = [  # TODO could be Array
             settings,
-            tuple(temp_rot),
+            rotors,
             reflector,
             ringstellung,
             steckers,
             self.rotorkeys_store,
-            self.reflectorkeys,
+            self.reflectorkeys_store,
         ]
 
         self.applySettings()
 
-    def resetSettings(self) -> None:
+    def resetSettings(self, maintain_storage: bool = True) -> None:
         """
         Resets the settings for the enigma machine to the settings it was initialized with
         """
         iniset = self.initsettings
         self.__init__(iniset[0], iniset[1], iniset[2], iniset[3], iniset[4])
-        self.rotorkeys_store = iniset[5]
-        self.reflectorkeys = iniset[6]
+        if maintain_storage:
+            self.rotorkeys_store = iniset[5]
+            self.reflectorkeys_store = iniset[6]
 
     def applySettings(self, reset=False) -> None:
         """
         Applies the settings to the individual components of the enigma
         """
         for i in range(3):
-            currot = self.rotorkeys[i]
+            currot = self.rotors[i]
             if reset:
                 currot.shiftPosition(c2n(self.settings[i]), -1)
             else:
                 currot.shiftPosition(c2n(self.settings[i]))
             currot.changeRingsett(c2n(self.ringstellung[i]))
-        # self.applySteckers()
 
     def spawnRotorInstances(self, key: str, notch: tuple) -> Rotor:
         return Rotor(key, notch)
+
+    def setRotor(self, r1: int | str, r2: int | str, r3: int | str) -> None:
+        """
+        Initializes the rotor instance
+        """
+        temp_rot = []
+        rotors = (r1, r2, r3)
+        for rot in rotors:
+            rot = str(rot)
+            if isroman(rot):
+                temp_rot.append(str(roman2den(rot)))
+            else:
+                temp_rot.append(rot)
+        temp_rot = tuple(temp_rot)
+        self.rotors = []  # TODO could be array
+        for i in temp_rot:
+            rotkey = self.rotorkeys_store[i]["key"]
+            rotnotch = self.rotorkeys_store[i]["notch"]
+            self.rotors.append(self.spawnRotorInstances(rotkey, rotnotch))
+
+    def setReflector(self, reflectr: str) -> None:
+        """
+        Setter for the reflector
+        """
+        self.reflector = reflectr
+
+    def addCustomRotor(
+        self, rotor_id: str, key: str, notch: tuple, allowdupes=False
+    ) -> None:
+        """
+        Allows the user to add custom rotors with custom keys and notches
+        """
+        if isroman(rotor_id):
+            rotor_id = str(roman2den(rotor_id))
+        if rotor_id in self.rotorkeys_store:
+            raise Exception(f"A rotor with the ID {rotor_id} already exists")
+        if len(key) != 26:
+            raise Exception("Rotor keys must be 26 characters long")
+        if not allowdupes:
+            tmpkey = []
+            for k in key:
+                if k in tmpkey:
+                    raise Exception(
+                        f"There letter {k} was found as dupelicatein the key provided"
+                    )
+                else:
+                    tmpkey.append(k)
+        if len(notch) < 1:
+            raise Exception("There must be at least one Notch key")
+        for n in notch:
+            if n not in key:
+                raise Exception(
+                    f"The provided notch {notch} does not exist in the specified key {key}"
+                )
+        self.rotorkeys_store.update({rotor_id: {"key": key, "notch": notch}})
+
+    def addCustomReflector(self, reflector_id: str, key: str, allowdupes=False) -> None:
+        """
+        Allows the user to add custom reflectors with custom keys
+        """
+        if isroman(reflector_id):
+            reflector_id = str(roman2den(reflector_id))
+        if reflector_id in self.reflectorkeys_store:
+            raise Exception(f"A reflector with the ID {reflector_id} already exists")
+        if len(key) != 26:
+            raise Exception("Reflector keys must be 26 characters long")
+        if not allowdupes:
+            tmpkey = []
+            for k in key:
+                if k in tmpkey:
+                    raise Exception(
+                        f"There letter {k} was found as dupelicatein the key provided"
+                    )
+                else:
+                    tmpkey.append(k)
+        self.reflectorkeys_store.update({reflector_id: key})
 
     def advanceRotor(self) -> None:
         """
         Advances the rotors acording to the notch and their positions
         """
-        if self.rotorkeys[1].check_notch:
-            self.rotorkeys[1].shiftPosition(1)
-            self.rotorkeys[0].shiftPosition(1)
+        if self.rotors[1].check_notch:
+            self.rotors[1].shiftPosition(1)
+            self.rotors[0].shiftPosition(1)
 
-        if self.rotorkeys[2].check_notch:
-            self.rotorkeys[1].shiftPosition(1)
+        if self.rotors[2].check_notch:
+            self.rotors[1].shiftPosition(1)
 
-        self.rotorkeys[2].shiftPosition(1)
+        self.rotors[2].shiftPosition(1)
 
     def applySteckers(self, char: str) -> str:
         """
-        docstring
+        Converts the letters according to the plugboard specification
         """
         for l1, l2 in self.steckers:
             if char == l1:
@@ -151,21 +224,21 @@ class Enigma:
         eChar: int = c2n(char)
         # NOTE forward encipher
         for i in range(2, -1, -1):
-            convChar = c2n(str(self.rotorkeys[i].tyre[eChar]))
-            offset = self.rotorkeys[i].abs_pos
+            convChar = c2n(str(self.rotors[i].tyre[eChar]))
+            offset = self.rotors[i].abs_pos
             eChar = (convChar - offset) % 26
-            # print(n2c(eChar), self.rotorkeys[self.rotors[i]].abs_pos) DEV debuging character encoding
+            # print(n2c(eChar), self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
         # NOTE reflector encipher
-        eChar = c2n(self.reflectorkeys[self.selec_reflector][eChar])
+        eChar = c2n(self.reflectorkeys_store[self.reflector][eChar])
         # print(n2c(eChar)) DEV debuging character encoding
 
         # NOTE backward encipher
         for i in range(3):
             if eChar == 23:
                 pass
-            offset = self.rotorkeys[i].abs_pos
-            eChar = int(self.rotorkeys[i].tyre.index(n2c(eChar + offset)))
-            # print(n2c(eChar), eChar % 26, self.rotorkeys[self.rotors[i]].abs_pos) DEV debuging character encoding
+            offset = self.rotors[i].abs_pos
+            eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
+            # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
         # print(repr(self)) DEV debuging character encoding
         # print("===========") DEV debuging character encoding
         char = n2c(eChar)
@@ -199,13 +272,4 @@ class Enigma:
 
 
 if __name__ == "__main__":
-    x = Enigma(
-        settings=("A", "A", "B"),
-        rotors=(1, 2, 3),
-        reflector="B",
-        ringstellung=("A", "A", "B"),
-        steckers=[],
-    )
-    print(x.encipher("Ahmed"))
-    x.resetSettings()
-    print(x.decipher("SSLKHNF"))
+    pass

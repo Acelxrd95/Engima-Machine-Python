@@ -39,7 +39,8 @@ Settings -> apply steckers settings -> apply rotor offset -> apply rotor startin
 -   [ ] Addition of Custom Rotors
 -   [ ] Add error messages
 -   [ ] Unit tests
+-   [ ] Toggle sp replacment
 -   [x] Plugboard
 -   [ ] Argparser
--   [ ] Multithreading
+-   [x] Multithreading tried but failed due to usage of cTypes
 -   [ ] Complete Readme
