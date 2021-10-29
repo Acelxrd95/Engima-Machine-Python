@@ -62,11 +62,8 @@ def c2n(char: str) -> int:
     num = 0
     if char.isupper():
         num = ord(char) - 65
-        cap = True
     elif char.islower():
         num = ord(char) - 97
-        cap = False
-
     return num
 
 
@@ -91,37 +88,51 @@ def isspecial(char: str) -> bool:
         return False
 
 
-def sp2norm(char: str) -> str:
+def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -> str:
     if isspecial(char):
-        char = sp_dict[char]
+        if sp_setting == 1:
+            char = sp_dict[char]
+        elif sp_setting == 2:
+            char = ""
+    elif char.isspace():
+        if whitesp_setting == 1:
+            char = "VYV"
+        elif whitesp_setting == 2:
+            char = ""
     return char
 
 
-def num2word(number: str) -> str:
-    retNum = ""
-    for num in number:
-        retNum += nm_dict[num]
-        retNum += "$"
-    return f"${retNum}"
+def num2word(number: str, setting: int) -> str:
+    if setting == 1:
+        retNum = ""
+        for num in number:
+            retNum += nm_dict[num]
+            retNum += "$"
+        number = f"${retNum}"
+    elif setting == 2:
+        number = ""
+    return number
 
 
-def up2low(char: str) -> str:
-    return f"^{char}"
+def up2low(char: str, setting: int) -> str:
+    if setting == 1:
+        char = f"^{char}"
+    return char
 
 
-def transformsp(char: str) -> str:
+def transformsp(char: str, settings=[1, 1, 1, 1]) -> str:
     if char.isalpha():
         if char.islower():
             char = char.upper()
         elif char.isupper():
-            char = up2low(char)
+            char = up2low(char, settings[1])
     elif char.isnumeric():
-        char = num2word(char)
-    if isspecial(char[0]):
+        char = num2word(char, settings[0])
+    if char != "" and (isspecial(char[0]) or char.isspace()):
         if char[0] == "$":
             char = sp2norm(char[0]) + char[1:-1] + sp2norm(char[-1])
         else:
-            char = sp2norm(char[0]) + char[1:]
+            char = sp2norm(char[0], settings[2], settings[3]) + char[1:]
     else:
         char = char
     return char
@@ -131,6 +142,7 @@ def rmspecial(word: str) -> str:
     word = re.sub(r"KZK(.*)KZK", r"(\g<1>)", word)
     for key, val in sp_dict.items():
         word = word.replace(val, key)
+    word = word.replace("VYV", " ")
     nextact = ""
     numvar = ""
     x = list(nm_dict.values())

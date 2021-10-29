@@ -21,6 +21,14 @@ characters ex:('F','G','B')
 :param steckers: specifies the plugboard settings, indicating 
 which characters are mapped to eachother. Consists of max 10 
 tuples of 2-tuples
+
+:param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+
+:param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
+
+:param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+
+:param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
 """
 
 Tup3Str = tuple[str, str, str] | list[str]
@@ -29,13 +37,8 @@ LiTup2Str = list[tuple[str, str]]
 
 """
 settings to add
-3- process spaces (remove/ignore/encrypt)
-4- numbers (remove/ignore/encrypt)
-5- capitals (remove/ignore/encrypt)
-6- special characters (remove/ignore/encrypt)
 7- rotor size bigger than 26
-8- deffer init function
-9- reflector into rotor
+8- reflector into rotor
 """
 
 
@@ -47,6 +50,11 @@ class Enigma:
         reflector: str = "B",
         ringstellung: Tup3Str = ("A", "A", "A"),
         steckers: LiTup2Str = None,
+        enc_nums: int = 0,
+        enc_capitals: int = 0,
+        enc_special: int = 0,
+        enc_whitesp: int = 0,
+        # reflect2rotor: bool = False,
     ) -> None:
 
         self.settings: Tup3Str = settings  # TODO could be array
@@ -86,7 +94,7 @@ class Enigma:
             self.rotorkeys_store,
             self.reflectorkeys_store,
         ]
-
+        self.enc_settings = [enc_nums, enc_capitals, enc_special, enc_whitesp]
         self.applySettings()
 
     def resetSettings(self, maintain_storage: bool = True) -> None:
@@ -110,6 +118,23 @@ class Enigma:
             else:
                 currot.shiftPosition(c2n(self.settings[i]))
             currot.changeRingsett(c2n(self.ringstellung[i]))
+
+    def changeEncSettings(
+        self,
+        enc_nums: int = None,
+        enc_capitals: int = None,
+        enc_special: int = None,
+        enc_whitesp: int = None,
+    ):
+        if enc_nums is not None:
+            self.enc_settings[0] = enc_nums
+        if enc_capitals is not None:
+            self.enc_settings[1] = enc_capitals
+        if enc_special is not None:
+            self.enc_settings[2] = enc_special
+        if enc_whitesp is not None:
+            self.enc_settings[3] = enc_whitesp
+        pass
 
     def spawnRotorInstances(self, key: str, notch: tuple) -> Rotor:
         return Rotor(key, notch)
@@ -252,16 +277,21 @@ class Enigma:
         character is a number or small2cap if the character is not a capital letter before sending
         it to the encryptChar function
         """
-        string = string.replace(" ", "")
         normalized_str = ""
         retstr = ""
         if not decipher:
             for char in string:
-                normalized_str += transformsp(char)
+                normalized_str += transformsp(char, self.enc_settings)
+        elif self.enc_settings == [0, 0, 0, 0]:
+            normalized_str = string
         else:
             normalized_str = string
         for char in normalized_str:
-            retstr += self.encryptChar(char)
+            if self.enc_settings == [0, 0, 0, 0] and not char.isalpha():
+                retstr += char
+            else:
+                char = char.upper()
+                retstr += self.encryptChar(char)
         return retstr
 
     def decipher(self, string: str) -> str:
@@ -272,4 +302,18 @@ class Enigma:
 
 
 if __name__ == "__main__":
-    pass
+    enigma = Enigma(
+        settings=("A", "F", "A"),
+        rotors=(1, 2, 3),
+        reflector="B",
+        ringstellung=("A", "B", "A"),
+        steckers=[],
+        enc_nums=2,
+        enc_capitals=1,
+        enc_special=2,
+        enc_whitesp=2,
+    )
+    x = enigma.encipher("Hello World 15 [")
+    print(x)
+    enigma.resetSettings()
+    print(enigma.decipher(x))

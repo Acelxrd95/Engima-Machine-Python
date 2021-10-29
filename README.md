@@ -35,8 +35,8 @@ Settings -> apply steckers settings -> apply rotor offset -> apply rotor startin
 -   [x] Encryption of Capital Letters
 -   [ ] CHoose correct Data Structures
 -   [x] Encryption of Numbers and Symbols
--   [ ] Addition of custom reflectors
--   [ ] Addition of Custom Rotors
+-   [x] Addition of custom reflectors
+-   [x] Addition of Custom Rotors
 -   [ ] Add error messages
 -   [ ] Unit tests
 -   [ ] Toggle sp replacment
@@ -44,3 +44,14 @@ Settings -> apply steckers settings -> apply rotor offset -> apply rotor startin
 -   [ ] Argparser
 -   [x] Multithreading tried but failed due to usage of cTypes
 -   [ ] Complete Readme
+
+# Questions for DR
+
+-   [ ] eh 7war el number w character encryption?
+-   [ ] eh el tests el matlooba meny?
+-   [ ] readme.md?
+-   [ ] datastructures??
+-   [ ] Repository organisation
+-   [ ] Concise, meaningful, well- formatted comments
+-   [ ] Deepsource.io
+-   [ ] my advanced functionality
