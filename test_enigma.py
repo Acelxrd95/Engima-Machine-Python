@@ -21,6 +21,10 @@ class EnsureCipher(unittest.TestCase):
             reflector="B",
             ringstellung=("A", "B", "A"),
             steckers=[],
+            enc_nums=1,
+            enc_capitals=1,
+            enc_special=1,
+            enc_whitesp=2,
         )
         string = fake.paragraph()
         enc_string = enigma.encipher(string)
