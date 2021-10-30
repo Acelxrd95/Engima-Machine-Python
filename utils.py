@@ -96,7 +96,7 @@ def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -> str:
             char = ""
     elif char.isspace():
         if whitesp_setting == 1:
-            char = "VYV"
+            char = "QYQ"
         elif whitesp_setting == 2:
             char = ""
     return char
@@ -142,7 +142,7 @@ def rmspecial(word: str) -> str:
     word = re.sub(r"KZK(.*)KZK", r"(\g<1>)", word)
     for key, val in sp_dict.items():
         word = word.replace(val, key)
-    word = word.replace("VYV", " ")
+    word = word.replace("QYQ", " ")
     nextact = ""
     numvar = ""
     x = list(nm_dict.values())

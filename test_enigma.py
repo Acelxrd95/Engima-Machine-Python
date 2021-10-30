@@ -16,11 +16,11 @@ alphali = list(alphastr)
 class EnsureCipher(unittest.TestCase):
     def test_encryption_decryption(self):
         enigma = en2.Enigma(
-            settings=("A", "F", "A"),
+            start_pos=("A", "F", "A"),
             rotors=(1, 2, 3),
             reflector="B",
-            ringstellung=("A", "B", "A"),
-            steckers=[],
+            ring_setting=("A", "B", "A"),
+            plugboard=[],
             enc_nums=1,
             enc_capitals=1,
             enc_special=1,
@@ -40,18 +40,18 @@ class EnsureCipher(unittest.TestCase):
             steckers=[],
         )
         mach1 = en2.Enigma(
-            settings=("A", "A", "A"),
+            start_pos=("A", "A", "A"),
             rotors=(1, 2, 3),
             reflector="B",
-            ringstellung=("A", "A", "A"),
-            steckers=[],
+            ring_setting=("A", "A", "A"),
+            plugboard=[],
         )
         self.assertEqual(
             enigma.encipher(alphastr),
             mach1.encipher(alphastr.lower()).upper(),
         )
 
-    def test_steckers(self):
+    def test_plugboard(self):
         enigma = pycipher.Enigma(
             settings=("A", "A", "A"),
             rotors=(1, 2, 3),
@@ -71,11 +71,11 @@ class EnsureCipher(unittest.TestCase):
             ],
         )
         mach1 = en2.Enigma(
-            settings=("A", "A", "A"),
+            start_pos=("A", "A", "A"),
             rotors=(1, 2, 3),
             reflector="B",
-            ringstellung=("A", "A", "A"),
-            steckers=[
+            ring_setting=("A", "A", "A"),
+            plugboard=[
                 ("P", "O"),
                 ("M", "L"),
                 ("I", "U"),
@@ -111,11 +111,11 @@ class EnsureCipher(unittest.TestCase):
             steckers=stckr_test,
         )
         mach1 = en2.Enigma(
-            settings=settin_test,
+            start_pos=settin_test,
             rotors=rot_test,
             reflector=reflect_test,
-            ringstellung=ring_test,
-            steckers=stckr_test,
+            ring_setting=ring_test,
+            plugboard=stckr_test,
         )
         self.assertEqual(
             enigma.encipher(alphastr),

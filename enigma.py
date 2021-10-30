@@ -2,35 +2,6 @@ from utils import *
 from rotor import Rotor
 
 
-"""
-The Enigma cipher consists of a few parameters
-
-:param settings: refers to the rotors start positions, which 
-consists of 3 characters ex:('F','G','B')
-
-:param rotors: specifies the rotors used and their order. There 
-are 8 possible rotors labeled from 1 through 8. More rotors can be 
-added using the addCustRotor method
-
-:param reflector: specifies the reflector used More can be 
-specified using the addCustReflect method
-
-:param ringstellung: refers to the ring settings and consists of 3 
-characters ex:('F','G','B')
-
-:param steckers: specifies the plugboard settings, indicating 
-which characters are mapped to eachother. Consists of max 10 
-tuples of 2-tuples
-
-:param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
-
-:param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
-
-:param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
-
-:param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
-"""
-
 Tup3Str = tuple[str, str, str] | list[str]
 Tup3Int = tuple[int, int, int] | list[int]
 LiTup2Str = list[tuple[str, str]]
@@ -39,17 +10,31 @@ LiTup2Str = list[tuple[str, str]]
 settings to add
 7- rotor size bigger than 26
 8- reflector into rotor
+9- CLI application
 """
 
 
 class Enigma:
+    """
+    The Enigma cipher consists of a few parameters
+    :param start_pos: refers to the rotors start positions, which consists of 3 characters ex:('F','G','B')
+    :param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the addCustRotor method
+    :param reflector: specifies the reflector used More can be specified using the addCustReflect method
+    :param ring_setting: refers to the ring settings and consists of 3 characters ex:('F','G','B')
+    :param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+    :param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+    :param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
+    :param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+    :param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+    """
+
     def __init__(
         self,
-        settings: Tup3Str = ("A", "A", "A"),
+        start_pos: Tup3Str = ("A", "A", "A"),
         rotors: Tup3Int | Tup3Str = ("I", "II", "III"),
         reflector: str = "B",
-        ringstellung: Tup3Str = ("A", "A", "A"),
-        steckers: LiTup2Str = None,
+        ring_setting: Tup3Str = ("A", "A", "A"),
+        plugboard: LiTup2Str = None,
         enc_nums: int = 0,
         enc_capitals: int = 0,
         enc_special: int = 0,
@@ -57,15 +42,20 @@ class Enigma:
         # reflect2rotor: bool = False,
     ) -> None:
 
-        self.settings: Tup3Str = settings  # TODO could be array
+        self.start_pos: Tup3Str = start_pos  # TODO could be array
 
         self.setReflector(reflector)
 
-        self.ringstellung: Tup3Str = ringstellung  # TODO could be array
+        self.ring_setting: Tup3Str = ring_setting  # TODO could be array
 
-        if steckers == None:
-            steckers = []
-        self.steckers: LiTup2Str = steckers  # TODO could be array
+        self.plugboard: LiTup2Str = []  # TODO could be array
+        if plugboard != None:
+            for c1, c2 in plugboard:
+                if (c1, c2) in self.plugboard:
+                    self.plugboard.remove((c1, c2))
+                elif (c2, c1) in self.plugboard:
+                    self.plugboard.remove((c2, c1))
+                self.plugboard.append((c1, c2))
 
         self.rotorkeys_store = {  # TODO could be map
             "1": {"key": "EKMFLGDQVZNTOWYHXUSPAIBRCJ", "notch": "Q"},
@@ -86,11 +76,11 @@ class Enigma:
         }
 
         self.initsettings = [  # TODO could be Array
-            settings,
+            start_pos,
             rotors,
             reflector,
-            ringstellung,
-            steckers,
+            ring_setting,
+            plugboard,
             self.rotorkeys_store,
             self.reflectorkeys_store,
         ]
@@ -114,10 +104,10 @@ class Enigma:
         for i in range(3):
             currot = self.rotors[i]
             if reset:
-                currot.shiftPosition(c2n(self.settings[i]), -1)
+                currot.shiftPosition(c2n(self.start_pos[i]), -1)
             else:
-                currot.shiftPosition(c2n(self.settings[i]))
-            currot.changeRingsett(c2n(self.ringstellung[i]))
+                currot.shiftPosition(c2n(self.start_pos[i]))
+            currot.changeRingsett(c2n(self.ring_setting[i]))
 
     def changeEncSettings(
         self,
@@ -228,11 +218,11 @@ class Enigma:
 
         self.rotors[2].shiftPosition(1)
 
-    def applySteckers(self, char: str) -> str:
+    def applyplugboard(self, char: str) -> str:
         """
         Converts the letters according to the plugboard specification
         """
-        for l1, l2 in self.steckers:
+        for l1, l2 in self.plugboard:
             if char == l1:
                 char = l2
             elif char == l2:
@@ -245,7 +235,7 @@ class Enigma:
         Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
         """
         self.advanceRotor()
-        char = self.applySteckers(char)
+        char = self.applyplugboard(char)
         eChar: int = c2n(char)
         # NOTE forward encipher
         for i in range(2, -1, -1):
@@ -267,7 +257,7 @@ class Enigma:
         # print(repr(self)) DEV debuging character encoding
         # print("===========") DEV debuging character encoding
         char = n2c(eChar)
-        char = self.applySteckers(char)
+        char = self.applyplugboard(char)
         return char
 
     def encipher(self, string: str, decipher=False) -> str:
@@ -303,11 +293,11 @@ class Enigma:
 
 if __name__ == "__main__":
     enigma = Enigma(
-        settings=("A", "F", "A"),
+        start_pos=("A", "F", "A"),
         rotors=(1, 2, 3),
         reflector="B",
-        ringstellung=("A", "B", "A"),
-        steckers=[],
+        ring_setting=("A", "B", "A"),
+        plugboard=[],
         enc_nums=2,
         enc_capitals=1,
         enc_special=2,
