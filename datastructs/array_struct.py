@@ -196,11 +196,10 @@ class Array:
         except Exception as e:
             raise e
 
-    def isempty(self)-> bool:
+    def isempty(self) -> bool:
         if self.itemcount == 0:
             return True
         return False
-
 
 
 if __name__ == "__main__":
