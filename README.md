@@ -37,13 +37,14 @@ Settings -> apply steckers settings -> apply rotor offset -> apply rotor startin
 -   [x] Encryption of Numbers and Symbols
 -   [x] Addition of custom reflectors
 -   [x] Addition of Custom Rotors
--   [ ] Add error messages
--   [ ] Unit tests
--   [ ] Toggle sp replacment
+-   [x] Add error messages
+-   [x] Unit tests
+-   [x] Toggle sp replacment
 -   [x] Plugboard
 -   [ ] Argparser
 -   [x] Multithreading tried but failed due to usage of cTypes
 -   [ ] Complete Readme
+-   [ ] save files + output
 
 # Questions for DR
 

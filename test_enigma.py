@@ -1,6 +1,5 @@
 import unittest
 import pycipher
-import old_enigma as en
 import enigma as en2
 from faker import Faker
 import random
@@ -116,6 +115,7 @@ class EnsureCipher(unittest.TestCase):
             reflector=reflect_test,
             ring_setting=ring_test,
             plugboard=stckr_test,
+            duperot_instance=True,
         )
         self.assertEqual(
             enigma.encipher(alphastr),

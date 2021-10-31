@@ -3,39 +3,46 @@ from datastructs.array_struct import Array
 import re
 
 r_dict = Map({"M": 1000, "D": 500, "C": 100, "L": 50, "X": 10, "V": 5, "I": 1})
-nm_dict = {
-    # "0": ("NULL", "ZERO"),
-    "0": "NULL",
-    "1": "ONE",
-    "2": "TWO",
-    "3": "THREE",
-    "4": "FOUR",
-    "5": "FIVE",
-    "6": "SIX",
-    "7": "SEVEN",
-    "8": "EIGHT",
-    "9": "NINE",
-}
-sp_dict = {
-    ".": "YJY",
-    ",": "ZZZ",
-    "(": "KZK",
-    ")": "KZK",
-    "{": "KZK",
-    "}": "KZK",
-    "[": "KZK",
-    "]": "KZK",
-    "?": "UDU",
-    "$": "JMJ",
-    "^": "JX",
-    "/": "XYX",
-    "\\": "YZY",
-    '"': "XX",
-    "'": "XX",
-}
+nm_dict = Map(
+    {
+        # "0": ("NULL", "ZERO"),
+        "0": "NULL",
+        "1": "ONE",
+        "2": "TWO",
+        "3": "THREE",
+        "4": "FOUR",
+        "5": "FIVE",
+        "6": "SIX",
+        "7": "SEVEN",
+        "8": "EIGHT",
+        "9": "NINE",
+    }
+)
+sp_dict = Map(
+    {
+        ".": "YJY",
+        ",": "ZZZ",
+        "(": "KZK",
+        ")": "KZK",
+        "{": "KZK",
+        "}": "KZK",
+        "[": "KZK",
+        "]": "KZK",
+        "?": "UDU",
+        "$": "JMJ",
+        "^": "JX",
+        "/": "XYX",
+        "\\": "YZY",
+        '"': "XX",
+        "'": "XX",
+    }
+)
 
 
 def roman2den(roman: str) -> int:
+    """
+    Convers roman numbers to denary numbers.
+    """
     last, total = 0, 0
     for c in list(roman)[::-1]:
         if last == 0:
@@ -49,6 +56,9 @@ def roman2den(roman: str) -> int:
 
 
 def isroman(roman: str) -> bool:
+    """
+    Checks whether the given string is a valid Roman number.
+    """
     for char in roman:
         if char not in r_dict.keys():
             return False
@@ -82,6 +92,9 @@ def n2c(num: int, upper: bool = True) -> str:
 
 
 def isspecial(char: str) -> bool:
+    """
+    Checks whether the given character is an allowed special characters
+    """
     if char in sp_dict.keys():
         return True
     else:
@@ -89,6 +102,9 @@ def isspecial(char: str) -> bool:
 
 
 def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -> str:
+    """
+    Replaces special characters with normal characters to allow encryption
+    """
     if isspecial(char):
         if sp_setting == 1:
             char = sp_dict[char]
@@ -103,6 +119,9 @@ def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -> str:
 
 
 def num2word(number: str, setting: int) -> str:
+    """
+    Converts a number to its word representation
+    """
     if setting == 1:
         retNum = ""
         for num in number:
@@ -115,12 +134,18 @@ def num2word(number: str, setting: int) -> str:
 
 
 def up2low(char: str, setting: int) -> str:
+    """
+    Adds a special character to the character string in order to allow encryption
+    """
     if setting == 1:
         char = f"^{char}"
     return char
 
 
-def transformsp(char: str, settings=[1, 1, 1, 1]) -> str:
+def transformsp(char: str, settings: Array = Array(int, values=[1, 1, 1, 1])) -> str:
+    """
+    Parses and transforms special characters to normal characters to allow encryption
+    """
     if char.isalpha():
         if char.islower():
             char = char.upper()
@@ -139,6 +164,9 @@ def transformsp(char: str, settings=[1, 1, 1, 1]) -> str:
 
 
 def rmspecial(word: str) -> str:
+    """
+    Parses a word and replaces special character representation with their corresponding symbol
+    """
     word = re.sub(r"KZK(.*)KZK", r"(\g<1>)", word)
     for key, val in sp_dict.items():
         word = word.replace(val, key)
@@ -166,14 +194,3 @@ def rmspecial(word: str) -> str:
         else:
             newstr += char.lower()
     return newstr
-
-
-# def norm2sp(string: str) -> str:
-#     x = re.sub(r"JX([A-Z])", r"^\g<1>", retstr)
-
-
-if __name__ == "__main__":
-    # for char in "ABCDEFGHIJKLMNOPQRSTUVWXYZ":
-    #     print(c2n(char))
-    #     print(n2c(c2n(char)))
-    print(transformsp("1"))
