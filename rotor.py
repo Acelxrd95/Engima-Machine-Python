@@ -26,7 +26,7 @@ class Rotor:
         self.ring_offset = 0
 
     @property
-    def abs_pos(self):
+    def abs_pos(self) -> int:
         return self.curr_pos - self.ring_offset
 
     @property

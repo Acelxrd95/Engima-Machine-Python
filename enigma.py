@@ -34,10 +34,8 @@ class Enigma:
         enc_capitals: int = 0,
         enc_special: int = 0,
         enc_whitesp: int = 0,
-        reflect2rotor: bool = False,
         duperot_instance: bool = False,
     ) -> None:
-        self.setReflect2rotor(reflect2rotor)
         self.setDupeRot(duperot_instance)
         self.startposCheck(start_pos)
 
@@ -75,14 +73,15 @@ class Enigma:
             enc_capitals,
             enc_special,
             enc_whitesp,
-            reflect2rotor,
             duperot_instance,
         ]
         self.applySettings()
 
     def __repr__(self) -> str:
-        retstr = ""
-        return retstr
+        """
+        Returns the current rotor position's string representation.
+        """
+        return f"{[n2c(rot.curr_pos) for rot in self.rotors]}"
 
     def setDupeRot(self, duperot_instance):
         """
@@ -93,16 +92,6 @@ class Enigma:
                 f"duperot_instance Must be a bool type not {type(duperot_instance)}"
             )
         self.duperot_instance = duperot_instance
-
-    def setReflect2rotor(self, reflect2rotor):
-        """
-        Sets the reflect2rotor setting which allows the reflector to be a 4th rotor
-        """
-        if not isinstance(reflect2rotor, bool):
-            raise TypeError(
-                f"reflect2rotor Must be a bool type not {type(reflect2rotor)}"
-            )
-        self.reflect2rotor = reflect2rotor
 
     def resetSettings(self) -> None:
         """
@@ -123,7 +112,8 @@ class Enigma:
                 currot.shiftPosition(c2n(self.start_pos[i]))
             currot.changeRingsett(c2n(self.ring_setting[i]))
 
-    def encsettingCheck(self, enc_nums, enc_capitals, enc_special, enc_whitesp):
+    @staticmethod
+    def encsettingCheck(enc_nums, enc_capitals, enc_special, enc_whitesp):
         """
         Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_whitesp
         """
@@ -153,7 +143,8 @@ class Enigma:
                 "The enc_whitesp setting must be a value between 0 and 2 inclusive"
             )
 
-    def plugboardCheck(self, plugboard):
+    @staticmethod
+    def plugboardCheck(plugboard):
         """
         Checks for the types of values in the plugboard.
         """
@@ -169,7 +160,8 @@ class Enigma:
             if not plug[0].isalpha() or not plug[1].isalpha():
                 raise ValueError("The plugboard items must a letter between A and Z")
 
-    def ringsetCheck(self, ring_setting):
+    @staticmethod
+    def ringsetCheck(ring_setting):
         """
         Checks for the types of values in the ring settings.
         """
@@ -195,7 +187,8 @@ class Enigma:
                     f"The ring setting must be between a string or an integer not {type(ring)}"
                 )
 
-    def reflectorCheck(self, reflector):
+    @staticmethod
+    def reflectorCheck(reflector):
         """
         Checks for the types of values in the reflector.
         """
@@ -204,7 +197,8 @@ class Enigma:
         if reflector not in storage.reflectors:
             raise KeyError(f"The reflector {reflector} is not a valid reflector id")
 
-    def rotorsCheck(self, rotors):
+    @staticmethod
+    def rotorsCheck(rotors):
         """
         Checks for the types of values in the rotors.
         """
@@ -213,10 +207,15 @@ class Enigma:
         if len(rotors) != 3:
             raise ValueError("The rotors consists of 3 string or integer values")
         for rot in rotors:
-            if rot not in storage.rotors and str(rot) not in storage.rotors:
+            if (
+                rot not in storage.rotors
+                and str(rot) not in storage.rotors
+                and str(roman2den(rot)) not in storage.rotors
+            ):
                 raise KeyError(f"The rotor {rot} is not a valid rotor id")
 
-    def startposCheck(self, start_pos):
+    @staticmethod
+    def startposCheck(start_pos):
         """
         Checks for the types of values in the start position.
         """
@@ -273,10 +272,6 @@ class Enigma:
         Setter for the reflector
         """
         self.reflectorCheck(reflectr)
-        if self.reflect2rotor:
-            self.reflector = self.spawnRotorInstances(
-                storage.reflectors[reflectr], ("Z")
-            )
         self.reflector = reflectr
 
     def spawnRotorInstances(self, key: str, notch: tuple | Literal["Z"]) -> Rotor:
@@ -360,14 +355,6 @@ class Enigma:
         """
         Advances the rotors acording to the notch and their positions
         """
-        if (
-            self.rotors[0].check_notch
-            and isinstance(self.reflector, Rotor)
-            and self.reflect2rotor
-        ):
-            self.rotors[0].shiftPosition(1)
-            self.reflector.shiftPosition(1)
-
         if self.rotors[1].check_notch:
             self.rotors[1].shiftPosition(1)
             self.rotors[0].shiftPosition(1)
@@ -404,10 +391,7 @@ class Enigma:
             eChar = (convChar - offset) % 26
             # print(n2c(eChar), self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
         # NOTE reflector encipher
-        if isinstance(self.reflector, Rotor) and self.reflect2rotor:
-            eChar = c2n(self.reflector.tyre[eChar])
-        else:
-            eChar = c2n(storage.reflectors[self.reflector][eChar])
+        eChar = c2n(storage.reflectors[self.reflector][eChar])
         # print(n2c(eChar)) DEV debuging character encoding
 
         # NOTE backward encipher
@@ -432,14 +416,15 @@ class Enigma:
         """
         normalized_str = ""
         retstr = ""
-        if not decipher:
+        # if not deciphering transform all special characters to encryptable characters
+        if not decipher and self.enc_settings != [0, 0, 0, 0]:
             for char in string:
                 normalized_str += transformsp(char, self.enc_settings)
-        elif self.enc_settings == [0, 0, 0, 0]:
-            normalized_str = string
+        # if all settings are on ignore or is deciphering the string is not changed
         else:
             normalized_str = string
         for char in normalized_str:
+            # if all settings are on ignore or and the character isn't an alphabet character the character is not changed else encrypt the character
             if self.enc_settings == [0, 0, 0, 0] and not char.isalpha():
                 retstr += char
             else:
@@ -451,6 +436,7 @@ class Enigma:
         """
         Calls the encipher function to decipherthe string
         """
+        # replaces some characters with special characters after deciphering and before displaying to the user
         return rmspecial(self.encipher(string, True))
 
 

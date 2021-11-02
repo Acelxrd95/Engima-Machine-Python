@@ -196,13 +196,10 @@ class Array:
         except Exception as e:
             raise e
 
-    def isempty(self)-> bool:
+    def isempty(self) -> bool:
+        """
+        Checks if the array is empty
+        """
         if self.itemcount == 0:
             return True
         return False
-
-
-
-if __name__ == "__main__":
-    x = Array(tuple, values=[(3, 4), (4, 2), (5, 6)])
-    print(x == [(3, 4), (4, 2), (5, 6)])
