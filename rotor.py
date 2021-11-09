@@ -1,24 +1,19 @@
+from typing import Union
 from utils import *
 
 
 class Rotor:
     """
-    The Enigma rotors consist of a couple of settings and properties
-
-    :param tyre: refers to the alphabet tyre used to encrypt the letter entered
-
-    :param notch: refers to the notch at which the next rotor in order turns
-
-    :prop curr_pos: refers to the current position of the rotor
-
-    :prop ring_offset: refers to the offset of the ring wiring
-
-    :prop abs_pos: refers to the original absolute position of the rotor without the offset
-
+    The Enigma rotors consist of a couple of settings and properties\\
+    :param tyre: refers to the alphabet tyre used to encrypt the letter entered\\
+    :param notch: refers to the notch at which the next rotor in order turns\\
+    :prop curr_pos: refers to the current position of the rotor\\
+    :prop ring_offset: refers to the offset of the ring wiring\\
+    :prop abs_pos: refers to the original absolute position of the rotor without the offset\\
     :prop check_notch: checks whether the rotor is currently on the notch or not
     """
 
-    def __init__(self, tyre: str, notch: str | tuple[str, ...]) -> None:
+    def __init__(self, tyre: str, notch: Union[str, tuple[str, ...]]) -> None:
         assert 26 == len(tyre), "Rotor Tyre must be equal to Alphabets entered"
         self.tyre = Array(str, values=tyre)
         self.notch = Array(str, values=notch)

@@ -1,6 +1,10 @@
 import click
 from string import ascii_uppercase
 from enigma import Enigma
+import storage
+import sys
+
+sys.tracebacklimit = 0
 
 
 def verifRots(ctx, param, value):
@@ -9,8 +13,10 @@ def verifRots(ctx, param, value):
         defaults = ["1", "2", "3"]
         for i in range(3):
             try:
-                if value[i]:
+                if value[i] in storage.rotors.keys():
                     pass
+                else:
+                    raise KeyError(f"Rotor key {value[i]} not a valid rotor ID")
             except IndexError:
                 value.append(defaults[i])
     if len(value) == 3:
@@ -130,6 +136,28 @@ def verifRots(ctx, param, value):
     callback=lambda ctx, param, value: int(value),
     help="Ignore (0), Encrypted (1) or Remove (2) whitespace",
 )
+@click.option(
+    "-cr",
+    "--custom-rotor",
+    nargs=3,
+    type=str,
+    is_eager=True,
+    callback=lambda ctx, param, value: storage.addCustomRotor(*value)
+    if value is not None
+    else None,
+    help="Adds custom rotor takes the rotor-ID,keys, notch as arguments to create a custom rotor",
+)
+@click.option(
+    "-cf",
+    "--custom-reflector",
+    nargs=2,
+    type=str,
+    is_eager=True,
+    callback=lambda ctx, param, value: storage.addCustomReflector(*value)
+    if value is not None
+    else None,
+    help="Adds custom reflector takes the reflector-ID and keys as arguments to create a custom reflector",
+)
 @click.argument("string")
 def main(
     encipher,
@@ -142,6 +170,8 @@ def main(
     encrypt_capital,
     encrypt_special,
     encrypt_whitespace,
+    custom_rotor,
+    custom_reflector,
     string,
 ):
     mach = Enigma(

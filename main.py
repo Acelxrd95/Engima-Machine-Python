@@ -19,3 +19,48 @@
 # decoded_str = rmspecial(encoded_str)
 # print(decoded_str)
 # print(string)
+# from enigma import Enigma
+
+# mach = Enigma(
+#     start_pos=("A", "A", "A"),
+#     rotors=(1, 2, 3),
+#     reflector="B",
+#     ring_setting=("A", "A", "A"),
+#     plugboard=[
+#         ("P", "O"),
+#         ("M", "L"),
+#         ("I", "U"),
+#         ("K", "J"),
+#         ("N", "H"),
+#         ("Y", "T"),
+#         ("G", "B"),
+#         ("V", "F"),
+#         ("R", "E"),
+#         ("D", "C"),
+#     ],
+# )
+# x = mach.encipher("Hello world")
+# print(x)
+# mach.resetSettings()
+# print(mach.encipher(x))
+import pycipher
+
+enigma = pycipher.Enigma(
+    settings=("A", "A", "A"),
+    rotors=(1, 2, 3),
+    reflector="B",
+    ringstellung=("A", "A", "A"),
+    steckers=[
+        ("P", "O"),
+        ("M", "L"),
+        ("I", "U"),
+        ("K", "J"),
+        ("N", "H"),
+        ("Y", "T"),
+        ("G", "B"),
+        ("V", "F"),
+        ("R", "E"),
+        ("D", "C"),
+    ],
+)
+print(enigma.encipher("hello"))

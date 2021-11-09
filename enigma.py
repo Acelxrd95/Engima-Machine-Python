@@ -1,4 +1,4 @@
-from typing import Literal, MutableSequence, TypeAlias
+from typing import Literal, MutableSequence, Union
 from utils import *
 from rotor import Rotor
 import storage
@@ -10,8 +10,8 @@ class Enigma:
     The main Enigma machine class
 
     :param start_pos: refers to the rotors start positions, which consists of 3 characters ex:('F','G','B')
-    :param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the addCustRotor method
-    :param reflector: specifies the reflector used More can be specified using the addCustReflect method
+    :param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+    :param reflector: specifies the reflector used More can be specified using the `addCustReflect` method
     :param ring_setting: refers to the ring settings and consists of 3 characters ex:('F','G','B')
     :param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
     :param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
@@ -22,13 +22,12 @@ class Enigma:
 
     def __init__(
         self,
-        start_pos: tuple[str, str, str] | list[str] = ("A", "A", "A"),
-        rotors: tuple[int, int, int]
-        | list[int]
-        | tuple[str, str, str]
-        | list[str] = ("I", "II", "III"),
+        start_pos: Union[tuple[str, str, str], list[str]] = ("A", "A", "A"),
+        rotors: Union[
+            tuple[int, int, int], list[int], tuple[str, str, str], list[str]
+        ] = ("I", "II", "III"),
         reflector: str = "B",
-        ring_setting: tuple[str, str, str] | list[str] = ("A", "A", "A"),
+        ring_setting: Union[tuple[str, str, str], list[str]] = ("A", "A", "A"),
         plugboard: list[tuple[str, str]] = None,
         enc_nums: int = 0,
         enc_capitals: int = 0,
@@ -83,7 +82,7 @@ class Enigma:
         """
         return f"{[n2c(rot.curr_pos) for rot in self.rotors]}"
 
-    def setDupeRot(self, duperot_instance):
+    def setDupeRot(self, duperot_instance: bool) -> None:
         """
         Sets the duperot_instance setting which allows for rotors of the same instance to exist
         """
@@ -113,7 +112,9 @@ class Enigma:
             currot.changeRingsett(c2n(self.ring_setting[i]))
 
     @staticmethod
-    def encsettingCheck(enc_nums, enc_capitals, enc_special, enc_whitesp):
+    def encsettingCheck(
+        enc_nums: int, enc_capitals: int, enc_special: int, enc_whitesp: int
+    ) -> None:
         """
         Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_whitesp
         """
@@ -144,7 +145,7 @@ class Enigma:
             )
 
     @staticmethod
-    def plugboardCheck(plugboard):
+    def plugboardCheck(plugboard: Union[MutableSequence, tuple]) -> None:
         """
         Checks for the types of values in the plugboard.
         """
@@ -161,7 +162,7 @@ class Enigma:
                 raise ValueError("The plugboard items must a letter between A and Z")
 
     @staticmethod
-    def ringsetCheck(ring_setting):
+    def ringsetCheck(ring_setting: Union[MutableSequence, tuple]) -> None:
         """
         Checks for the types of values in the ring settings.
         """
@@ -188,7 +189,7 @@ class Enigma:
                 )
 
     @staticmethod
-    def reflectorCheck(reflector):
+    def reflectorCheck(reflector: str) -> None:
         """
         Checks for the types of values in the reflector.
         """
@@ -198,7 +199,7 @@ class Enigma:
             raise KeyError(f"The reflector {reflector} is not a valid reflector id")
 
     @staticmethod
-    def rotorsCheck(rotors):
+    def rotorsCheck(rotors: Union[MutableSequence, tuple]) -> None:
         """
         Checks for the types of values in the rotors.
         """
@@ -215,7 +216,7 @@ class Enigma:
                 raise KeyError(f"The rotor {rot} is not a valid rotor id")
 
     @staticmethod
-    def startposCheck(start_pos):
+    def startposCheck(start_pos: Union[MutableSequence, tuple]) -> None:
         """
         Checks for the types of values in the start position.
         """
@@ -241,7 +242,9 @@ class Enigma:
                     f"The start position must be between a string or an integer not {type(pos)}"
                 )
 
-    def setRotor(self, r1: int | str, r2: int | str, r3: int | str) -> None:
+    def setRotor(
+        self, r1: Union[int, str], r2: Union[int, str], r3: Union[int, str]
+    ) -> None:
         """
         Initializes the rotor instance
         """
@@ -274,7 +277,7 @@ class Enigma:
         self.reflectorCheck(reflectr)
         self.reflector = reflectr
 
-    def spawnRotorInstances(self, key: str, notch: tuple | Literal["Z"]) -> Rotor:
+    def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal["Z"]]) -> Rotor:
         """
         Spawns a rotor instance
         """
@@ -286,7 +289,7 @@ class Enigma:
         enc_capitals: int = None,
         enc_special: int = None,
         enc_whitesp: int = None,
-    ):
+    ) -> None:
         """
         Allows the user to change the encryption settings for enc_nums, enc_capitals, enc_special and enc_whitesp.
         """
@@ -299,57 +302,6 @@ class Enigma:
         if enc_whitesp is not None:
             self.enc_settings[3] = enc_whitesp
         pass
-
-    def addCustomRotor(
-        self, rotor_id: str, key: str, notch: tuple, allowdupes=False
-    ) -> None:
-        """
-        Allows the user to add custom rotors with custom keys and notches
-        """
-        if isroman(rotor_id):
-            rotor_id = str(roman2den(rotor_id))
-        if rotor_id in storage.rotors:
-            raise Exception(f"A rotor with the ID {rotor_id} already exists")
-        if len(key) != 26:
-            raise Exception("Rotor keys must be 26 characters long")
-        if not allowdupes:
-            tmpkey = []
-            for k in key:
-                if k in tmpkey:
-                    raise Exception(
-                        f"There letter {k} was found as dupelicate the key provided"
-                    )
-                else:
-                    tmpkey.append(k)
-        if len(notch) < 1:
-            raise Exception("There must be at least one Notch key")
-        for n in notch:
-            if n not in key:
-                raise Exception(
-                    f"The provided notch {notch} does not exist in the specified key {key}"
-                )
-        storage.rotors.update({rotor_id: {"key": key, "notch": notch}})
-
-    def addCustomReflector(self, reflector_id: str, key: str, allowdupes=False) -> None:
-        """
-        Allows the user to add custom reflectors with custom keys
-        """
-        if isroman(reflector_id):
-            reflector_id = str(roman2den(reflector_id))
-        if reflector_id in storage.reflectors:
-            raise Exception(f"A reflector with the ID {reflector_id} already exists")
-        if len(key) != 26:
-            raise Exception("Reflector keys must be 26 characters long")
-        if not allowdupes:
-            tmpkey = []
-            for k in key:
-                if k in tmpkey:
-                    raise Exception(
-                        f"There letter {k} was found as dupelicatein the key provided"
-                    )
-                else:
-                    tmpkey.append(k)
-        storage.reflectors.update({reflector_id: key})
 
     def advanceRotor(self) -> None:
         """
@@ -378,8 +330,7 @@ class Enigma:
 
     def encryptChar(self, char: str) -> str:
         """
-        Loops the character on the selected rotors for encryption.
-        Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
+        Loops the character on the selected rotors for encryption. Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
         """
         self.advanceRotor()
         char = self.applyplugboard(char)
@@ -407,12 +358,9 @@ class Enigma:
         char = self.applyplugboard(char)
         return char
 
-    def encipher(self, string: str, decipher=False) -> str:
+    def encipher(self, string: str, decipher: bool = False) -> str:
         """
-        Loops on the string and sends each character to the encryptChar function to be encrypted
-        calls the sp2norm function if the character is a special character or num2word if the
-        character is a number or small2cap if the character is not a capital letter before sending
-        it to the encryptChar function
+        Loops on the string and if bool is false the string is sent to the `transformsp` function to transform the special characters to encryptable characters if bool is false then automatically skips past the transform special characters function and then loops on the string and the sends each character to the `encryptChar` method to be encrypted
         """
         normalized_str = ""
         retstr = ""
@@ -434,9 +382,8 @@ class Enigma:
 
     def decipher(self, string: str) -> str:
         """
-        Calls the encipher function to decipherthe string
+        Calls the `encipher` method to decipher the string then `rmspecial` function to remove special characters before displaying to the user
         """
-        # replaces some characters with special characters after deciphering and before displaying to the user
         return rmspecial(self.encipher(string, True))
 
 

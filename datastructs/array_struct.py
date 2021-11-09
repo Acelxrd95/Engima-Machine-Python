@@ -1,5 +1,5 @@
 import ctypes
-from typing import Any, Iterable, MutableSequence, NoReturn, Optional
+from typing import Any, Iterable, MutableSequence, NoReturn, Optional, Union
 
 
 class Array:
@@ -16,7 +16,7 @@ class Array:
         self,
         artype: type,
         size: int = 1,
-        values: Optional[MutableSequence | tuple | str] = None,
+        values: Optional[Union[MutableSequence, tuple, str]] = None,
         *morevals,
     ):
 
@@ -87,7 +87,7 @@ class Array:
             return list(self.elements) == other
         return self.elements == other
 
-    def __getitem__(self, i: int | slice) -> Any:
+    def __getitem__(self, i: Union[int, slice]) -> Any:
         """
         Returns object at given position
         """
@@ -137,7 +137,7 @@ class Array:
         else:
             raise Exception("Array is full")
 
-    def index(self, val: Any) -> int | NoReturn:
+    def index(self, val: Any) -> int:
         """
         Return the index of value in the array.
         """
