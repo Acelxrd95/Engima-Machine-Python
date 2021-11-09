@@ -35,7 +35,7 @@ def verifRots(ctx, param, value):
 )
 @click.option(
     "-s",
-    "--start-position",
+    "--starting-position",
     default=["A", "A", "A"],
     show_default=True,
     type=click.Choice(ascii_uppercase, False),
@@ -161,7 +161,7 @@ def verifRots(ctx, param, value):
 @click.argument("string")
 def main(
     encipher,
-    start_position,
+    starting_position,
     rotors,
     reflector,
     ring_setting,
@@ -175,7 +175,7 @@ def main(
     string,
 ):
     mach = Enigma(
-        start_position,
+        starting_position,
         rotors,
         reflector,
         ring_setting,

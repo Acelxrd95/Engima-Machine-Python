@@ -52,7 +52,7 @@ Usage: enigmaTerm.py [OPTIONS] STRING
 Options:
   -e, --encipher / -d, --decipher
                                   Whether to encrypt or decrypt the string
-  -s, --start-position [A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z]...
+  -s, --starting-position [A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z]...
                                   Rotors starting position  [default: A, A, A]
   -r, --rotors TEXT               Rotor to be used  [default: 1, 2, 3]
   -rf, --reflector TEXT           Reflector to be used  [default: B]

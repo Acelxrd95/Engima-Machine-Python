@@ -1,0 +1,1370 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>Enigma machine.enigma API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>Enigma machine.enigma</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from typing import Literal, MutableSequence, Union
+from utils import *
+from rotor import Rotor
+import storage
+from datastructs.array_struct import Array
+
+
+class Enigma:
+    &#34;&#34;&#34;
+    The main Enigma machine class
+
+    :param start_pos: refers to the rotors start positions, which consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
+    :param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+    :param reflector: specifies the reflector used More can be specified using the `addCustReflect` method
+    :param ring_setting: refers to the ring settings and consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
+    :param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+    :param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+    :param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
+    :param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+    :param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        start_pos: Union[tuple[str, str, str], list[str]] = (&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+        rotors: Union[
+            tuple[int, int, int], list[int], tuple[str, str, str], list[str]
+        ] = (&#34;I&#34;, &#34;II&#34;, &#34;III&#34;),
+        reflector: str = &#34;B&#34;,
+        ring_setting: Union[tuple[str, str, str], list[str]] = (&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+        plugboard: list[tuple[str, str]] = None,
+        enc_nums: int = 0,
+        enc_capitals: int = 0,
+        enc_special: int = 0,
+        enc_whitesp: int = 0,
+        duperot_instance: bool = False,
+    ) -&gt; None:
+        self.setDupeRot(duperot_instance)
+        self.startposCheck(start_pos)
+
+        self.ringsetCheck(ring_setting)
+
+        self.encsettingCheck(enc_nums, enc_capitals, enc_special, enc_whitesp)
+
+        self.start_pos: Array = Array(str, values=start_pos)
+        self.setReflector(reflector)
+        self.ring_setting: Array = Array(str, values=ring_setting)
+        self.plugboard: Array = Array(tuple, 10)
+        if plugboard != None:
+            self.plugboardCheck(plugboard)
+            x = []
+            for c1, c2 in plugboard:
+                if c1 in x or c2 in x or c1 == c2:
+                    continue
+                x.append(c1)
+                x.append(c2)
+                try:
+                    self.plugboard.insert((c1, c2))
+                except:
+                    break
+        self.setRotor(*rotors)
+        self.enc_settings = Array(
+            int, values=[enc_nums, enc_capitals, enc_special, enc_whitesp]
+        )
+        self.initsettings = [
+            start_pos,
+            rotors,
+            reflector,
+            ring_setting,
+            plugboard,
+            enc_nums,
+            enc_capitals,
+            enc_special,
+            enc_whitesp,
+            duperot_instance,
+        ]
+        self.applySettings()
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns the current rotor position&#39;s string representation.
+        &#34;&#34;&#34;
+        return f&#34;{[n2c(rot.curr_pos) for rot in self.rotors]}&#34;
+
+    def setDupeRot(self, duperot_instance: bool) -&gt; None:
+        &#34;&#34;&#34;
+        Sets the duperot_instance setting which allows for rotors of the same instance to exist
+        &#34;&#34;&#34;
+        if not isinstance(duperot_instance, bool):
+            raise TypeError(
+                f&#34;duperot_instance Must be a bool type not {type(duperot_instance)}&#34;
+            )
+        self.duperot_instance = duperot_instance
+
+    def resetSettings(self) -&gt; None:
+        &#34;&#34;&#34;
+        Resets the settings for the enigma machine to the settings it was initialized with
+        &#34;&#34;&#34;
+        self.initsettings
+        self.__init__(*self.initsettings)
+
+    def applySettings(self, reset=False) -&gt; None:
+        &#34;&#34;&#34;
+        Applies the settings to the individual components of the enigma
+        &#34;&#34;&#34;
+        for i in range(3):
+            currot = self.rotors[i]
+            if reset:
+                currot.shiftPosition(c2n(self.start_pos[i]), -1)
+            else:
+                currot.shiftPosition(c2n(self.start_pos[i]))
+            currot.changeRingsett(c2n(self.ring_setting[i]))
+
+    @staticmethod
+    def encsettingCheck(
+        enc_nums: int, enc_capitals: int, enc_special: int, enc_whitesp: int
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_whitesp
+        &#34;&#34;&#34;
+        if not isinstance(enc_nums, int):
+            raise TypeError(&#34;The enc_nums setting must be an integer&#34;)
+        if enc_nums &lt; 0 or enc_nums &gt; 2:
+            raise ValueError(
+                &#34;The enc_nums setting must be a value between 0 and 2 inclusive&#34;
+            )
+
+        if not isinstance(enc_capitals, int):
+            raise TypeError(&#34;The enc_capitals setting must be an integer&#34;)
+        if not enc_capitals == 0 and not enc_capitals == 1:
+            raise ValueError(&#34;The enc_capitals setting must be a either 0 or 1&#34;)
+
+        if not isinstance(enc_special, int):
+            raise TypeError(&#34;The enc_special setting must be an integer&#34;)
+        if enc_special &lt; 0 or enc_special &gt; 2:
+            raise ValueError(
+                &#34;The enc_special setting must be a value between 0 and 2 inclusive&#34;
+            )
+
+        if not isinstance(enc_whitesp, int):
+            raise TypeError(&#34;The enc_whitesp setting must be an integer&#34;)
+        if enc_whitesp &lt; 0 or enc_whitesp &gt; 2:
+            raise ValueError(
+                &#34;The enc_whitesp setting must be a value between 0 and 2 inclusive&#34;
+            )
+
+    @staticmethod
+    def plugboardCheck(plugboard: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the plugboard.
+        &#34;&#34;&#34;
+        if not isinstance(plugboard, MutableSequence):
+            raise TypeError(&#34;The plugboard setting must be a mutable sequence&#34;)
+        for plug in plugboard:
+            if not isinstance(plug, (MutableSequence, tuple)):
+                raise TypeError(
+                    &#34;The plugboard setting must be mutable sequence or tuple&#34;
+                )
+            if not isinstance(plug[0], str) or not isinstance(plug[1], str):
+                raise TypeError(&#34;The plugboard items must be a string&#34;)
+            if not plug[0].isalpha() or not plug[1].isalpha():
+                raise ValueError(&#34;The plugboard items must a letter between A and Z&#34;)
+
+    @staticmethod
+    def ringsetCheck(ring_setting: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the ring settings.
+        &#34;&#34;&#34;
+        if not isinstance(ring_setting, (MutableSequence, tuple)):
+            raise TypeError(&#34;The start position must be a tuple or a mutable sequence&#34;)
+        if len(ring_setting) != 3:
+            raise ValueError(
+                &#34;The start position consists of 3 string or integer values&#34;
+            )
+        for ring in ring_setting:
+            if isinstance(ring, str):
+                if ring.isdigit():
+                    ring = int(ring)
+                elif not ring.isalpha():
+                    raise ValueError(&#34;The ring setting must a letter between A and Z&#34;)
+            if isinstance(ring, int):
+                if not ring &gt; 0 and ring &lt;= 26:
+                    raise ValueError(
+                        &#34;The ring setting must be between 1 and 26 inclusive&#34;
+                    )
+            elif not isinstance(ring, str):
+                raise TypeError(
+                    f&#34;The ring setting must be between a string or an integer not {type(ring)}&#34;
+                )
+
+    @staticmethod
+    def reflectorCheck(reflector: str) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the reflector.
+        &#34;&#34;&#34;
+        if not isinstance(reflector, str):
+            raise TypeError(&#34;The reflector must be a string&#34;)
+        if reflector not in storage.reflectors:
+            raise KeyError(f&#34;The reflector {reflector} is not a valid reflector id&#34;)
+
+    @staticmethod
+    def rotorsCheck(rotors: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the rotors.
+        &#34;&#34;&#34;
+        if not isinstance(rotors, (MutableSequence, tuple)):
+            raise TypeError(&#34;The rotors must be a mutable sequence or a tuple&#34;)
+        if len(rotors) != 3:
+            raise ValueError(&#34;The rotors consists of 3 string or integer values&#34;)
+        for rot in rotors:
+            if (
+                rot not in storage.rotors
+                and str(rot) not in storage.rotors
+                and str(roman2den(rot)) not in storage.rotors
+            ):
+                raise KeyError(f&#34;The rotor {rot} is not a valid rotor id&#34;)
+
+    @staticmethod
+    def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the start position.
+        &#34;&#34;&#34;
+        if not isinstance(start_pos, (MutableSequence, tuple)):
+            raise TypeError(&#34;The start position must be a tuple or a mutable sequence&#34;)
+        if len(start_pos) != 3:
+            raise ValueError(
+                &#34;The start position consists of 3 string or integer values&#34;
+            )
+        for pos in start_pos:
+            if isinstance(pos, str):
+                if pos.isdigit():
+                    pos = int(pos)
+                elif not pos.isalpha():
+                    raise ValueError(&#34;The start position must a letter between A and Z&#34;)
+            if isinstance(pos, int):
+                if not pos &gt; 0 and pos &lt;= 26:
+                    raise ValueError(
+                        &#34;The start position must be between 1 and 26 inclusive&#34;
+                    )
+            elif not isinstance(pos, str):
+                raise TypeError(
+                    f&#34;The start position must be between a string or an integer not {type(pos)}&#34;
+                )
+
+    def setRotor(
+        self, r1: Union[int, str], r2: Union[int, str], r3: Union[int, str]
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Initializes the rotor instance
+        &#34;&#34;&#34;
+        temp_rot = []
+        rotors = (r1, r2, r3)
+        self.rotorsCheck(rotors)
+        if not self.duperot_instance:
+            for rot in rotors:
+                if rotors.count(rot) &gt; 1:
+                    raise KeyError(
+                        &#34;There cannot be more than one instance of the same rotor.&#34;
+                    )
+        for rot in rotors:
+            rot = str(rot)
+            if isroman(rot):
+                temp_rot.append(str(roman2den(rot)))
+            else:
+                temp_rot.append(rot)
+        temp_rot = tuple(temp_rot)
+        self.rotors: Array = Array(Rotor, 3)
+        for i in temp_rot:
+            rotkey = storage.rotors[i][&#34;key&#34;]
+            rotnotch = storage.rotors[i][&#34;notch&#34;]
+            self.rotors.insert(self.spawnRotorInstances(rotkey, rotnotch))
+
+    def setReflector(self, reflectr: str) -&gt; None:
+        &#34;&#34;&#34;
+        Setter for the reflector
+        &#34;&#34;&#34;
+        self.reflectorCheck(reflectr)
+        self.reflector = reflectr
+
+    def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
+        &#34;&#34;&#34;
+        Spawns a rotor instance
+        &#34;&#34;&#34;
+        return Rotor(key, notch)
+
+    def changeEncSettings(
+        self,
+        enc_nums: int = None,
+        enc_capitals: int = None,
+        enc_special: int = None,
+        enc_whitesp: int = None,
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Allows the user to change the encryption settings for enc_nums, enc_capitals, enc_special and enc_whitesp.
+        &#34;&#34;&#34;
+        if enc_nums is not None:
+            self.enc_settings[0] = enc_nums
+        if enc_capitals is not None:
+            self.enc_settings[1] = enc_capitals
+        if enc_special is not None:
+            self.enc_settings[2] = enc_special
+        if enc_whitesp is not None:
+            self.enc_settings[3] = enc_whitesp
+        pass
+
+    def advanceRotor(self) -&gt; None:
+        &#34;&#34;&#34;
+        Advances the rotors acording to the notch and their positions
+        &#34;&#34;&#34;
+        if self.rotors[1].check_notch:
+            self.rotors[1].shiftPosition(1)
+            self.rotors[0].shiftPosition(1)
+
+        if self.rotors[2].check_notch:
+            self.rotors[1].shiftPosition(1)
+
+        self.rotors[2].shiftPosition(1)
+
+    def applyplugboard(self, char: str) -&gt; str:
+        &#34;&#34;&#34;
+        Converts the letters according to the plugboard specification
+        &#34;&#34;&#34;
+        if not self.plugboard.isempty():
+            for l1, l2 in self.plugboard:
+                if char == l1:
+                    return l2
+                elif char == l2:
+                    return l1
+        return char
+
+    def encryptChar(self, char: str) -&gt; str:
+        &#34;&#34;&#34;
+        Loops the character on the selected rotors for encryption. Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
+        &#34;&#34;&#34;
+        self.advanceRotor()
+        char = self.applyplugboard(char)
+        eChar: int = c2n(char)
+        # NOTE forward encipher
+        for i in range(2, -1, -1):
+            convChar = c2n(str(self.rotors[i].tyre[eChar]))
+            offset = self.rotors[i].abs_pos
+            eChar = (convChar - offset) % 26
+            # print(n2c(eChar), self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
+        # NOTE reflector encipher
+        eChar = c2n(storage.reflectors[self.reflector][eChar])
+        # print(n2c(eChar)) DEV debuging character encoding
+
+        # NOTE backward encipher
+        for i in range(3):
+            if eChar == 23:
+                pass
+            offset = self.rotors[i].abs_pos
+            eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
+            # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
+        # print(repr(self)) DEV debuging character encoding
+        # print(&#34;===========&#34;) DEV debuging character encoding
+        char = n2c(eChar)
+        char = self.applyplugboard(char)
+        return char
+
+    def encipher(self, string: str, decipher: bool = False) -&gt; str:
+        &#34;&#34;&#34;
+        Loops on the string and if bool is false the string is sent to the `transformsp` function to transform the special characters to encryptable characters if bool is false then automatically skips past the transform special characters function and then loops on the string and the sends each character to the `encryptChar` method to be encrypted
+        &#34;&#34;&#34;
+        normalized_str = &#34;&#34;
+        retstr = &#34;&#34;
+        # if not deciphering transform all special characters to encryptable characters
+        if not decipher and self.enc_settings != [0, 0, 0, 0]:
+            for char in string:
+                normalized_str += transformsp(char, self.enc_settings)
+        # if all settings are on ignore or is deciphering the string is not changed
+        else:
+            normalized_str = string
+        for char in normalized_str:
+            # if all settings are on ignore or and the character isn&#39;t an alphabet character the character is not changed else encrypt the character
+            if self.enc_settings == [0, 0, 0, 0] and not char.isalpha():
+                retstr += char
+            else:
+                char = char.upper()
+                retstr += self.encryptChar(char)
+        return retstr
+
+    def decipher(self, string: str) -&gt; str:
+        &#34;&#34;&#34;
+        Calls the `encipher` method to decipher the string then `rmspecial` function to remove special characters before displaying to the user
+        &#34;&#34;&#34;
+        return rmspecial(self.encipher(string, True))
+
+
+if __name__ == &#34;__main__&#34;:
+    pass</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="Enigma machine.enigma.Enigma"><code class="flex name class">
+<span>class <span class="ident">Enigma</span></span>
+<span>(</span><span>start_pos: Union[tuple[str, str, str], list[str]] = ('A', 'A', 'A'), rotors: Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]] = ('I', 'II', 'III'), reflector: str = 'B', ring_setting: Union[tuple[str, str, str], list[str]] = ('A', 'A', 'A'), plugboard: list[tuple[str, str]] = None, enc_nums: int = 0, enc_capitals: int = 0, enc_special: int = 0, enc_whitesp: int = 0, duperot_instance: bool = False)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>The main Enigma machine class</p>
+<p>:param start_pos: refers to the rotors start positions, which consists of 3 characters ex:('F','G','B')
+:param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the <code>addCustRotor</code> method
+:param reflector: specifies the reflector used More can be specified using the <code>addCustReflect</code> method
+:param ring_setting: refers to the ring settings and consists of 3 characters ex:('F','G','B')
+:param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+:param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+:param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
+:param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+:param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class Enigma:
+    &#34;&#34;&#34;
+    The main Enigma machine class
+
+    :param start_pos: refers to the rotors start positions, which consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
+    :param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+    :param reflector: specifies the reflector used More can be specified using the `addCustReflect` method
+    :param ring_setting: refers to the ring settings and consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
+    :param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+    :param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+    :param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
+    :param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+    :param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+    &#34;&#34;&#34;
+
+    def __init__(
+        self,
+        start_pos: Union[tuple[str, str, str], list[str]] = (&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+        rotors: Union[
+            tuple[int, int, int], list[int], tuple[str, str, str], list[str]
+        ] = (&#34;I&#34;, &#34;II&#34;, &#34;III&#34;),
+        reflector: str = &#34;B&#34;,
+        ring_setting: Union[tuple[str, str, str], list[str]] = (&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+        plugboard: list[tuple[str, str]] = None,
+        enc_nums: int = 0,
+        enc_capitals: int = 0,
+        enc_special: int = 0,
+        enc_whitesp: int = 0,
+        duperot_instance: bool = False,
+    ) -&gt; None:
+        self.setDupeRot(duperot_instance)
+        self.startposCheck(start_pos)
+
+        self.ringsetCheck(ring_setting)
+
+        self.encsettingCheck(enc_nums, enc_capitals, enc_special, enc_whitesp)
+
+        self.start_pos: Array = Array(str, values=start_pos)
+        self.setReflector(reflector)
+        self.ring_setting: Array = Array(str, values=ring_setting)
+        self.plugboard: Array = Array(tuple, 10)
+        if plugboard != None:
+            self.plugboardCheck(plugboard)
+            x = []
+            for c1, c2 in plugboard:
+                if c1 in x or c2 in x or c1 == c2:
+                    continue
+                x.append(c1)
+                x.append(c2)
+                try:
+                    self.plugboard.insert((c1, c2))
+                except:
+                    break
+        self.setRotor(*rotors)
+        self.enc_settings = Array(
+            int, values=[enc_nums, enc_capitals, enc_special, enc_whitesp]
+        )
+        self.initsettings = [
+            start_pos,
+            rotors,
+            reflector,
+            ring_setting,
+            plugboard,
+            enc_nums,
+            enc_capitals,
+            enc_special,
+            enc_whitesp,
+            duperot_instance,
+        ]
+        self.applySettings()
+
+    def __repr__(self) -&gt; str:
+        &#34;&#34;&#34;
+        Returns the current rotor position&#39;s string representation.
+        &#34;&#34;&#34;
+        return f&#34;{[n2c(rot.curr_pos) for rot in self.rotors]}&#34;
+
+    def setDupeRot(self, duperot_instance: bool) -&gt; None:
+        &#34;&#34;&#34;
+        Sets the duperot_instance setting which allows for rotors of the same instance to exist
+        &#34;&#34;&#34;
+        if not isinstance(duperot_instance, bool):
+            raise TypeError(
+                f&#34;duperot_instance Must be a bool type not {type(duperot_instance)}&#34;
+            )
+        self.duperot_instance = duperot_instance
+
+    def resetSettings(self) -&gt; None:
+        &#34;&#34;&#34;
+        Resets the settings for the enigma machine to the settings it was initialized with
+        &#34;&#34;&#34;
+        self.initsettings
+        self.__init__(*self.initsettings)
+
+    def applySettings(self, reset=False) -&gt; None:
+        &#34;&#34;&#34;
+        Applies the settings to the individual components of the enigma
+        &#34;&#34;&#34;
+        for i in range(3):
+            currot = self.rotors[i]
+            if reset:
+                currot.shiftPosition(c2n(self.start_pos[i]), -1)
+            else:
+                currot.shiftPosition(c2n(self.start_pos[i]))
+            currot.changeRingsett(c2n(self.ring_setting[i]))
+
+    @staticmethod
+    def encsettingCheck(
+        enc_nums: int, enc_capitals: int, enc_special: int, enc_whitesp: int
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_whitesp
+        &#34;&#34;&#34;
+        if not isinstance(enc_nums, int):
+            raise TypeError(&#34;The enc_nums setting must be an integer&#34;)
+        if enc_nums &lt; 0 or enc_nums &gt; 2:
+            raise ValueError(
+                &#34;The enc_nums setting must be a value between 0 and 2 inclusive&#34;
+            )
+
+        if not isinstance(enc_capitals, int):
+            raise TypeError(&#34;The enc_capitals setting must be an integer&#34;)
+        if not enc_capitals == 0 and not enc_capitals == 1:
+            raise ValueError(&#34;The enc_capitals setting must be a either 0 or 1&#34;)
+
+        if not isinstance(enc_special, int):
+            raise TypeError(&#34;The enc_special setting must be an integer&#34;)
+        if enc_special &lt; 0 or enc_special &gt; 2:
+            raise ValueError(
+                &#34;The enc_special setting must be a value between 0 and 2 inclusive&#34;
+            )
+
+        if not isinstance(enc_whitesp, int):
+            raise TypeError(&#34;The enc_whitesp setting must be an integer&#34;)
+        if enc_whitesp &lt; 0 or enc_whitesp &gt; 2:
+            raise ValueError(
+                &#34;The enc_whitesp setting must be a value between 0 and 2 inclusive&#34;
+            )
+
+    @staticmethod
+    def plugboardCheck(plugboard: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the plugboard.
+        &#34;&#34;&#34;
+        if not isinstance(plugboard, MutableSequence):
+            raise TypeError(&#34;The plugboard setting must be a mutable sequence&#34;)
+        for plug in plugboard:
+            if not isinstance(plug, (MutableSequence, tuple)):
+                raise TypeError(
+                    &#34;The plugboard setting must be mutable sequence or tuple&#34;
+                )
+            if not isinstance(plug[0], str) or not isinstance(plug[1], str):
+                raise TypeError(&#34;The plugboard items must be a string&#34;)
+            if not plug[0].isalpha() or not plug[1].isalpha():
+                raise ValueError(&#34;The plugboard items must a letter between A and Z&#34;)
+
+    @staticmethod
+    def ringsetCheck(ring_setting: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the ring settings.
+        &#34;&#34;&#34;
+        if not isinstance(ring_setting, (MutableSequence, tuple)):
+            raise TypeError(&#34;The start position must be a tuple or a mutable sequence&#34;)
+        if len(ring_setting) != 3:
+            raise ValueError(
+                &#34;The start position consists of 3 string or integer values&#34;
+            )
+        for ring in ring_setting:
+            if isinstance(ring, str):
+                if ring.isdigit():
+                    ring = int(ring)
+                elif not ring.isalpha():
+                    raise ValueError(&#34;The ring setting must a letter between A and Z&#34;)
+            if isinstance(ring, int):
+                if not ring &gt; 0 and ring &lt;= 26:
+                    raise ValueError(
+                        &#34;The ring setting must be between 1 and 26 inclusive&#34;
+                    )
+            elif not isinstance(ring, str):
+                raise TypeError(
+                    f&#34;The ring setting must be between a string or an integer not {type(ring)}&#34;
+                )
+
+    @staticmethod
+    def reflectorCheck(reflector: str) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the reflector.
+        &#34;&#34;&#34;
+        if not isinstance(reflector, str):
+            raise TypeError(&#34;The reflector must be a string&#34;)
+        if reflector not in storage.reflectors:
+            raise KeyError(f&#34;The reflector {reflector} is not a valid reflector id&#34;)
+
+    @staticmethod
+    def rotorsCheck(rotors: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the rotors.
+        &#34;&#34;&#34;
+        if not isinstance(rotors, (MutableSequence, tuple)):
+            raise TypeError(&#34;The rotors must be a mutable sequence or a tuple&#34;)
+        if len(rotors) != 3:
+            raise ValueError(&#34;The rotors consists of 3 string or integer values&#34;)
+        for rot in rotors:
+            if (
+                rot not in storage.rotors
+                and str(rot) not in storage.rotors
+                and str(roman2den(rot)) not in storage.rotors
+            ):
+                raise KeyError(f&#34;The rotor {rot} is not a valid rotor id&#34;)
+
+    @staticmethod
+    def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
+        &#34;&#34;&#34;
+        Checks for the types of values in the start position.
+        &#34;&#34;&#34;
+        if not isinstance(start_pos, (MutableSequence, tuple)):
+            raise TypeError(&#34;The start position must be a tuple or a mutable sequence&#34;)
+        if len(start_pos) != 3:
+            raise ValueError(
+                &#34;The start position consists of 3 string or integer values&#34;
+            )
+        for pos in start_pos:
+            if isinstance(pos, str):
+                if pos.isdigit():
+                    pos = int(pos)
+                elif not pos.isalpha():
+                    raise ValueError(&#34;The start position must a letter between A and Z&#34;)
+            if isinstance(pos, int):
+                if not pos &gt; 0 and pos &lt;= 26:
+                    raise ValueError(
+                        &#34;The start position must be between 1 and 26 inclusive&#34;
+                    )
+            elif not isinstance(pos, str):
+                raise TypeError(
+                    f&#34;The start position must be between a string or an integer not {type(pos)}&#34;
+                )
+
+    def setRotor(
+        self, r1: Union[int, str], r2: Union[int, str], r3: Union[int, str]
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Initializes the rotor instance
+        &#34;&#34;&#34;
+        temp_rot = []
+        rotors = (r1, r2, r3)
+        self.rotorsCheck(rotors)
+        if not self.duperot_instance:
+            for rot in rotors:
+                if rotors.count(rot) &gt; 1:
+                    raise KeyError(
+                        &#34;There cannot be more than one instance of the same rotor.&#34;
+                    )
+        for rot in rotors:
+            rot = str(rot)
+            if isroman(rot):
+                temp_rot.append(str(roman2den(rot)))
+            else:
+                temp_rot.append(rot)
+        temp_rot = tuple(temp_rot)
+        self.rotors: Array = Array(Rotor, 3)
+        for i in temp_rot:
+            rotkey = storage.rotors[i][&#34;key&#34;]
+            rotnotch = storage.rotors[i][&#34;notch&#34;]
+            self.rotors.insert(self.spawnRotorInstances(rotkey, rotnotch))
+
+    def setReflector(self, reflectr: str) -&gt; None:
+        &#34;&#34;&#34;
+        Setter for the reflector
+        &#34;&#34;&#34;
+        self.reflectorCheck(reflectr)
+        self.reflector = reflectr
+
+    def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
+        &#34;&#34;&#34;
+        Spawns a rotor instance
+        &#34;&#34;&#34;
+        return Rotor(key, notch)
+
+    def changeEncSettings(
+        self,
+        enc_nums: int = None,
+        enc_capitals: int = None,
+        enc_special: int = None,
+        enc_whitesp: int = None,
+    ) -&gt; None:
+        &#34;&#34;&#34;
+        Allows the user to change the encryption settings for enc_nums, enc_capitals, enc_special and enc_whitesp.
+        &#34;&#34;&#34;
+        if enc_nums is not None:
+            self.enc_settings[0] = enc_nums
+        if enc_capitals is not None:
+            self.enc_settings[1] = enc_capitals
+        if enc_special is not None:
+            self.enc_settings[2] = enc_special
+        if enc_whitesp is not None:
+            self.enc_settings[3] = enc_whitesp
+        pass
+
+    def advanceRotor(self) -&gt; None:
+        &#34;&#34;&#34;
+        Advances the rotors acording to the notch and their positions
+        &#34;&#34;&#34;
+        if self.rotors[1].check_notch:
+            self.rotors[1].shiftPosition(1)
+            self.rotors[0].shiftPosition(1)
+
+        if self.rotors[2].check_notch:
+            self.rotors[1].shiftPosition(1)
+
+        self.rotors[2].shiftPosition(1)
+
+    def applyplugboard(self, char: str) -&gt; str:
+        &#34;&#34;&#34;
+        Converts the letters according to the plugboard specification
+        &#34;&#34;&#34;
+        if not self.plugboard.isempty():
+            for l1, l2 in self.plugboard:
+                if char == l1:
+                    return l2
+                elif char == l2:
+                    return l1
+        return char
+
+    def encryptChar(self, char: str) -&gt; str:
+        &#34;&#34;&#34;
+        Loops the character on the selected rotors for encryption. Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
+        &#34;&#34;&#34;
+        self.advanceRotor()
+        char = self.applyplugboard(char)
+        eChar: int = c2n(char)
+        # NOTE forward encipher
+        for i in range(2, -1, -1):
+            convChar = c2n(str(self.rotors[i].tyre[eChar]))
+            offset = self.rotors[i].abs_pos
+            eChar = (convChar - offset) % 26
+            # print(n2c(eChar), self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
+        # NOTE reflector encipher
+        eChar = c2n(storage.reflectors[self.reflector][eChar])
+        # print(n2c(eChar)) DEV debuging character encoding
+
+        # NOTE backward encipher
+        for i in range(3):
+            if eChar == 23:
+                pass
+            offset = self.rotors[i].abs_pos
+            eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
+            # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
+        # print(repr(self)) DEV debuging character encoding
+        # print(&#34;===========&#34;) DEV debuging character encoding
+        char = n2c(eChar)
+        char = self.applyplugboard(char)
+        return char
+
+    def encipher(self, string: str, decipher: bool = False) -&gt; str:
+        &#34;&#34;&#34;
+        Loops on the string and if bool is false the string is sent to the `transformsp` function to transform the special characters to encryptable characters if bool is false then automatically skips past the transform special characters function and then loops on the string and the sends each character to the `encryptChar` method to be encrypted
+        &#34;&#34;&#34;
+        normalized_str = &#34;&#34;
+        retstr = &#34;&#34;
+        # if not deciphering transform all special characters to encryptable characters
+        if not decipher and self.enc_settings != [0, 0, 0, 0]:
+            for char in string:
+                normalized_str += transformsp(char, self.enc_settings)
+        # if all settings are on ignore or is deciphering the string is not changed
+        else:
+            normalized_str = string
+        for char in normalized_str:
+            # if all settings are on ignore or and the character isn&#39;t an alphabet character the character is not changed else encrypt the character
+            if self.enc_settings == [0, 0, 0, 0] and not char.isalpha():
+                retstr += char
+            else:
+                char = char.upper()
+                retstr += self.encryptChar(char)
+        return retstr
+
+    def decipher(self, string: str) -&gt; str:
+        &#34;&#34;&#34;
+        Calls the `encipher` method to decipher the string then `rmspecial` function to remove special characters before displaying to the user
+        &#34;&#34;&#34;
+        return rmspecial(self.encipher(string, True))</code></pre>
+</details>
+<h3>Static methods</h3>
+<dl>
+<dt id="Enigma machine.enigma.Enigma.encsettingCheck"><code class="name flex">
+<span>def <span class="ident">encsettingCheck</span></span>(<span>enc_nums: int, enc_capitals: int, enc_special: int, enc_whitesp: int) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_whitesp</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def encsettingCheck(
+    enc_nums: int, enc_capitals: int, enc_special: int, enc_whitesp: int
+) -&gt; None:
+    &#34;&#34;&#34;
+    Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_whitesp
+    &#34;&#34;&#34;
+    if not isinstance(enc_nums, int):
+        raise TypeError(&#34;The enc_nums setting must be an integer&#34;)
+    if enc_nums &lt; 0 or enc_nums &gt; 2:
+        raise ValueError(
+            &#34;The enc_nums setting must be a value between 0 and 2 inclusive&#34;
+        )
+
+    if not isinstance(enc_capitals, int):
+        raise TypeError(&#34;The enc_capitals setting must be an integer&#34;)
+    if not enc_capitals == 0 and not enc_capitals == 1:
+        raise ValueError(&#34;The enc_capitals setting must be a either 0 or 1&#34;)
+
+    if not isinstance(enc_special, int):
+        raise TypeError(&#34;The enc_special setting must be an integer&#34;)
+    if enc_special &lt; 0 or enc_special &gt; 2:
+        raise ValueError(
+            &#34;The enc_special setting must be a value between 0 and 2 inclusive&#34;
+        )
+
+    if not isinstance(enc_whitesp, int):
+        raise TypeError(&#34;The enc_whitesp setting must be an integer&#34;)
+    if enc_whitesp &lt; 0 or enc_whitesp &gt; 2:
+        raise ValueError(
+            &#34;The enc_whitesp setting must be a value between 0 and 2 inclusive&#34;
+        )</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.plugboardCheck"><code class="name flex">
+<span>def <span class="ident">plugboardCheck</span></span>(<span>plugboard: Union[MutableSequence, tuple]) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the types of values in the plugboard.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def plugboardCheck(plugboard: Union[MutableSequence, tuple]) -&gt; None:
+    &#34;&#34;&#34;
+    Checks for the types of values in the plugboard.
+    &#34;&#34;&#34;
+    if not isinstance(plugboard, MutableSequence):
+        raise TypeError(&#34;The plugboard setting must be a mutable sequence&#34;)
+    for plug in plugboard:
+        if not isinstance(plug, (MutableSequence, tuple)):
+            raise TypeError(
+                &#34;The plugboard setting must be mutable sequence or tuple&#34;
+            )
+        if not isinstance(plug[0], str) or not isinstance(plug[1], str):
+            raise TypeError(&#34;The plugboard items must be a string&#34;)
+        if not plug[0].isalpha() or not plug[1].isalpha():
+            raise ValueError(&#34;The plugboard items must a letter between A and Z&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.reflectorCheck"><code class="name flex">
+<span>def <span class="ident">reflectorCheck</span></span>(<span>reflector: str) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the types of values in the reflector.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def reflectorCheck(reflector: str) -&gt; None:
+    &#34;&#34;&#34;
+    Checks for the types of values in the reflector.
+    &#34;&#34;&#34;
+    if not isinstance(reflector, str):
+        raise TypeError(&#34;The reflector must be a string&#34;)
+    if reflector not in storage.reflectors:
+        raise KeyError(f&#34;The reflector {reflector} is not a valid reflector id&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.ringsetCheck"><code class="name flex">
+<span>def <span class="ident">ringsetCheck</span></span>(<span>ring_setting: Union[MutableSequence, tuple]) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the types of values in the ring settings.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def ringsetCheck(ring_setting: Union[MutableSequence, tuple]) -&gt; None:
+    &#34;&#34;&#34;
+    Checks for the types of values in the ring settings.
+    &#34;&#34;&#34;
+    if not isinstance(ring_setting, (MutableSequence, tuple)):
+        raise TypeError(&#34;The start position must be a tuple or a mutable sequence&#34;)
+    if len(ring_setting) != 3:
+        raise ValueError(
+            &#34;The start position consists of 3 string or integer values&#34;
+        )
+    for ring in ring_setting:
+        if isinstance(ring, str):
+            if ring.isdigit():
+                ring = int(ring)
+            elif not ring.isalpha():
+                raise ValueError(&#34;The ring setting must a letter between A and Z&#34;)
+        if isinstance(ring, int):
+            if not ring &gt; 0 and ring &lt;= 26:
+                raise ValueError(
+                    &#34;The ring setting must be between 1 and 26 inclusive&#34;
+                )
+        elif not isinstance(ring, str):
+            raise TypeError(
+                f&#34;The ring setting must be between a string or an integer not {type(ring)}&#34;
+            )</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.rotorsCheck"><code class="name flex">
+<span>def <span class="ident">rotorsCheck</span></span>(<span>rotors: Union[MutableSequence, tuple]) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the types of values in the rotors.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def rotorsCheck(rotors: Union[MutableSequence, tuple]) -&gt; None:
+    &#34;&#34;&#34;
+    Checks for the types of values in the rotors.
+    &#34;&#34;&#34;
+    if not isinstance(rotors, (MutableSequence, tuple)):
+        raise TypeError(&#34;The rotors must be a mutable sequence or a tuple&#34;)
+    if len(rotors) != 3:
+        raise ValueError(&#34;The rotors consists of 3 string or integer values&#34;)
+    for rot in rotors:
+        if (
+            rot not in storage.rotors
+            and str(rot) not in storage.rotors
+            and str(roman2den(rot)) not in storage.rotors
+        ):
+            raise KeyError(f&#34;The rotor {rot} is not a valid rotor id&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.startposCheck"><code class="name flex">
+<span>def <span class="ident">startposCheck</span></span>(<span>start_pos: Union[MutableSequence, tuple]) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Checks for the types of values in the start position.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
+    &#34;&#34;&#34;
+    Checks for the types of values in the start position.
+    &#34;&#34;&#34;
+    if not isinstance(start_pos, (MutableSequence, tuple)):
+        raise TypeError(&#34;The start position must be a tuple or a mutable sequence&#34;)
+    if len(start_pos) != 3:
+        raise ValueError(
+            &#34;The start position consists of 3 string or integer values&#34;
+        )
+    for pos in start_pos:
+        if isinstance(pos, str):
+            if pos.isdigit():
+                pos = int(pos)
+            elif not pos.isalpha():
+                raise ValueError(&#34;The start position must a letter between A and Z&#34;)
+        if isinstance(pos, int):
+            if not pos &gt; 0 and pos &lt;= 26:
+                raise ValueError(
+                    &#34;The start position must be between 1 and 26 inclusive&#34;
+                )
+        elif not isinstance(pos, str):
+            raise TypeError(
+                f&#34;The start position must be between a string or an integer not {type(pos)}&#34;
+            )</code></pre>
+</details>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="Enigma machine.enigma.Enigma.advanceRotor"><code class="name flex">
+<span>def <span class="ident">advanceRotor</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Advances the rotors acording to the notch and their positions</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def advanceRotor(self) -&gt; None:
+    &#34;&#34;&#34;
+    Advances the rotors acording to the notch and their positions
+    &#34;&#34;&#34;
+    if self.rotors[1].check_notch:
+        self.rotors[1].shiftPosition(1)
+        self.rotors[0].shiftPosition(1)
+
+    if self.rotors[2].check_notch:
+        self.rotors[1].shiftPosition(1)
+
+    self.rotors[2].shiftPosition(1)</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.applySettings"><code class="name flex">
+<span>def <span class="ident">applySettings</span></span>(<span>self, reset=False) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Applies the settings to the individual components of the enigma</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def applySettings(self, reset=False) -&gt; None:
+    &#34;&#34;&#34;
+    Applies the settings to the individual components of the enigma
+    &#34;&#34;&#34;
+    for i in range(3):
+        currot = self.rotors[i]
+        if reset:
+            currot.shiftPosition(c2n(self.start_pos[i]), -1)
+        else:
+            currot.shiftPosition(c2n(self.start_pos[i]))
+        currot.changeRingsett(c2n(self.ring_setting[i]))</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.applyplugboard"><code class="name flex">
+<span>def <span class="ident">applyplugboard</span></span>(<span>self, char: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Converts the letters according to the plugboard specification</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def applyplugboard(self, char: str) -&gt; str:
+    &#34;&#34;&#34;
+    Converts the letters according to the plugboard specification
+    &#34;&#34;&#34;
+    if not self.plugboard.isempty():
+        for l1, l2 in self.plugboard:
+            if char == l1:
+                return l2
+            elif char == l2:
+                return l1
+    return char</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.changeEncSettings"><code class="name flex">
+<span>def <span class="ident">changeEncSettings</span></span>(<span>self, enc_nums: int = None, enc_capitals: int = None, enc_special: int = None, enc_whitesp: int = None) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Allows the user to change the encryption settings for enc_nums, enc_capitals, enc_special and enc_whitesp.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def changeEncSettings(
+    self,
+    enc_nums: int = None,
+    enc_capitals: int = None,
+    enc_special: int = None,
+    enc_whitesp: int = None,
+) -&gt; None:
+    &#34;&#34;&#34;
+    Allows the user to change the encryption settings for enc_nums, enc_capitals, enc_special and enc_whitesp.
+    &#34;&#34;&#34;
+    if enc_nums is not None:
+        self.enc_settings[0] = enc_nums
+    if enc_capitals is not None:
+        self.enc_settings[1] = enc_capitals
+    if enc_special is not None:
+        self.enc_settings[2] = enc_special
+    if enc_whitesp is not None:
+        self.enc_settings[3] = enc_whitesp
+    pass</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.decipher"><code class="name flex">
+<span>def <span class="ident">decipher</span></span>(<span>self, string: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Calls the <code>encipher</code> method to decipher the string then <code>rmspecial</code> function to remove special characters before displaying to the user</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def decipher(self, string: str) -&gt; str:
+    &#34;&#34;&#34;
+    Calls the `encipher` method to decipher the string then `rmspecial` function to remove special characters before displaying to the user
+    &#34;&#34;&#34;
+    return rmspecial(self.encipher(string, True))</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.encipher"><code class="name flex">
+<span>def <span class="ident">encipher</span></span>(<span>self, string: str, decipher: bool = False) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loops on the string and if bool is false the string is sent to the <code>transformsp</code> function to transform the special characters to encryptable characters if bool is false then automatically skips past the transform special characters function and then loops on the string and the sends each character to the <code>encryptChar</code> method to be encrypted</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def encipher(self, string: str, decipher: bool = False) -&gt; str:
+    &#34;&#34;&#34;
+    Loops on the string and if bool is false the string is sent to the `transformsp` function to transform the special characters to encryptable characters if bool is false then automatically skips past the transform special characters function and then loops on the string and the sends each character to the `encryptChar` method to be encrypted
+    &#34;&#34;&#34;
+    normalized_str = &#34;&#34;
+    retstr = &#34;&#34;
+    # if not deciphering transform all special characters to encryptable characters
+    if not decipher and self.enc_settings != [0, 0, 0, 0]:
+        for char in string:
+            normalized_str += transformsp(char, self.enc_settings)
+    # if all settings are on ignore or is deciphering the string is not changed
+    else:
+        normalized_str = string
+    for char in normalized_str:
+        # if all settings are on ignore or and the character isn&#39;t an alphabet character the character is not changed else encrypt the character
+        if self.enc_settings == [0, 0, 0, 0] and not char.isalpha():
+            retstr += char
+        else:
+            char = char.upper()
+            retstr += self.encryptChar(char)
+    return retstr</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.encryptChar"><code class="name flex">
+<span>def <span class="ident">encryptChar</span></span>(<span>self, char: str) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loops the character on the selected rotors for encryption. Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def encryptChar(self, char: str) -&gt; str:
+    &#34;&#34;&#34;
+    Loops the character on the selected rotors for encryption. Goes forward starting with the rightmost rotor then reflects the character on the selected reflector and then goes across the rotors in the reverse order starting with the leftmost rotor and then returns the result
+    &#34;&#34;&#34;
+    self.advanceRotor()
+    char = self.applyplugboard(char)
+    eChar: int = c2n(char)
+    # NOTE forward encipher
+    for i in range(2, -1, -1):
+        convChar = c2n(str(self.rotors[i].tyre[eChar]))
+        offset = self.rotors[i].abs_pos
+        eChar = (convChar - offset) % 26
+        # print(n2c(eChar), self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
+    # NOTE reflector encipher
+    eChar = c2n(storage.reflectors[self.reflector][eChar])
+    # print(n2c(eChar)) DEV debuging character encoding
+
+    # NOTE backward encipher
+    for i in range(3):
+        if eChar == 23:
+            pass
+        offset = self.rotors[i].abs_pos
+        eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
+        # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
+    # print(repr(self)) DEV debuging character encoding
+    # print(&#34;===========&#34;) DEV debuging character encoding
+    char = n2c(eChar)
+    char = self.applyplugboard(char)
+    return char</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.resetSettings"><code class="name flex">
+<span>def <span class="ident">resetSettings</span></span>(<span>self) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Resets the settings for the enigma machine to the settings it was initialized with</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def resetSettings(self) -&gt; None:
+    &#34;&#34;&#34;
+    Resets the settings for the enigma machine to the settings it was initialized with
+    &#34;&#34;&#34;
+    self.initsettings
+    self.__init__(*self.initsettings)</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.setDupeRot"><code class="name flex">
+<span>def <span class="ident">setDupeRot</span></span>(<span>self, duperot_instance: bool) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Sets the duperot_instance setting which allows for rotors of the same instance to exist</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setDupeRot(self, duperot_instance: bool) -&gt; None:
+    &#34;&#34;&#34;
+    Sets the duperot_instance setting which allows for rotors of the same instance to exist
+    &#34;&#34;&#34;
+    if not isinstance(duperot_instance, bool):
+        raise TypeError(
+            f&#34;duperot_instance Must be a bool type not {type(duperot_instance)}&#34;
+        )
+    self.duperot_instance = duperot_instance</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.setReflector"><code class="name flex">
+<span>def <span class="ident">setReflector</span></span>(<span>self, reflectr: str) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Setter for the reflector</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setReflector(self, reflectr: str) -&gt; None:
+    &#34;&#34;&#34;
+    Setter for the reflector
+    &#34;&#34;&#34;
+    self.reflectorCheck(reflectr)
+    self.reflector = reflectr</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.setRotor"><code class="name flex">
+<span>def <span class="ident">setRotor</span></span>(<span>self, r1: Union[int, str], r2: Union[int, str], r3: Union[int, str]) ‑> None</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Initializes the rotor instance</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def setRotor(
+    self, r1: Union[int, str], r2: Union[int, str], r3: Union[int, str]
+) -&gt; None:
+    &#34;&#34;&#34;
+    Initializes the rotor instance
+    &#34;&#34;&#34;
+    temp_rot = []
+    rotors = (r1, r2, r3)
+    self.rotorsCheck(rotors)
+    if not self.duperot_instance:
+        for rot in rotors:
+            if rotors.count(rot) &gt; 1:
+                raise KeyError(
+                    &#34;There cannot be more than one instance of the same rotor.&#34;
+                )
+    for rot in rotors:
+        rot = str(rot)
+        if isroman(rot):
+            temp_rot.append(str(roman2den(rot)))
+        else:
+            temp_rot.append(rot)
+    temp_rot = tuple(temp_rot)
+    self.rotors: Array = Array(Rotor, 3)
+    for i in temp_rot:
+        rotkey = storage.rotors[i][&#34;key&#34;]
+        rotnotch = storage.rotors[i][&#34;notch&#34;]
+        self.rotors.insert(self.spawnRotorInstances(rotkey, rotnotch))</code></pre>
+</details>
+</dd>
+<dt id="Enigma machine.enigma.Enigma.spawnRotorInstances"><code class="name flex">
+<span>def <span class="ident">spawnRotorInstances</span></span>(<span>self, key: str, notch: Union[tuple, Literal['Z']]) ‑> rotor.Rotor</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Spawns a rotor instance</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
+    &#34;&#34;&#34;
+    Spawns a rotor instance
+    &#34;&#34;&#34;
+    return Rotor(key, notch)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="Enigma machine" href="index.html">Enigma machine</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="Enigma machine.enigma.Enigma" href="#Enigma machine.enigma.Enigma">Enigma</a></code></h4>
+<ul class="two-column">
+<li><code><a title="Enigma machine.enigma.Enigma.advanceRotor" href="#Enigma machine.enigma.Enigma.advanceRotor">advanceRotor</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.applySettings" href="#Enigma machine.enigma.Enigma.applySettings">applySettings</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.applyplugboard" href="#Enigma machine.enigma.Enigma.applyplugboard">applyplugboard</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.changeEncSettings" href="#Enigma machine.enigma.Enigma.changeEncSettings">changeEncSettings</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.decipher" href="#Enigma machine.enigma.Enigma.decipher">decipher</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.encipher" href="#Enigma machine.enigma.Enigma.encipher">encipher</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.encryptChar" href="#Enigma machine.enigma.Enigma.encryptChar">encryptChar</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.encsettingCheck" href="#Enigma machine.enigma.Enigma.encsettingCheck">encsettingCheck</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.plugboardCheck" href="#Enigma machine.enigma.Enigma.plugboardCheck">plugboardCheck</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.reflectorCheck" href="#Enigma machine.enigma.Enigma.reflectorCheck">reflectorCheck</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.resetSettings" href="#Enigma machine.enigma.Enigma.resetSettings">resetSettings</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.ringsetCheck" href="#Enigma machine.enigma.Enigma.ringsetCheck">ringsetCheck</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.rotorsCheck" href="#Enigma machine.enigma.Enigma.rotorsCheck">rotorsCheck</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.setDupeRot" href="#Enigma machine.enigma.Enigma.setDupeRot">setDupeRot</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.setReflector" href="#Enigma machine.enigma.Enigma.setReflector">setReflector</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.setRotor" href="#Enigma machine.enigma.Enigma.setRotor">setRotor</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.spawnRotorInstances" href="#Enigma machine.enigma.Enigma.spawnRotorInstances">spawnRotorInstances</a></code></li>
+<li><code><a title="Enigma machine.enigma.Enigma.startposCheck" href="#Enigma machine.enigma.Enigma.startposCheck">startposCheck</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>
