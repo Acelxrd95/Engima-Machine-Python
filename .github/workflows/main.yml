@@ -32,7 +32,7 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install .
-          pip install pycipher,faker
+          pip install faker pycipher
       - name: testing the code with unittest
         run: |
           python tests/test_enigma.py
