@@ -17,24 +17,15 @@ class Enigma:
     factors that would change the output cipher
 
     Attributes:
-        start_pos (Union[tuple[str, str, str], list[str]]):
-            refers to the rotors start positions, which consists of 3 characters ex:('F','G','B').
-        rotors (Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]):
-            specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
-        reflector (str):
-            specifies the reflector used More can be specified using the `addCustReflect` method
-        ring_setting (Union[tuple[str, str, str], list[str]]):
-            refers to the ring settings and consists of 3 characters ex:('F','G','B')
-        plugboard (list[tuple[str, str]]):
-            specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
-        enc_nums (int):
-            specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
-        enc_capitals (int):
-            specifies whether capitals should be ignored (0), encrypted (1)
-        enc_special (int):
-            specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
-        enc_whitesp (int):
-            specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+        start_pos (Union[tuple[str, str, str], list[str]]): refers to the rotors start positions, which consists of 3 characters ex:('F','G','B').
+        rotors (Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]): specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+        reflector (str): specifies the reflector used More can be specified using the `addCustReflect` method
+        ring_setting (Union[tuple[str, str, str], list[str]]): refers to the ring settings and consists of 3 characters ex:('F','G','B')
+        plugboard (list[tuple[str, str]]): specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+        enc_nums (int): specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+        enc_capitals (int): specifies whether capitals should be ignored (0), encrypted (1)
+        enc_special (int): specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+        enc_whitesp (int): specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
 
     Example:
         machine = Enigma(

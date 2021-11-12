@@ -1,28 +1,30 @@
+<!-- @format -->
+
 # Enigma
 
 > Auto-generated documentation for [Enigma.enigma](blob/master/Enigma/enigma.py) module.
 
-- [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Enigma
-    - [Enigma](#enigma)
-        - [Enigma().\_\_repr\_\_](#enigma__repr__)
-        - [Enigma().advanceRotor](#enigmaadvancerotor)
-        - [Enigma().applySettings](#enigmaapplysettings)
-        - [Enigma().applyplugboard](#enigmaapplyplugboard)
-        - [Enigma().changeEncSettings](#enigmachangeencsettings)
-        - [Enigma().decipher](#enigmadecipher)
-        - [Enigma().encipher](#enigmaencipher)
-        - [Enigma().encryptChar](#enigmaencryptchar)
-        - [Enigma.encsettingCheck](#enigmaencsettingcheck)
-        - [Enigma.plugboardCheck](#enigmaplugboardcheck)
-        - [Enigma.reflectorCheck](#enigmareflectorcheck)
-        - [Enigma().resetSettings](#enigmaresetsettings)
-        - [Enigma.ringsetCheck](#enigmaringsetcheck)
-        - [Enigma.rotorsCheck](#enigmarotorscheck)
-        - [Enigma().setDupeRot](#enigmasetduperot)
-        - [Enigma().setReflector](#enigmasetreflector)
-        - [Enigma().setRotor](#enigmasetrotor)
-        - [Enigma().spawnRotorInstances](#enigmaspawnrotorinstances)
-        - [Enigma.startposCheck](#enigmastartposcheck)
+-   [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Enigma
+    -   [Enigma](#enigma)
+        -   [Enigma().\_\_repr\_\_](#enigma__repr__)
+        -   [Enigma().advanceRotor](#enigmaadvancerotor)
+        -   [Enigma().applySettings](#enigmaapplysettings)
+        -   [Enigma().applyplugboard](#enigmaapplyplugboard)
+        -   [Enigma().changeEncSettings](#enigmachangeencsettings)
+        -   [Enigma().decipher](#enigmadecipher)
+        -   [Enigma().encipher](#enigmaencipher)
+        -   [Enigma().encryptChar](#enigmaencryptchar)
+        -   [Enigma.encsettingCheck](#enigmaencsettingcheck)
+        -   [Enigma.plugboardCheck](#enigmaplugboardcheck)
+        -   [Enigma.reflectorCheck](#enigmareflectorcheck)
+        -   [Enigma().resetSettings](#enigmaresetsettings)
+        -   [Enigma.ringsetCheck](#enigmaringsetcheck)
+        -   [Enigma.rotorsCheck](#enigmarotorscheck)
+        -   [Enigma().setDupeRot](#enigmasetduperot)
+        -   [Enigma().setReflector](#enigmasetreflector)
+        -   [Enigma().setRotor](#enigmasetrotor)
+        -   [Enigma().spawnRotorInstances](#enigmaspawnrotorinstances)
+        -   [Enigma.startposCheck](#enigmastartposcheck)
 
 ## Enigma
 
@@ -56,54 +58,47 @@ factors that would change the output cipher
 
 #### Attributes
 
-start_pos (Union[tuple[str, str, str], list[str]]):
-    refers to the rotors start positions, which consists of 3 characters ex:('F','G','B').
-rotors (Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]):
-    specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
-reflector (str):
-    specifies the reflector used More can be specified using the `addCustReflect` method
-ring_setting (Union[tuple[str, str, str], list[str]]):
-    refers to the ring settings and consists of 3 characters ex:('F','G','B')
-plugboard (list[tuple[str, str]]):
-    specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
-enc_nums (int):
-    specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
-enc_capitals (int):
-    specifies whether capitals should be ignored (0), encrypted (1)
-enc_special (int):
-    specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
-enc_whitesp (int):
-    specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+-   `start_pos` _Union[tuple[str, str, str], list[str]]_: refers to the rotors start positions, which consists of 3 characters ex:('F','G','B').
+-   `rotors` _Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]_: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+-   `reflector` _str_ - specifies the reflector used More can be specified using the `addCustReflect` method
+-   `ring_setting` _Union[tuple[str, str, str], list[str]]_: refers to the ring settings and consists of 3 characters ex:('F','G','B')
+-   `plugboard` _list[tuple[str, str]]_: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+-   `enc_nums` _int_ - specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+-   `enc_capitals` _int_ - specifies whether capitals should be ignored (0), encrypted (1)
+-   `enc_special` _int_ - specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+-   `enc_whitesp` _int_ - specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
 
 #### Examples
 
-machine = Enigma(
-    start_pos=("A", "A", "A"),
-    rotors=(1, 2, 3),
-    reflector="B",
-    ring_setting=("A", "A", "A"),
-    plugboard=[
-        ("P", "O"),
-        ("M", "L"),
-        ("I", "U"),
-        ("K", "J"),
-        ("N", "H"),
-        ("Y", "T"),
-        ("G", "B"),
-        ("V", "F"),
-        ("R", "E"),
-        ("D", "C"),
-    ],
-    enc_nums= 0,
-    enc_capitals= 0,
-    enc_special= 0,
-    enc_whitesp= 0,
-    duperot_instance= Flase,
+```python
+Enigma(
+start_pos=("A", "A", "A"),
+rotors=(1, 2, 3),
+reflector="B",
+ring_setting=("A", "A", "A"),
+plugboard=[
+("P", "O"),
+("M", "L"),
+("I", "U"),
+("K", "J"),
+("N", "H"),
+("Y", "T"),
+("G", "B"),
+("V", "F"),
+("R", "E"),
+("D", "C"),
+],
+enc_nums= 0,
+enc_capitals= 0,
+enc_special= 0,
+enc_whitesp= 0,
+duperot_instance= Flase,
 )
+```
 
 ### Enigma().\_\_repr\_\_
 
-[[find in source code]](blob/master/Enigma/enigma.py#L121)
+[[find in source code]](blob/master/Enigma/enigma.py#L112)
 
 ```python
 def __repr__() -> str:
@@ -113,7 +108,7 @@ Returns the current rotor position's string representation.
 
 ### Enigma().advanceRotor
 
-[[find in source code]](blob/master/Enigma/enigma.py#L348)
+[[find in source code]](blob/master/Enigma/enigma.py#L339)
 
 ```python
 def advanceRotor() -> None:
@@ -123,7 +118,7 @@ Advances the rotors acording to the notch and their positions
 
 ### Enigma().applySettings
 
-[[find in source code]](blob/master/Enigma/enigma.py#L144)
+[[find in source code]](blob/master/Enigma/enigma.py#L135)
 
 ```python
 def applySettings(reset: bool = False) -> None:
@@ -133,7 +128,7 @@ Applies the settings to the individual components of the enigma
 
 ### Enigma().applyplugboard
 
-[[find in source code]](blob/master/Enigma/enigma.py#L361)
+[[find in source code]](blob/master/Enigma/enigma.py#L352)
 
 ```python
 def applyplugboard(char: str) -> str:
@@ -143,7 +138,7 @@ Converts the letters according to the plugboard specification
 
 ### Enigma().changeEncSettings
 
-[[find in source code]](blob/master/Enigma/enigma.py#L328)
+[[find in source code]](blob/master/Enigma/enigma.py#L319)
 
 ```python
 def changeEncSettings(
@@ -158,7 +153,7 @@ Allows the user to change the encryption settings for enc_nums, enc_capitals, en
 
 ### Enigma().decipher
 
-[[find in source code]](blob/master/Enigma/enigma.py#L425)
+[[find in source code]](blob/master/Enigma/enigma.py#L416)
 
 ```python
 def decipher(string: str) -> str:
@@ -168,7 +163,7 @@ Calls the [Enigma().encipher](#enigmaencipher) method to decipher the string the
 
 ### Enigma().encipher
 
-[[find in source code]](blob/master/Enigma/enigma.py#L403)
+[[find in source code]](blob/master/Enigma/enigma.py#L394)
 
 ```python
 def encipher(string: str, decipher: bool = False) -> str:
@@ -178,7 +173,7 @@ Loops on the string and if bool is false the string is sent to the `transformsp`
 
 ### Enigma().encryptChar
 
-[[find in source code]](blob/master/Enigma/enigma.py#L373)
+[[find in source code]](blob/master/Enigma/enigma.py#L364)
 
 ```python
 def encryptChar(char: str) -> str:
@@ -188,7 +183,7 @@ Loops the character on the selected rotors for encryption. Goes forward starting
 
 ### Enigma.encsettingCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L156)
+[[find in source code]](blob/master/Enigma/enigma.py#L147)
 
 ```python
 @staticmethod
@@ -204,7 +199,7 @@ Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_wh
 
 ### Enigma.plugboardCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L189)
+[[find in source code]](blob/master/Enigma/enigma.py#L180)
 
 ```python
 @staticmethod
@@ -215,7 +210,7 @@ Checks for the types of values in the plugboard.
 
 ### Enigma.reflectorCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L233)
+[[find in source code]](blob/master/Enigma/enigma.py#L224)
 
 ```python
 @staticmethod
@@ -226,7 +221,7 @@ Checks for the types of values in the reflector.
 
 ### Enigma().resetSettings
 
-[[find in source code]](blob/master/Enigma/enigma.py#L137)
+[[find in source code]](blob/master/Enigma/enigma.py#L128)
 
 ```python
 def resetSettings() -> None:
@@ -236,7 +231,7 @@ Resets the settings for the enigma machine to the settings it was initialized wi
 
 ### Enigma.ringsetCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L206)
+[[find in source code]](blob/master/Enigma/enigma.py#L197)
 
 ```python
 @staticmethod
@@ -247,7 +242,7 @@ Checks for the types of values in the ring settings.
 
 ### Enigma.rotorsCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L243)
+[[find in source code]](blob/master/Enigma/enigma.py#L234)
 
 ```python
 @staticmethod
@@ -258,7 +253,7 @@ Checks for the types of values in the rotors.
 
 ### Enigma().setDupeRot
 
-[[find in source code]](blob/master/Enigma/enigma.py#L127)
+[[find in source code]](blob/master/Enigma/enigma.py#L118)
 
 ```python
 def setDupeRot(duperot_instance: bool) -> None:
@@ -268,7 +263,7 @@ Sets the duperot_instance setting which allows for rotors of the same instance t
 
 ### Enigma().setReflector
 
-[[find in source code]](blob/master/Enigma/enigma.py#L315)
+[[find in source code]](blob/master/Enigma/enigma.py#L306)
 
 ```python
 def setReflector(reflectr: str) -> None:
@@ -278,7 +273,7 @@ Setter for the reflector
 
 ### Enigma().setRotor
 
-[[find in source code]](blob/master/Enigma/enigma.py#L287)
+[[find in source code]](blob/master/Enigma/enigma.py#L278)
 
 ```python
 def setRotor(
@@ -292,7 +287,7 @@ Initializes the rotor instance
 
 ### Enigma().spawnRotorInstances
 
-[[find in source code]](blob/master/Enigma/enigma.py#L322)
+[[find in source code]](blob/master/Enigma/enigma.py#L313)
 
 ```python
 def spawnRotorInstances(
@@ -305,11 +300,11 @@ Spawns a rotor instance
 
 #### See also
 
-- [Rotor](rotor.md#rotor)
+-   [Rotor](rotor.md#rotor)
 
 ### Enigma.startposCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L260)
+[[find in source code]](blob/master/Enigma/enigma.py#L251)
 
 ```python
 @staticmethod
