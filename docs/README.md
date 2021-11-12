@@ -1,4 +1,21 @@
+# Enigma machine Index
+
+> Auto-generated documentation index.
+
 <!-- @format -->
+
+Full Enigma machine project documentation can be found in [Modules](MODULES.md#enigma-machine-modules)
+
+- [Enigma machine Index](#enigma-machine-index)
+- [Engima-Machine-Python](#engima-machine-python)
+- [Table-of-Contents](#table-of-contents)
+- [Demo-Preview](#demo-preview)
+- [Features](#features)
+- [Prerequisite](#prerequisite)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Running-the-tests](#running-the-tests)
+  - [Enigma machine Modules](MODULES.md#enigma-machine-modules)
 
 # Engima-Machine-Python
 

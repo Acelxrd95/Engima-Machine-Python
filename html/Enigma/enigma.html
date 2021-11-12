@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>Enigma machine.enigma API documentation</title>
+<title>Enigma.enigma API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,7 +19,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>Enigma machine.enigma</code></h1>
+<h1 class="title">Module <code>Enigma.enigma</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -27,10 +27,10 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">from typing import Literal, MutableSequence, Union
-from utils import *
-from rotor import Rotor
-import storage
-from datastructs.array_struct import Array
+from Enigma.utils import n2c, c2n, roman2den, isroman, transformsp, rmspecial
+from Enigma.rotor import Rotor
+import Enigma.storage as storage
+from Enigma.datastructs import Array
 
 
 class Enigma:
@@ -127,7 +127,7 @@ class Enigma:
         self.initsettings
         self.__init__(*self.initsettings)
 
-    def applySettings(self, reset=False) -&gt; None:
+    def applySettings(self, reset: bool = False) -&gt; None:
         &#34;&#34;&#34;
         Applies the settings to the individual components of the enigma
         &#34;&#34;&#34;
@@ -416,7 +416,7 @@ class Enigma:
 
 
 if __name__ == &#34;__main__&#34;:
-    pass</code></pre>
+    print(&#39;use &#34;import enigma&#34; to access functions&#39;)</code></pre>
 </details>
 </section>
 <section>
@@ -428,7 +428,7 @@ if __name__ == &#34;__main__&#34;:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="Enigma machine.enigma.Enigma"><code class="flex name class">
+<dt id="Enigma.enigma.Enigma"><code class="flex name class">
 <span>class <span class="ident">Enigma</span></span>
 <span>(</span><span>start_pos: Union[tuple[str, str, str], list[str]] = ('A', 'A', 'A'), rotors: Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]] = ('I', 'II', 'III'), reflector: str = 'B', ring_setting: Union[tuple[str, str, str], list[str]] = ('A', 'A', 'A'), plugboard: list[tuple[str, str]] = None, enc_nums: int = 0, enc_capitals: int = 0, enc_special: int = 0, enc_whitesp: int = 0, duperot_instance: bool = False)</span>
 </code></dt>
@@ -541,7 +541,7 @@ if __name__ == &#34;__main__&#34;:
         self.initsettings
         self.__init__(*self.initsettings)
 
-    def applySettings(self, reset=False) -&gt; None:
+    def applySettings(self, reset: bool = False) -&gt; None:
         &#34;&#34;&#34;
         Applies the settings to the individual components of the enigma
         &#34;&#34;&#34;
@@ -830,7 +830,7 @@ if __name__ == &#34;__main__&#34;:
 </details>
 <h3>Static methods</h3>
 <dl>
-<dt id="Enigma machine.enigma.Enigma.encsettingCheck"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.encsettingCheck"><code class="name flex">
 <span>def <span class="ident">encsettingCheck</span></span>(<span>enc_nums: int, enc_capitals: int, enc_special: int, enc_whitesp: int) ‑> None</span>
 </code></dt>
 <dd>
@@ -873,7 +873,7 @@ def encsettingCheck(
         )</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.plugboardCheck"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.plugboardCheck"><code class="name flex">
 <span>def <span class="ident">plugboardCheck</span></span>(<span>plugboard: Union[MutableSequence, tuple]) ‑> None</span>
 </code></dt>
 <dd>
@@ -900,7 +900,7 @@ def plugboardCheck(plugboard: Union[MutableSequence, tuple]) -&gt; None:
             raise ValueError(&#34;The plugboard items must a letter between A and Z&#34;)</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.reflectorCheck"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.reflectorCheck"><code class="name flex">
 <span>def <span class="ident">reflectorCheck</span></span>(<span>reflector: str) ‑> None</span>
 </code></dt>
 <dd>
@@ -920,7 +920,7 @@ def reflectorCheck(reflector: str) -&gt; None:
         raise KeyError(f&#34;The reflector {reflector} is not a valid reflector id&#34;)</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.ringsetCheck"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.ringsetCheck"><code class="name flex">
 <span>def <span class="ident">ringsetCheck</span></span>(<span>ring_setting: Union[MutableSequence, tuple]) ‑> None</span>
 </code></dt>
 <dd>
@@ -957,7 +957,7 @@ def ringsetCheck(ring_setting: Union[MutableSequence, tuple]) -&gt; None:
             )</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.rotorsCheck"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.rotorsCheck"><code class="name flex">
 <span>def <span class="ident">rotorsCheck</span></span>(<span>rotors: Union[MutableSequence, tuple]) ‑> None</span>
 </code></dt>
 <dd>
@@ -984,7 +984,7 @@ def rotorsCheck(rotors: Union[MutableSequence, tuple]) -&gt; None:
             raise KeyError(f&#34;The rotor {rot} is not a valid rotor id&#34;)</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.startposCheck"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.startposCheck"><code class="name flex">
 <span>def <span class="ident">startposCheck</span></span>(<span>start_pos: Union[MutableSequence, tuple]) ‑> None</span>
 </code></dt>
 <dd>
@@ -1024,7 +1024,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="Enigma machine.enigma.Enigma.advanceRotor"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.advanceRotor"><code class="name flex">
 <span>def <span class="ident">advanceRotor</span></span>(<span>self) ‑> None</span>
 </code></dt>
 <dd>
@@ -1047,8 +1047,8 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     self.rotors[2].shiftPosition(1)</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.applySettings"><code class="name flex">
-<span>def <span class="ident">applySettings</span></span>(<span>self, reset=False) ‑> None</span>
+<dt id="Enigma.enigma.Enigma.applySettings"><code class="name flex">
+<span>def <span class="ident">applySettings</span></span>(<span>self, reset: bool = False) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Applies the settings to the individual components of the enigma</p></div>
@@ -1056,7 +1056,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def applySettings(self, reset=False) -&gt; None:
+<pre><code class="python">def applySettings(self, reset: bool = False) -&gt; None:
     &#34;&#34;&#34;
     Applies the settings to the individual components of the enigma
     &#34;&#34;&#34;
@@ -1069,7 +1069,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
         currot.changeRingsett(c2n(self.ring_setting[i]))</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.applyplugboard"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.applyplugboard"><code class="name flex">
 <span>def <span class="ident">applyplugboard</span></span>(<span>self, char: str) ‑> str</span>
 </code></dt>
 <dd>
@@ -1091,7 +1091,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     return char</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.changeEncSettings"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.changeEncSettings"><code class="name flex">
 <span>def <span class="ident">changeEncSettings</span></span>(<span>self, enc_nums: int = None, enc_capitals: int = None, enc_special: int = None, enc_whitesp: int = None) ‑> None</span>
 </code></dt>
 <dd>
@@ -1121,7 +1121,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     pass</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.decipher"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.decipher"><code class="name flex">
 <span>def <span class="ident">decipher</span></span>(<span>self, string: str) ‑> str</span>
 </code></dt>
 <dd>
@@ -1137,7 +1137,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     return rmspecial(self.encipher(string, True))</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.encipher"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.encipher"><code class="name flex">
 <span>def <span class="ident">encipher</span></span>(<span>self, string: str, decipher: bool = False) ‑> str</span>
 </code></dt>
 <dd>
@@ -1169,7 +1169,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     return retstr</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.encryptChar"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.encryptChar"><code class="name flex">
 <span>def <span class="ident">encryptChar</span></span>(<span>self, char: str) ‑> str</span>
 </code></dt>
 <dd>
@@ -1209,7 +1209,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     return char</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.resetSettings"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.resetSettings"><code class="name flex">
 <span>def <span class="ident">resetSettings</span></span>(<span>self) ‑> None</span>
 </code></dt>
 <dd>
@@ -1226,7 +1226,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     self.__init__(*self.initsettings)</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.setDupeRot"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.setDupeRot"><code class="name flex">
 <span>def <span class="ident">setDupeRot</span></span>(<span>self, duperot_instance: bool) ‑> None</span>
 </code></dt>
 <dd>
@@ -1246,7 +1246,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     self.duperot_instance = duperot_instance</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.setReflector"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.setReflector"><code class="name flex">
 <span>def <span class="ident">setReflector</span></span>(<span>self, reflectr: str) ‑> None</span>
 </code></dt>
 <dd>
@@ -1263,7 +1263,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     self.reflector = reflectr</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.setRotor"><code class="name flex">
+<dt id="Enigma.enigma.Enigma.setRotor"><code class="name flex">
 <span>def <span class="ident">setRotor</span></span>(<span>self, r1: Union[int, str], r2: Union[int, str], r3: Union[int, str]) ‑> None</span>
 </code></dt>
 <dd>
@@ -1301,8 +1301,8 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
         self.rotors.insert(self.spawnRotorInstances(rotkey, rotnotch))</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.enigma.Enigma.spawnRotorInstances"><code class="name flex">
-<span>def <span class="ident">spawnRotorInstances</span></span>(<span>self, key: str, notch: Union[tuple, Literal['Z']]) ‑> rotor.Rotor</span>
+<dt id="Enigma.enigma.Enigma.spawnRotorInstances"><code class="name flex">
+<span>def <span class="ident">spawnRotorInstances</span></span>(<span>self, key: str, notch: Union[tuple, Literal['Z']]) ‑> <a title="Enigma.rotor.Rotor" href="rotor.html#Enigma.rotor.Rotor">Rotor</a></span>
 </code></dt>
 <dd>
 <div class="desc"><p>Spawns a rotor instance</p></div>
@@ -1330,32 +1330,32 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="Enigma machine" href="index.html">Enigma machine</a></code></li>
+<li><code><a title="Enigma" href="index.html">Enigma</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="Enigma machine.enigma.Enigma" href="#Enigma machine.enigma.Enigma">Enigma</a></code></h4>
+<h4><code><a title="Enigma.enigma.Enigma" href="#Enigma.enigma.Enigma">Enigma</a></code></h4>
 <ul class="two-column">
-<li><code><a title="Enigma machine.enigma.Enigma.advanceRotor" href="#Enigma machine.enigma.Enigma.advanceRotor">advanceRotor</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.applySettings" href="#Enigma machine.enigma.Enigma.applySettings">applySettings</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.applyplugboard" href="#Enigma machine.enigma.Enigma.applyplugboard">applyplugboard</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.changeEncSettings" href="#Enigma machine.enigma.Enigma.changeEncSettings">changeEncSettings</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.decipher" href="#Enigma machine.enigma.Enigma.decipher">decipher</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.encipher" href="#Enigma machine.enigma.Enigma.encipher">encipher</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.encryptChar" href="#Enigma machine.enigma.Enigma.encryptChar">encryptChar</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.encsettingCheck" href="#Enigma machine.enigma.Enigma.encsettingCheck">encsettingCheck</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.plugboardCheck" href="#Enigma machine.enigma.Enigma.plugboardCheck">plugboardCheck</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.reflectorCheck" href="#Enigma machine.enigma.Enigma.reflectorCheck">reflectorCheck</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.resetSettings" href="#Enigma machine.enigma.Enigma.resetSettings">resetSettings</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.ringsetCheck" href="#Enigma machine.enigma.Enigma.ringsetCheck">ringsetCheck</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.rotorsCheck" href="#Enigma machine.enigma.Enigma.rotorsCheck">rotorsCheck</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.setDupeRot" href="#Enigma machine.enigma.Enigma.setDupeRot">setDupeRot</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.setReflector" href="#Enigma machine.enigma.Enigma.setReflector">setReflector</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.setRotor" href="#Enigma machine.enigma.Enigma.setRotor">setRotor</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.spawnRotorInstances" href="#Enigma machine.enigma.Enigma.spawnRotorInstances">spawnRotorInstances</a></code></li>
-<li><code><a title="Enigma machine.enigma.Enigma.startposCheck" href="#Enigma machine.enigma.Enigma.startposCheck">startposCheck</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.advanceRotor" href="#Enigma.enigma.Enigma.advanceRotor">advanceRotor</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.applySettings" href="#Enigma.enigma.Enigma.applySettings">applySettings</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.applyplugboard" href="#Enigma.enigma.Enigma.applyplugboard">applyplugboard</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.changeEncSettings" href="#Enigma.enigma.Enigma.changeEncSettings">changeEncSettings</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.decipher" href="#Enigma.enigma.Enigma.decipher">decipher</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.encipher" href="#Enigma.enigma.Enigma.encipher">encipher</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.encryptChar" href="#Enigma.enigma.Enigma.encryptChar">encryptChar</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.encsettingCheck" href="#Enigma.enigma.Enigma.encsettingCheck">encsettingCheck</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.plugboardCheck" href="#Enigma.enigma.Enigma.plugboardCheck">plugboardCheck</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.reflectorCheck" href="#Enigma.enigma.Enigma.reflectorCheck">reflectorCheck</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.resetSettings" href="#Enigma.enigma.Enigma.resetSettings">resetSettings</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.ringsetCheck" href="#Enigma.enigma.Enigma.ringsetCheck">ringsetCheck</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.rotorsCheck" href="#Enigma.enigma.Enigma.rotorsCheck">rotorsCheck</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.setDupeRot" href="#Enigma.enigma.Enigma.setDupeRot">setDupeRot</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.setReflector" href="#Enigma.enigma.Enigma.setReflector">setReflector</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.setRotor" href="#Enigma.enigma.Enigma.setRotor">setRotor</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.spawnRotorInstances" href="#Enigma.enigma.Enigma.spawnRotorInstances">spawnRotorInstances</a></code></li>
+<li><code><a title="Enigma.enigma.Enigma.startposCheck" href="#Enigma.enigma.Enigma.startposCheck">startposCheck</a></code></li>
 </ul>
 </li>
 </ul>

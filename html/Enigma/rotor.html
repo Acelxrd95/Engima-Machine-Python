@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>Enigma machine.rotor API documentation</title>
+<title>Enigma.rotor API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,7 +19,7 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>Enigma machine.rotor</code></h1>
+<h1 class="title">Module <code>Enigma.rotor</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
@@ -27,7 +27,8 @@
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">from typing import Union
-from utils import *
+from Enigma.utils import n2c
+from Enigma.datastructs import Array
 
 
 class Rotor:
@@ -109,7 +110,7 @@ class Rotor:
 <section>
 <h2 class="section-title" id="header-classes">Classes</h2>
 <dl>
-<dt id="Enigma machine.rotor.Rotor"><code class="flex name class">
+<dt id="Enigma.rotor.Rotor"><code class="flex name class">
 <span>class <span class="ident">Rotor</span></span>
 <span>(</span><span>tyre: str, notch: Union[str, tuple[str, ...]])</span>
 </code></dt>
@@ -196,7 +197,7 @@ class Rotor:
 </details>
 <h3>Instance variables</h3>
 <dl>
-<dt id="Enigma machine.rotor.Rotor.abs_pos"><code class="name">var <span class="ident">abs_pos</span> : int</code></dt>
+<dt id="Enigma.rotor.Rotor.abs_pos"><code class="name">var <span class="ident">abs_pos</span> : int</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -208,7 +209,7 @@ def abs_pos(self) -&gt; int:
     return self.curr_pos - self.ring_offset</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.rotor.Rotor.check_notch"><code class="name">var <span class="ident">check_notch</span> : bool</code></dt>
+<dt id="Enigma.rotor.Rotor.check_notch"><code class="name">var <span class="ident">check_notch</span> : bool</code></dt>
 <dd>
 <div class="desc"></div>
 <details class="source">
@@ -226,7 +227,7 @@ def check_notch(self) -&gt; bool:
 </dl>
 <h3>Methods</h3>
 <dl>
-<dt id="Enigma machine.rotor.Rotor.changeRingsett"><code class="name flex">
+<dt id="Enigma.rotor.Rotor.changeRingsett"><code class="name flex">
 <span>def <span class="ident">changeRingsett</span></span>(<span>self, pos: int) ‑> None</span>
 </code></dt>
 <dd>
@@ -245,7 +246,7 @@ def check_notch(self) -&gt; bool:
     self.ring_offset = pos</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.rotor.Rotor.reset"><code class="name flex">
+<dt id="Enigma.rotor.Rotor.reset"><code class="name flex">
 <span>def <span class="ident">reset</span></span>(<span>self)</span>
 </code></dt>
 <dd>
@@ -262,7 +263,7 @@ def check_notch(self) -&gt; bool:
     pass</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.rotor.Rotor.shiftPosition"><code class="name flex">
+<dt id="Enigma.rotor.Rotor.shiftPosition"><code class="name flex">
 <span>def <span class="ident">shiftPosition</span></span>(<span>self, pos: int, dirct: int = 1) ‑> None</span>
 </code></dt>
 <dd>
@@ -297,19 +298,19 @@ the direction of the shift</p></div>
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="Enigma machine" href="index.html">Enigma machine</a></code></li>
+<li><code><a title="Enigma" href="index.html">Enigma</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-classes">Classes</a></h3>
 <ul>
 <li>
-<h4><code><a title="Enigma machine.rotor.Rotor" href="#Enigma machine.rotor.Rotor">Rotor</a></code></h4>
+<h4><code><a title="Enigma.rotor.Rotor" href="#Enigma.rotor.Rotor">Rotor</a></code></h4>
 <ul class="">
-<li><code><a title="Enigma machine.rotor.Rotor.abs_pos" href="#Enigma machine.rotor.Rotor.abs_pos">abs_pos</a></code></li>
-<li><code><a title="Enigma machine.rotor.Rotor.changeRingsett" href="#Enigma machine.rotor.Rotor.changeRingsett">changeRingsett</a></code></li>
-<li><code><a title="Enigma machine.rotor.Rotor.check_notch" href="#Enigma machine.rotor.Rotor.check_notch">check_notch</a></code></li>
-<li><code><a title="Enigma machine.rotor.Rotor.reset" href="#Enigma machine.rotor.Rotor.reset">reset</a></code></li>
-<li><code><a title="Enigma machine.rotor.Rotor.shiftPosition" href="#Enigma machine.rotor.Rotor.shiftPosition">shiftPosition</a></code></li>
+<li><code><a title="Enigma.rotor.Rotor.abs_pos" href="#Enigma.rotor.Rotor.abs_pos">abs_pos</a></code></li>
+<li><code><a title="Enigma.rotor.Rotor.changeRingsett" href="#Enigma.rotor.Rotor.changeRingsett">changeRingsett</a></code></li>
+<li><code><a title="Enigma.rotor.Rotor.check_notch" href="#Enigma.rotor.Rotor.check_notch">check_notch</a></code></li>
+<li><code><a title="Enigma.rotor.Rotor.reset" href="#Enigma.rotor.Rotor.reset">reset</a></code></li>
+<li><code><a title="Enigma.rotor.Rotor.shiftPosition" href="#Enigma.rotor.Rotor.shiftPosition">shiftPosition</a></code></li>
 </ul>
 </li>
 </ul>

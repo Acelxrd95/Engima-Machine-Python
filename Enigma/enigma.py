@@ -1,8 +1,8 @@
 from typing import Literal, MutableSequence, Union
-from utils import *
-from rotor import Rotor
-import storage
-from datastructs.array_struct import Array
+from Enigma.utils import n2c, c2n, roman2den, isroman, transformsp, rmspecial
+from Enigma.rotor import Rotor
+import Enigma.storage as storage
+from Enigma.datastructs import Array
 
 
 class Enigma:
@@ -99,7 +99,7 @@ class Enigma:
         self.initsettings
         self.__init__(*self.initsettings)
 
-    def applySettings(self, reset=False) -> None:
+    def applySettings(self, reset: bool = False) -> None:
         """
         Applies the settings to the individual components of the enigma
         """
@@ -388,4 +388,4 @@ class Enigma:
 
 
 if __name__ == "__main__":
-    pass
+    print('use "import enigma" to access functions')

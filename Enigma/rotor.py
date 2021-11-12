@@ -1,5 +1,6 @@
 from typing import Union
-from utils import *
+from Enigma.utils import n2c
+from Enigma.datastructs import Array
 
 
 class Rotor:

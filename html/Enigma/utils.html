@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
 <meta name="generator" content="pdoc 0.10.0" />
-<title>Enigma machine.utils API documentation</title>
+<title>Enigma.utils API documentation</title>
 <meta name="description" content="" />
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
 <link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
@@ -19,15 +19,15 @@
 <main>
 <article id="content">
 <header>
-<h1 class="title">Module <code>Enigma machine.utils</code></h1>
+<h1 class="title">Module <code>Enigma.utils</code></h1>
 </header>
 <section id="section-intro">
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">from datastructs.map_struct import Map
-from datastructs.array_struct import Array
+<pre><code class="python">from Enigma.datastructs import Map
+from Enigma.datastructs import Array
 import re
 
 r_dict = Map({&#34;M&#34;: 1000, &#34;D&#34;: 500, &#34;C&#34;: 100, &#34;L&#34;: 50, &#34;X&#34;: 10, &#34;V&#34;: 5, &#34;I&#34;: 1})
@@ -231,7 +231,7 @@ def rmspecial(word: str) -&gt; str:
 <section>
 <h2 class="section-title" id="header-functions">Functions</h2>
 <dl>
-<dt id="Enigma machine.utils.c2n"><code class="name flex">
+<dt id="Enigma.utils.c2n"><code class="name flex">
 <span>def <span class="ident">c2n</span></span>(<span>char: str) ‑> int</span>
 </code></dt>
 <dd>
@@ -252,7 +252,7 @@ def rmspecial(word: str) -&gt; str:
     return num</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.isroman"><code class="name flex">
+<dt id="Enigma.utils.isroman"><code class="name flex">
 <span>def <span class="ident">isroman</span></span>(<span>roman: str) ‑> bool</span>
 </code></dt>
 <dd>
@@ -271,7 +271,7 @@ def rmspecial(word: str) -&gt; str:
     return True</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.isspecial"><code class="name flex">
+<dt id="Enigma.utils.isspecial"><code class="name flex">
 <span>def <span class="ident">isspecial</span></span>(<span>char: str) ‑> bool</span>
 </code></dt>
 <dd>
@@ -290,7 +290,7 @@ def rmspecial(word: str) -&gt; str:
         return False</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.n2c"><code class="name flex">
+<dt id="Enigma.utils.n2c"><code class="name flex">
 <span>def <span class="ident">n2c</span></span>(<span>num: int, upper: bool = True) ‑> str</span>
 </code></dt>
 <dd>
@@ -313,7 +313,7 @@ def rmspecial(word: str) -&gt; str:
     return char</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.num2word"><code class="name flex">
+<dt id="Enigma.utils.num2word"><code class="name flex">
 <span>def <span class="ident">num2word</span></span>(<span>number: str, setting: int) ‑> str</span>
 </code></dt>
 <dd>
@@ -337,7 +337,7 @@ def rmspecial(word: str) -&gt; str:
     return number</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.rmspecial"><code class="name flex">
+<dt id="Enigma.utils.rmspecial"><code class="name flex">
 <span>def <span class="ident">rmspecial</span></span>(<span>word: str) ‑> str</span>
 </code></dt>
 <dd>
@@ -379,7 +379,7 @@ def rmspecial(word: str) -&gt; str:
     return newstr</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.roman2den"><code class="name flex">
+<dt id="Enigma.utils.roman2den"><code class="name flex">
 <span>def <span class="ident">roman2den</span></span>(<span>roman: str) ‑> int</span>
 </code></dt>
 <dd>
@@ -404,7 +404,7 @@ def rmspecial(word: str) -&gt; str:
     return total</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.sp2norm"><code class="name flex">
+<dt id="Enigma.utils.sp2norm"><code class="name flex">
 <span>def <span class="ident">sp2norm</span></span>(<span>char: str, sp_setting: int = 1, whitesp_setting: int = 1) ‑> str</span>
 </code></dt>
 <dd>
@@ -430,8 +430,8 @@ def rmspecial(word: str) -&gt; str:
     return char</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.transformsp"><code class="name flex">
-<span>def <span class="ident">transformsp</span></span>(<span>char: str, settings: datastructs.array_struct.Array = &lt;datastructs.array_struct.Array object&gt;) ‑> str</span>
+<dt id="Enigma.utils.transformsp"><code class="name flex">
+<span>def <span class="ident">transformsp</span></span>(<span>char: str, settings: <a title="Enigma.datastructs.Array" href="datastructs.html#Enigma.datastructs.Array">Array</a> = &lt;Enigma.datastructs.Array object&gt;) ‑> str</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Parses and transforms special characters to normal characters to allow encryption</p></div>
@@ -460,7 +460,7 @@ def rmspecial(word: str) -&gt; str:
     return char</code></pre>
 </details>
 </dd>
-<dt id="Enigma machine.utils.up2low"><code class="name flex">
+<dt id="Enigma.utils.up2low"><code class="name flex">
 <span>def <span class="ident">up2low</span></span>(<span>char: str, setting: int) ‑> str</span>
 </code></dt>
 <dd>
@@ -491,21 +491,21 @@ def rmspecial(word: str) -&gt; str:
 <ul id="index">
 <li><h3>Super-module</h3>
 <ul>
-<li><code><a title="Enigma machine" href="index.html">Enigma machine</a></code></li>
+<li><code><a title="Enigma" href="index.html">Enigma</a></code></li>
 </ul>
 </li>
 <li><h3><a href="#header-functions">Functions</a></h3>
 <ul class="two-column">
-<li><code><a title="Enigma machine.utils.c2n" href="#Enigma machine.utils.c2n">c2n</a></code></li>
-<li><code><a title="Enigma machine.utils.isroman" href="#Enigma machine.utils.isroman">isroman</a></code></li>
-<li><code><a title="Enigma machine.utils.isspecial" href="#Enigma machine.utils.isspecial">isspecial</a></code></li>
-<li><code><a title="Enigma machine.utils.n2c" href="#Enigma machine.utils.n2c">n2c</a></code></li>
-<li><code><a title="Enigma machine.utils.num2word" href="#Enigma machine.utils.num2word">num2word</a></code></li>
-<li><code><a title="Enigma machine.utils.rmspecial" href="#Enigma machine.utils.rmspecial">rmspecial</a></code></li>
-<li><code><a title="Enigma machine.utils.roman2den" href="#Enigma machine.utils.roman2den">roman2den</a></code></li>
-<li><code><a title="Enigma machine.utils.sp2norm" href="#Enigma machine.utils.sp2norm">sp2norm</a></code></li>
-<li><code><a title="Enigma machine.utils.transformsp" href="#Enigma machine.utils.transformsp">transformsp</a></code></li>
-<li><code><a title="Enigma machine.utils.up2low" href="#Enigma machine.utils.up2low">up2low</a></code></li>
+<li><code><a title="Enigma.utils.c2n" href="#Enigma.utils.c2n">c2n</a></code></li>
+<li><code><a title="Enigma.utils.isroman" href="#Enigma.utils.isroman">isroman</a></code></li>
+<li><code><a title="Enigma.utils.isspecial" href="#Enigma.utils.isspecial">isspecial</a></code></li>
+<li><code><a title="Enigma.utils.n2c" href="#Enigma.utils.n2c">n2c</a></code></li>
+<li><code><a title="Enigma.utils.num2word" href="#Enigma.utils.num2word">num2word</a></code></li>
+<li><code><a title="Enigma.utils.rmspecial" href="#Enigma.utils.rmspecial">rmspecial</a></code></li>
+<li><code><a title="Enigma.utils.roman2den" href="#Enigma.utils.roman2den">roman2den</a></code></li>
+<li><code><a title="Enigma.utils.sp2norm" href="#Enigma.utils.sp2norm">sp2norm</a></code></li>
+<li><code><a title="Enigma.utils.transformsp" href="#Enigma.utils.transformsp">transformsp</a></code></li>
+<li><code><a title="Enigma.utils.up2low" href="#Enigma.utils.up2low">up2low</a></code></li>
 </ul>
 </li>
 </ul>

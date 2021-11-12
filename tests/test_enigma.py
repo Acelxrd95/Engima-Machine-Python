@@ -1,9 +1,9 @@
 import unittest
 import pycipher
-import enigma as en2
+import Enigma.enigma as en
 from faker import Faker
 import random
-from utils import *
+from Enigma.utils import rmspecial, transformsp
 
 fake = Faker()
 
@@ -14,11 +14,11 @@ alphali = list(alphastr)
 
 class EnsureCipher(unittest.TestCase):
     def test_encryption_decryption(self):
-        enigma = en2.Enigma(
+        enigma = en.Enigma(
             start_pos=("A", "F", "A"),
             rotors=(1, 2, 3),
             reflector="B",
-            ring_setting=("A", "B", "A"),
+            ring_setting=("A", "A", "A"),
             plugboard=[],
             enc_nums=1,
             enc_capitals=1,
@@ -38,7 +38,7 @@ class EnsureCipher(unittest.TestCase):
             ringstellung=("A", "A", "A"),
             steckers=[],
         )
-        mach1 = en2.Enigma(
+        mach1 = en.Enigma(
             start_pos=("A", "A", "A"),
             rotors=(1, 2, 3),
             reflector="B",
@@ -69,7 +69,7 @@ class EnsureCipher(unittest.TestCase):
                 ("D", "C"),
             ],
         )
-        mach1 = en2.Enigma(
+        mach1 = en.Enigma(
             start_pos=("A", "A", "A"),
             rotors=(1, 2, 3),
             reflector="B",
@@ -109,7 +109,7 @@ class EnsureCipher(unittest.TestCase):
             ringstellung=ring_test,
             steckers=stckr_test,
         )
-        mach1 = en2.Enigma(
+        mach1 = en.Enigma(
             start_pos=settin_test,
             rotors=rot_test,
             reflector=reflect_test,

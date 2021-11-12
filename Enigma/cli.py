@@ -1,7 +1,7 @@
 import click
 from string import ascii_uppercase
-from enigma import Enigma
-import storage
+from Enigma.enigma import Enigma
+import Enigma.storage as storage
 import sys
 
 sys.tracebacklimit = 0

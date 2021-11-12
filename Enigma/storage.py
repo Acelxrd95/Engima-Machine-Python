@@ -1,5 +1,5 @@
-from datastructs.map_struct import Map
-from utils import *
+from Enigma.datastructs import Map
+from Enigma.utils import roman2den, isroman
 
 
 """
