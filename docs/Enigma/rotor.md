@@ -20,20 +20,19 @@ class Rotor():
     def __init__(tyre: str, notch: Union[(str, tuple[(str, ...)])]) -> None:
 ```
 
-The Enigma rotors consist of a couple of settings and properties\
+The Enigma rotors consist of a couple of settings and properties.
 
-#### Arguments
-
-- `tyre` - refers to the alphabet tyre used to encrypt the letter entered\
-- `notch` - refers to the notch at which the next rotor in order turns\
-:prop curr_pos: refers to the current position of the rotor\
-:prop ring_offset: refers to the offset of the ring wiring\
-:prop abs_pos: refers to the original absolute position of the rotor without the offset\
-:prop check_notch: checks whether the rotor is currently on the notch or not
+Attributes:
+    tyre (str): refers to the alphabet tyre used to encrypt the letter entered.
+    notch (Union[str, tuple[str, ...]]): refers to the notch at which the next rotor in order turns.
+    curr_pos (int): refers to the current position of the rotor.
+    ring_offset (int): refers to the offset of the ring wiring.
+    abs_pos (int): refers to the original absolute position of the rotor without the offset.
+    check_notch (bool): checks whether the rotor is currently on the notch or not.
 
 ### Rotor().\_\_repr\_\_
 
-[[find in source code]](blob/master/Enigma/rotor.py#L35)
+[[find in source code]](blob/master/Enigma/rotor.py#L38)
 
 ```python
 def __repr__() -> str:
@@ -43,7 +42,7 @@ Returns the object's string representation.
 
 ### Rotor().abs_pos
 
-[[find in source code]](blob/master/Enigma/rotor.py#L24)
+[[find in source code]](blob/master/Enigma/rotor.py#L27)
 
 ```python
 @property
@@ -52,7 +51,7 @@ def abs_pos() -> int:
 
 ### Rotor().changeRingsett
 
-[[find in source code]](blob/master/Enigma/rotor.py#L55)
+[[find in source code]](blob/master/Enigma/rotor.py#L58)
 
 ```python
 def changeRingsett(pos: int) -> None:
@@ -62,7 +61,7 @@ Changes the ring offset setting
 
 ### Rotor().check_notch
 
-[[find in source code]](blob/master/Enigma/rotor.py#L28)
+[[find in source code]](blob/master/Enigma/rotor.py#L31)
 
 ```python
 @property
@@ -71,7 +70,7 @@ def check_notch() -> bool:
 
 ### Rotor().reset
 
-[[find in source code]](blob/master/Enigma/rotor.py#L48)
+[[find in source code]](blob/master/Enigma/rotor.py#L51)
 
 ```python
 def reset():
@@ -81,11 +80,11 @@ Reset the rotor to its initial position.
 
 ### Rotor().shiftPosition
 
-[[find in source code]](blob/master/Enigma/rotor.py#L64)
+[[find in source code]](blob/master/Enigma/rotor.py#L67)
 
 ```python
 def shiftPosition(pos: int, dirct: int = 1) -> None:
 ```
 
-Shift the rotor position according :param pos for number of steps and the :param dirct for
+Shift the rotor position according `pos` for number of steps and the `dirct` for
 the direction of the shift

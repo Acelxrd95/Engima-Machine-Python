@@ -34,18 +34,60 @@ from Enigma.datastructs import Array
 
 
 class Enigma:
-    &#34;&#34;&#34;
-    The main Enigma machine class
+    &#34;&#34;&#34;Enigma machine class.
 
-    :param start_pos: refers to the rotors start positions, which consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
-    :param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
-    :param reflector: specifies the reflector used More can be specified using the `addCustReflect` method
-    :param ring_setting: refers to the ring settings and consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
-    :param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
-    :param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
-    :param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
-    :param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
-    :param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+    This class is a software implementation for the Enigma encryption machine used by the German
+    military in World War II. The Enigma encryption is a type of substitution cipher where a
+    character is passed through a few parameters in order to encrypt it to another character, but
+    the power of the enigma as opposed to for example a Caesar cipher is that typing the same
+    letter results in a different output due to the encryption of the letters dependant on the
+    rotor’s chosen, their positions, their ring settings and the plugboard wiring. All these are
+    factors that would change the output cipher
+
+    Attributes:
+        start_pos (Union[tuple[str, str, str], list[str]]):
+            refers to the rotors start positions, which consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;).
+        rotors (Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]):
+            specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+        reflector (str):
+            specifies the reflector used More can be specified using the `addCustReflect` method
+        ring_setting (Union[tuple[str, str, str], list[str]]):
+            refers to the ring settings and consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
+        plugboard (list[tuple[str, str]]):
+            specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+        enc_nums (int):
+            specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+        enc_capitals (int):
+            specifies whether capitals should be ignored (0), encrypted (1)
+        enc_special (int):
+            specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+        enc_whitesp (int):
+            specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+
+    Example:
+        machine = Enigma(
+            start_pos=(&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+            rotors=(1, 2, 3),
+            reflector=&#34;B&#34;,
+            ring_setting=(&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+            plugboard=[
+                (&#34;P&#34;, &#34;O&#34;),
+                (&#34;M&#34;, &#34;L&#34;),
+                (&#34;I&#34;, &#34;U&#34;),
+                (&#34;K&#34;, &#34;J&#34;),
+                (&#34;N&#34;, &#34;H&#34;),
+                (&#34;Y&#34;, &#34;T&#34;),
+                (&#34;G&#34;, &#34;B&#34;),
+                (&#34;V&#34;, &#34;F&#34;),
+                (&#34;R&#34;, &#34;E&#34;),
+                (&#34;D&#34;, &#34;C&#34;),
+            ],
+            enc_nums= 0,
+            enc_capitals= 0,
+            enc_special= 0,
+            enc_whitesp= 0,
+            duperot_instance= Flase,
+        )
     &#34;&#34;&#34;
 
     def __init__(
@@ -433,33 +475,116 @@ if __name__ == &#34;__main__&#34;:
 <span>(</span><span>start_pos: Union[tuple[str, str, str], list[str]] = ('A', 'A', 'A'), rotors: Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]] = ('I', 'II', 'III'), reflector: str = 'B', ring_setting: Union[tuple[str, str, str], list[str]] = ('A', 'A', 'A'), plugboard: list[tuple[str, str]] = None, enc_nums: int = 0, enc_capitals: int = 0, enc_special: int = 0, enc_whitesp: int = 0, duperot_instance: bool = False)</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The main Enigma machine class</p>
-<p>:param start_pos: refers to the rotors start positions, which consists of 3 characters ex:('F','G','B')
-:param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the <code>addCustRotor</code> method
-:param reflector: specifies the reflector used More can be specified using the <code>addCustReflect</code> method
-:param ring_setting: refers to the ring settings and consists of 3 characters ex:('F','G','B')
-:param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
-:param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
-:param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
-:param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
-:param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)</p></div>
+<div class="desc"><p>Enigma machine class.</p>
+<p>This class is a software implementation for the Enigma encryption machine used by the German
+military in World War II. The Enigma encryption is a type of substitution cipher where a
+character is passed through a few parameters in order to encrypt it to another character, but
+the power of the enigma as opposed to for example a Caesar cipher is that typing the same
+letter results in a different output due to the encryption of the letters dependant on the
+rotor’s chosen, their positions, their ring settings and the plugboard wiring. All these are
+factors that would change the output cipher</p>
+<h2 id="attributes">Attributes</h2>
+<p>start_pos (Union[tuple[str, str, str], list[str]]):
+refers to the rotors start positions, which consists of 3 characters ex:('F','G','B').
+rotors (Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]):
+specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the <code>addCustRotor</code> method
+reflector (str):
+specifies the reflector used More can be specified using the <code>addCustReflect</code> method
+ring_setting (Union[tuple[str, str, str], list[str]]):
+refers to the ring settings and consists of 3 characters ex:('F','G','B')
+plugboard (list[tuple[str, str]]):
+specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+enc_nums (int):
+specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+enc_capitals (int):
+specifies whether capitals should be ignored (0), encrypted (1)
+enc_special (int):
+specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+enc_whitesp (int):
+specifies whether spaces should be ignored (0), encrypted (1) or removed (2)</p>
+<h2 id="example">Example</h2>
+<p>machine = Enigma(
+start_pos=("A", "A", "A"),
+rotors=(1, 2, 3),
+reflector="B",
+ring_setting=("A", "A", "A"),
+plugboard=[
+("P", "O"),
+("M", "L"),
+("I", "U"),
+("K", "J"),
+("N", "H"),
+("Y", "T"),
+("G", "B"),
+("V", "F"),
+("R", "E"),
+("D", "C"),
+],
+enc_nums= 0,
+enc_capitals= 0,
+enc_special= 0,
+enc_whitesp= 0,
+duperot_instance= Flase,
+)</p></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Enigma:
-    &#34;&#34;&#34;
-    The main Enigma machine class
+    &#34;&#34;&#34;Enigma machine class.
 
-    :param start_pos: refers to the rotors start positions, which consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
-    :param rotors: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
-    :param reflector: specifies the reflector used More can be specified using the `addCustReflect` method
-    :param ring_setting: refers to the ring settings and consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
-    :param plugboard: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
-    :param enc_nums: specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
-    :param enc_capitals:specifies whether capitals should be ignored (0), encrypted (1)
-    :param enc_special:specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
-    :param enc_whitesp:specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+    This class is a software implementation for the Enigma encryption machine used by the German
+    military in World War II. The Enigma encryption is a type of substitution cipher where a
+    character is passed through a few parameters in order to encrypt it to another character, but
+    the power of the enigma as opposed to for example a Caesar cipher is that typing the same
+    letter results in a different output due to the encryption of the letters dependant on the
+    rotor’s chosen, their positions, their ring settings and the plugboard wiring. All these are
+    factors that would change the output cipher
+
+    Attributes:
+        start_pos (Union[tuple[str, str, str], list[str]]):
+            refers to the rotors start positions, which consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;).
+        rotors (Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]):
+            specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+        reflector (str):
+            specifies the reflector used More can be specified using the `addCustReflect` method
+        ring_setting (Union[tuple[str, str, str], list[str]]):
+            refers to the ring settings and consists of 3 characters ex:(&#39;F&#39;,&#39;G&#39;,&#39;B&#39;)
+        plugboard (list[tuple[str, str]]):
+            specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+        enc_nums (int):
+            specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+        enc_capitals (int):
+            specifies whether capitals should be ignored (0), encrypted (1)
+        enc_special (int):
+            specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+        enc_whitesp (int):
+            specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+
+    Example:
+        machine = Enigma(
+            start_pos=(&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+            rotors=(1, 2, 3),
+            reflector=&#34;B&#34;,
+            ring_setting=(&#34;A&#34;, &#34;A&#34;, &#34;A&#34;),
+            plugboard=[
+                (&#34;P&#34;, &#34;O&#34;),
+                (&#34;M&#34;, &#34;L&#34;),
+                (&#34;I&#34;, &#34;U&#34;),
+                (&#34;K&#34;, &#34;J&#34;),
+                (&#34;N&#34;, &#34;H&#34;),
+                (&#34;Y&#34;, &#34;T&#34;),
+                (&#34;G&#34;, &#34;B&#34;),
+                (&#34;V&#34;, &#34;F&#34;),
+                (&#34;R&#34;, &#34;E&#34;),
+                (&#34;D&#34;, &#34;C&#34;),
+            ],
+            enc_nums= 0,
+            enc_capitals= 0,
+            enc_special= 0,
+            enc_whitesp= 0,
+            duperot_instance= Flase,
+        )
     &#34;&#34;&#34;
 
     def __init__(

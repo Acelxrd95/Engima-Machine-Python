@@ -33,17 +33,20 @@ from Enigma.datastructs import Array
 
 class Rotor:
     &#34;&#34;&#34;
-    The Enigma rotors consist of a couple of settings and properties\\
-    :param tyre: refers to the alphabet tyre used to encrypt the letter entered\\
-    :param notch: refers to the notch at which the next rotor in order turns\\
-    :prop curr_pos: refers to the current position of the rotor\\
-    :prop ring_offset: refers to the offset of the ring wiring\\
-    :prop abs_pos: refers to the original absolute position of the rotor without the offset\\
-    :prop check_notch: checks whether the rotor is currently on the notch or not
+    The Enigma rotors consist of a couple of settings and properties.
+
+        Attributes:
+            tyre (str): refers to the alphabet tyre used to encrypt the letter entered.
+            notch (Union[str, tuple[str, ...]]): refers to the notch at which the next rotor in order turns.
+            curr_pos (int): refers to the current position of the rotor.
+            ring_offset (int): refers to the offset of the ring wiring.
+            abs_pos (int): refers to the original absolute position of the rotor without the offset.
+            check_notch (bool): checks whether the rotor is currently on the notch or not.
     &#34;&#34;&#34;
 
     def __init__(self, tyre: str, notch: Union[str, tuple[str, ...]]) -&gt; None:
-        assert 26 == len(tyre), &#34;Rotor Tyre must be equal to Alphabets entered&#34;
+        if 26 != len(tyre):
+            print(&#34;Rotor Tyre must be equal to Alphabets entered&#34;)
         self.tyre = Array(str, values=tyre)
         self.notch = Array(str, values=notch)
         self.curr_pos = 0
@@ -91,7 +94,7 @@ class Rotor:
 
     def shiftPosition(self, pos: int, dirct: int = 1) -&gt; None:
         &#34;&#34;&#34;
-        Shift the rotor position according :param pos for number of steps and the :param dirct for
+        Shift the rotor position according `pos` for number of steps and the `dirct` for
         the direction of the shift
         &#34;&#34;&#34;
         self.tyre.shift(pos, dirct)
@@ -115,30 +118,35 @@ class Rotor:
 <span>(</span><span>tyre: str, notch: Union[str, tuple[str, ...]])</span>
 </code></dt>
 <dd>
-<div class="desc"><p>The Enigma rotors consist of a couple of settings and properties\
-:param tyre: refers to the alphabet tyre used to encrypt the letter entered\
-:param notch: refers to the notch at which the next rotor in order turns\
-:prop curr_pos: refers to the current position of the rotor\
-:prop ring_offset: refers to the offset of the ring wiring\
-:prop abs_pos: refers to the original absolute position of the rotor without the offset\
-:prop check_notch: checks whether the rotor is currently on the notch or not</p></div>
+<div class="desc"><p>The Enigma rotors consist of a couple of settings and properties.</p>
+<pre><code>Attributes:
+    tyre (str): refers to the alphabet tyre used to encrypt the letter entered.
+    notch (Union[str, tuple[str, ...]]): refers to the notch at which the next rotor in order turns.
+    curr_pos (int): refers to the current position of the rotor.
+    ring_offset (int): refers to the offset of the ring wiring.
+    abs_pos (int): refers to the original absolute position of the rotor without the offset.
+    check_notch (bool): checks whether the rotor is currently on the notch or not.
+</code></pre></div>
 <details class="source">
 <summary>
 <span>Expand source code</span>
 </summary>
 <pre><code class="python">class Rotor:
     &#34;&#34;&#34;
-    The Enigma rotors consist of a couple of settings and properties\\
-    :param tyre: refers to the alphabet tyre used to encrypt the letter entered\\
-    :param notch: refers to the notch at which the next rotor in order turns\\
-    :prop curr_pos: refers to the current position of the rotor\\
-    :prop ring_offset: refers to the offset of the ring wiring\\
-    :prop abs_pos: refers to the original absolute position of the rotor without the offset\\
-    :prop check_notch: checks whether the rotor is currently on the notch or not
+    The Enigma rotors consist of a couple of settings and properties.
+
+        Attributes:
+            tyre (str): refers to the alphabet tyre used to encrypt the letter entered.
+            notch (Union[str, tuple[str, ...]]): refers to the notch at which the next rotor in order turns.
+            curr_pos (int): refers to the current position of the rotor.
+            ring_offset (int): refers to the offset of the ring wiring.
+            abs_pos (int): refers to the original absolute position of the rotor without the offset.
+            check_notch (bool): checks whether the rotor is currently on the notch or not.
     &#34;&#34;&#34;
 
     def __init__(self, tyre: str, notch: Union[str, tuple[str, ...]]) -&gt; None:
-        assert 26 == len(tyre), &#34;Rotor Tyre must be equal to Alphabets entered&#34;
+        if 26 != len(tyre):
+            print(&#34;Rotor Tyre must be equal to Alphabets entered&#34;)
         self.tyre = Array(str, values=tyre)
         self.notch = Array(str, values=notch)
         self.curr_pos = 0
@@ -186,7 +194,7 @@ class Rotor:
 
     def shiftPosition(self, pos: int, dirct: int = 1) -&gt; None:
         &#34;&#34;&#34;
-        Shift the rotor position according :param pos for number of steps and the :param dirct for
+        Shift the rotor position according `pos` for number of steps and the `dirct` for
         the direction of the shift
         &#34;&#34;&#34;
         self.tyre.shift(pos, dirct)
@@ -267,7 +275,7 @@ def check_notch(self) -&gt; bool:
 <span>def <span class="ident">shiftPosition</span></span>(<span>self, pos: int, dirct: int = 1) ‑> None</span>
 </code></dt>
 <dd>
-<div class="desc"><p>Shift the rotor position according :param pos for number of steps and the :param dirct for
+<div class="desc"><p>Shift the rotor position according <code>pos</code> for number of steps and the <code>dirct</code> for
 the direction of the shift</p></div>
 <details class="source">
 <summary>
@@ -275,7 +283,7 @@ the direction of the shift</p></div>
 </summary>
 <pre><code class="python">def shiftPosition(self, pos: int, dirct: int = 1) -&gt; None:
     &#34;&#34;&#34;
-    Shift the rotor position according :param pos for number of steps and the :param dirct for
+    Shift the rotor position according `pos` for number of steps and the `dirct` for
     the direction of the shift
     &#34;&#34;&#34;
     self.tyre.shift(pos, dirct)
