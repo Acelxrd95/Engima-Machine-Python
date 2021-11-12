@@ -104,7 +104,7 @@ machine = Enigma(
 )
 ```
 
-Full Enigma machine project documentation can be found in [Modules](MODULES.md#enigma-machine-modules)
+Full Enigma machine project documentation can be found in [Modules](docs/MODULES.md#enigma-machine-modules)
 
 # Running-the-tests
 
