@@ -1,17 +1,15 @@
-<!-- @format -->
-
 # Rotor
 
 > Auto-generated documentation for [Enigma.rotor](blob/master/Enigma/rotor.py) module.
 
--   [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Rotor
-    -   [Rotor](#rotor)
-        -   [Rotor().\_\_repr\_\_](#rotor__repr__)
-        -   [Rotor().abs_pos](#rotorabs_pos)
-        -   [Rotor().changeRingsett](#rotorchangeringsett)
-        -   [Rotor().check_notch](#rotorcheck_notch)
-        -   [Rotor().reset](#rotorreset)
-        -   [Rotor().shiftPosition](#rotorshiftposition)
+- [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Rotor
+    - [Rotor](#rotor)
+        - [Rotor().\_\_repr\_\_](#rotor__repr__)
+        - [Rotor().abs_pos](#rotorabs_pos)
+        - [Rotor().changeRingsett](#rotorchangeringsett)
+        - [Rotor().check_notch](#rotorcheck_notch)
+        - [Rotor().reset](#rotorreset)
+        - [Rotor().shiftPosition](#rotorshiftposition)
 
 ## Rotor
 
@@ -24,14 +22,13 @@ class Rotor():
 
 The Enigma rotors consist of a couple of settings and properties.
 
-#### Attributes
-
--   `tyre` _str_: refers to the alphabet tyre used to encrypt the letter entered.
--   `notch` _Union[str, tuple[str, ...]]_: refers to the notch at which the next rotor in order turns.
--   `curr_pos` _int_: refers to the current position of the rotor.
--   `ring_offset` _int_: refers to the offset of the ring wiring.
--   `abs_pos` _int_: refers to the original absolute position of the rotor without the offset.
--   `check_notch` _bool_: checks whether the rotor is currently on the notch or not.
+Attributes:
+    tyre (str): refers to the alphabet tyre used to encrypt the letter entered.
+    notch (Union[str, tuple[str, ...]]): refers to the notch at which the next rotor in order turns.
+    curr_pos (int): refers to the current position of the rotor.
+    ring_offset (int): refers to the offset of the ring wiring.
+    abs_pos (int): refers to the original absolute position of the rotor without the offset.
+    check_notch (bool): checks whether the rotor is currently on the notch or not.
 
 ### Rotor().\_\_repr\_\_
 

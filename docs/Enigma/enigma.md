@@ -1,30 +1,28 @@
-<!-- @format -->
-
 # Enigma
 
 > Auto-generated documentation for [Enigma.enigma](blob/master/Enigma/enigma.py) module.
 
--   [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Enigma
-    -   [Enigma](#enigma)
-        -   [Enigma().\_\_repr\_\_](#enigma__repr__)
-        -   [Enigma().advanceRotor](#enigmaadvancerotor)
-        -   [Enigma().applySettings](#enigmaapplysettings)
-        -   [Enigma().applyplugboard](#enigmaapplyplugboard)
-        -   [Enigma().changeEncSettings](#enigmachangeencsettings)
-        -   [Enigma().decipher](#enigmadecipher)
-        -   [Enigma().encipher](#enigmaencipher)
-        -   [Enigma().encryptChar](#enigmaencryptchar)
-        -   [Enigma.encsettingCheck](#enigmaencsettingcheck)
-        -   [Enigma.plugboardCheck](#enigmaplugboardcheck)
-        -   [Enigma.reflectorCheck](#enigmareflectorcheck)
-        -   [Enigma().resetSettings](#enigmaresetsettings)
-        -   [Enigma.ringsetCheck](#enigmaringsetcheck)
-        -   [Enigma.rotorsCheck](#enigmarotorscheck)
-        -   [Enigma().setDupeRot](#enigmasetduperot)
-        -   [Enigma().setReflector](#enigmasetreflector)
-        -   [Enigma().setRotor](#enigmasetrotor)
-        -   [Enigma().spawnRotorInstances](#enigmaspawnrotorinstances)
-        -   [Enigma.startposCheck](#enigmastartposcheck)
+- [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Enigma
+    - [Enigma](#enigma)
+        - [Enigma().\_\_repr\_\_](#enigma__repr__)
+        - [Enigma().advanceRotor](#enigmaadvancerotor)
+        - [Enigma().applySettings](#enigmaapplysettings)
+        - [Enigma().applyplugboard](#enigmaapplyplugboard)
+        - [Enigma().changeEncSettings](#enigmachangeencsettings)
+        - [Enigma().decipher](#enigmadecipher)
+        - [Enigma().encipher](#enigmaencipher)
+        - [Enigma().encryptChar](#enigmaencryptchar)
+        - [Enigma.encsettingCheck](#enigmaencsettingcheck)
+        - [Enigma.plugboardCheck](#enigmaplugboardcheck)
+        - [Enigma.reflectorCheck](#enigmareflectorcheck)
+        - [Enigma().resetSettings](#enigmaresetsettings)
+        - [Enigma.ringsetCheck](#enigmaringsetcheck)
+        - [Enigma.rotorsCheck](#enigmarotorscheck)
+        - [Enigma().setDupeRot](#enigmasetduperot)
+        - [Enigma().setReflector](#enigmasetreflector)
+        - [Enigma().setRotor](#enigmasetrotor)
+        - [Enigma().spawnRotorInstances](#enigmaspawnrotorinstances)
+        - [Enigma.startposCheck](#enigmastartposcheck)
 
 ## Enigma
 
@@ -58,43 +56,41 @@ factors that would change the output cipher
 
 #### Attributes
 
--   `start_pos` _Union[tuple[str, str, str], list[str]]_: refers to the rotors start positions, which consists of 3 characters ex:('F','G','B').
--   `rotors` _Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]_: specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
--   `reflector` _str_ - specifies the reflector used More can be specified using the `addCustReflect` method
--   `ring_setting` _Union[tuple[str, str, str], list[str]]_: refers to the ring settings and consists of 3 characters ex:('F','G','B')
--   `plugboard` _list[tuple[str, str]]_: specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
--   `enc_nums` _int_ - specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
--   `enc_capitals` _int_ - specifies whether capitals should be ignored (0), encrypted (1)
--   `enc_special` _int_ - specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
--   `enc_whitesp` _int_ - specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
+start_pos (Union[tuple[str, str, str], list[str]]): refers to the rotors start positions, which consists of 3 characters ex:('F','G','B').
+rotors (Union[tuple[int, int, int], list[int], tuple[str, str, str], list[str]]): specifies the rotors used and their order. There are 8 possible rotors labeled from 1 through 8. More rotors can be added using the `addCustRotor` method
+- `reflector` *str* - specifies the reflector used More can be specified using the `addCustReflect` method
+ring_setting (Union[tuple[str, str, str], list[str]]): refers to the ring settings and consists of 3 characters ex:('F','G','B')
+plugboard (list[tuple[str, str]]): specifies the plugboard settings, indicating which characters are mapped to eachother. Consists of max 10 tuples of 2-tuples
+- `enc_nums` *int* - specifies whether numbers should be ignored (0), encrypted (1) or removed (2)
+- `enc_capitals` *int* - specifies whether capitals should be ignored (0), encrypted (1)
+- `enc_special` *int* - specifies whether special characters should be ignored (0), encrypted (1) or removed (2)
+- `enc_whitesp` *int* - specifies whether spaces should be ignored (0), encrypted (1) or removed (2)
 
 #### Examples
 
-```python
-Enigma(
-start_pos=("A", "A", "A"),
-rotors=(1, 2, 3),
-reflector="B",
-ring_setting=("A", "A", "A"),
-plugboard=[
-("P", "O"),
-("M", "L"),
-("I", "U"),
-("K", "J"),
-("N", "H"),
-("Y", "T"),
-("G", "B"),
-("V", "F"),
-("R", "E"),
-("D", "C"),
-],
-enc_nums= 0,
-enc_capitals= 0,
-enc_special= 0,
-enc_whitesp= 0,
-duperot_instance= Flase,
+machine = Enigma(
+    start_pos=("A", "A", "A"),
+    rotors=(1, 2, 3),
+    reflector="B",
+    ring_setting=("A", "A", "A"),
+    plugboard=[
+        ("P", "O"),
+        ("M", "L"),
+        ("I", "U"),
+        ("K", "J"),
+        ("N", "H"),
+        ("Y", "T"),
+        ("G", "B"),
+        ("V", "F"),
+        ("R", "E"),
+        ("D", "C"),
+    ],
+    enc_nums= 0,
+    enc_capitals= 0,
+    enc_special= 0,
+    enc_whitesp= 0,
+    duperot_instance= Flase,
 )
-```
 
 ### Enigma().\_\_repr\_\_
 
@@ -300,7 +296,7 @@ Spawns a rotor instance
 
 #### See also
 
--   [Rotor](rotor.md#rotor)
+- [Rotor](rotor.md#rotor)
 
 ### Enigma.startposCheck
 

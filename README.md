@@ -104,7 +104,7 @@ machine = Enigma(
 )
 ```
 
-See [Developer documentation](https://acelxrd95.github.io/Engima-Machine-Python/) for more details.
+Full Enigma machine project documentation can be found in [Modules](MODULES.md#enigma-machine-modules)
 
 # Running-the-tests
 
