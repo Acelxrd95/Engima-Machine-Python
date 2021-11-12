@@ -58,10 +58,7 @@ class Rotor:
 
     @property
     def check_notch(self) -&gt; bool:
-        if n2c(self.curr_pos) in self.notch:
-            return True
-        else:
-            return False
+        return n2c(self.curr_pos) in self.notch
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
@@ -81,7 +78,6 @@ class Rotor:
         Reset the rotor to its initial position.
         &#34;&#34;&#34;
         self.shiftPosition(self.abs_pos)
-        pass
 
     def changeRingsett(self, pos: int) -&gt; None:
         &#34;&#34;&#34;
@@ -158,10 +154,7 @@ class Rotor:
 
     @property
     def check_notch(self) -&gt; bool:
-        if n2c(self.curr_pos) in self.notch:
-            return True
-        else:
-            return False
+        return n2c(self.curr_pos) in self.notch
 
     def __repr__(self) -&gt; str:
         &#34;&#34;&#34;
@@ -181,7 +174,6 @@ class Rotor:
         Reset the rotor to its initial position.
         &#34;&#34;&#34;
         self.shiftPosition(self.abs_pos)
-        pass
 
     def changeRingsett(self, pos: int) -&gt; None:
         &#34;&#34;&#34;
@@ -226,10 +218,7 @@ def abs_pos(self) -&gt; int:
 </summary>
 <pre><code class="python">@property
 def check_notch(self) -&gt; bool:
-    if n2c(self.curr_pos) in self.notch:
-        return True
-    else:
-        return False</code></pre>
+    return n2c(self.curr_pos) in self.notch</code></pre>
 </details>
 </dd>
 </dl>
@@ -267,8 +256,7 @@ def check_notch(self) -&gt; bool:
     &#34;&#34;&#34;
     Reset the rotor to its initial position.
     &#34;&#34;&#34;
-    self.shiftPosition(self.abs_pos)
-    pass</code></pre>
+    self.shiftPosition(self.abs_pos)</code></pre>
 </details>
 </dd>
 <dt id="Enigma.rotor.Rotor.shiftPosition"><code class="name flex">

@@ -24,7 +24,7 @@ class Array:
             raise TypeError("Array type must be type object")
         if not isinstance(size, int):
             raise TypeError("Array size must be an integer")
-        if not size > 0:
+        if size <= 0:
             raise ValueError("Array size must be greater than 0")
 
         if values:
@@ -34,7 +34,7 @@ class Array:
                 raise ValueError(
                     "array size must be equal to or larger than values inserted"
                 )
-            elif size == 1:
+            if size == 1:
                 size = len(values)
 
         self.size: int = size
@@ -76,8 +76,7 @@ class Array:
         if self.count > self.itemcount:
             self.count = 0
             raise StopIteration
-        else:
-            return self.count - 1
+        return self.count - 1
 
     def __eq__(self, other: Any) -> bool:
         """
@@ -93,13 +92,11 @@ class Array:
         """
         if type(i) is int:
             return self.elements[i]
-        elif type(i) is slice:
+        if type(i) is slice:
             return self.elements[i]
-            # return Array(self.type,len(self.elements[i]),self.elements[i])
-        else:
-            raise TypeError(
-                f"Array indices must be integers or slices, not {type(i).__name__}"
-            )
+        raise TypeError(
+            f"Array indices must be integers or slices, not {type(i).__name__}"
+        )
 
     def __setitem__(self, index: int, value: Any) -> None:
         if not isinstance(index, int):
@@ -159,7 +156,6 @@ class Array:
             returnval = self.elements[index]
             for i in range(index, self.itemcount):
                 self.elements[i] = self.elements[i + 1]
-                pass
         self.itemcount -= 1
         self.elements[self.itemcount] = None
         return returnval
@@ -213,7 +209,9 @@ class Map:
         values (:obj:`dict`): values passed to the map. Defaults to None.
     """
 
-    def __init__(self, values: Mapping = {}) -> None:
+    def __init__(self, values: Mapping = None) -> None:
+        if values is None:
+            values = {}
         self._keys: list = []
         self._values: list = []
         if not isinstance(values, Mapping):
@@ -278,10 +276,12 @@ class Map:
         """
         return key in self._keys
 
-    def update(self, item: Mapping = {}) -> None:
+    def update(self, item: Mapping = None) -> None:
         """
         Adds a new item to the map
         """
+        if item is None:
+            item = {}
         if not isinstance(item, Mapping):
             raise TypeError("Item must be an instance of Mapping")
         for key, val in item.items():

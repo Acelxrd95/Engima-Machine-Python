@@ -52,7 +52,7 @@ class Array:
             raise TypeError(&#34;Array type must be type object&#34;)
         if not isinstance(size, int):
             raise TypeError(&#34;Array size must be an integer&#34;)
-        if not size &gt; 0:
+        if size &lt;= 0:
             raise ValueError(&#34;Array size must be greater than 0&#34;)
 
         if values:
@@ -62,7 +62,7 @@ class Array:
                 raise ValueError(
                     &#34;array size must be equal to or larger than values inserted&#34;
                 )
-            elif size == 1:
+            if size == 1:
                 size = len(values)
 
         self.size: int = size
@@ -104,8 +104,7 @@ class Array:
         if self.count &gt; self.itemcount:
             self.count = 0
             raise StopIteration
-        else:
-            return self.count - 1
+        return self.count - 1
 
     def __eq__(self, other: Any) -&gt; bool:
         &#34;&#34;&#34;
@@ -121,13 +120,11 @@ class Array:
         &#34;&#34;&#34;
         if type(i) is int:
             return self.elements[i]
-        elif type(i) is slice:
+        if type(i) is slice:
             return self.elements[i]
-            # return Array(self.type,len(self.elements[i]),self.elements[i])
-        else:
-            raise TypeError(
-                f&#34;Array indices must be integers or slices, not {type(i).__name__}&#34;
-            )
+        raise TypeError(
+            f&#34;Array indices must be integers or slices, not {type(i).__name__}&#34;
+        )
 
     def __setitem__(self, index: int, value: Any) -&gt; None:
         if not isinstance(index, int):
@@ -187,7 +184,6 @@ class Array:
             returnval = self.elements[index]
             for i in range(index, self.itemcount):
                 self.elements[i] = self.elements[i + 1]
-                pass
         self.itemcount -= 1
         self.elements[self.itemcount] = None
         return returnval
@@ -241,7 +237,9 @@ class Map:
         values (:obj:`dict`): values passed to the map. Defaults to None.
     &#34;&#34;&#34;
 
-    def __init__(self, values: Mapping = {}) -&gt; None:
+    def __init__(self, values: Mapping = None) -&gt; None:
+        if values is None:
+            values = {}
         self._keys: list = []
         self._values: list = []
         if not isinstance(values, Mapping):
@@ -306,10 +304,12 @@ class Map:
         &#34;&#34;&#34;
         return key in self._keys
 
-    def update(self, item: Mapping = {}) -&gt; None:
+    def update(self, item: Mapping = None) -&gt; None:
         &#34;&#34;&#34;
         Adds a new item to the map
         &#34;&#34;&#34;
+        if item is None:
+            item = {}
         if not isinstance(item, Mapping):
             raise TypeError(&#34;Item must be an instance of Mapping&#34;)
         for key, val in item.items():
@@ -395,7 +395,7 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
             raise TypeError(&#34;Array type must be type object&#34;)
         if not isinstance(size, int):
             raise TypeError(&#34;Array size must be an integer&#34;)
-        if not size &gt; 0:
+        if size &lt;= 0:
             raise ValueError(&#34;Array size must be greater than 0&#34;)
 
         if values:
@@ -405,7 +405,7 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
                 raise ValueError(
                     &#34;array size must be equal to or larger than values inserted&#34;
                 )
-            elif size == 1:
+            if size == 1:
                 size = len(values)
 
         self.size: int = size
@@ -447,8 +447,7 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
         if self.count &gt; self.itemcount:
             self.count = 0
             raise StopIteration
-        else:
-            return self.count - 1
+        return self.count - 1
 
     def __eq__(self, other: Any) -&gt; bool:
         &#34;&#34;&#34;
@@ -464,13 +463,11 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
         &#34;&#34;&#34;
         if type(i) is int:
             return self.elements[i]
-        elif type(i) is slice:
+        if type(i) is slice:
             return self.elements[i]
-            # return Array(self.type,len(self.elements[i]),self.elements[i])
-        else:
-            raise TypeError(
-                f&#34;Array indices must be integers or slices, not {type(i).__name__}&#34;
-            )
+        raise TypeError(
+            f&#34;Array indices must be integers or slices, not {type(i).__name__}&#34;
+        )
 
     def __setitem__(self, index: int, value: Any) -&gt; None:
         if not isinstance(index, int):
@@ -530,7 +527,6 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
             returnval = self.elements[index]
             for i in range(index, self.itemcount):
                 self.elements[i] = self.elements[i + 1]
-                pass
         self.itemcount -= 1
         self.elements[self.itemcount] = None
         return returnval
@@ -694,7 +690,6 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
         returnval = self.elements[index]
         for i in range(index, self.itemcount):
             self.elements[i] = self.elements[i + 1]
-            pass
     self.itemcount -= 1
     self.elements[self.itemcount] = None
     return returnval</code></pre>
@@ -729,7 +724,7 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
 </dd>
 <dt id="Enigma.datastructs.Map"><code class="flex name class">
 <span>class <span class="ident">Map</span></span>
-<span>(</span><span>values: Mapping = {})</span>
+<span>(</span><span>values: Mapping = None)</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Custom map data structure</p>
@@ -747,7 +742,9 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
         values (:obj:`dict`): values passed to the map. Defaults to None.
     &#34;&#34;&#34;
 
-    def __init__(self, values: Mapping = {}) -&gt; None:
+    def __init__(self, values: Mapping = None) -&gt; None:
+        if values is None:
+            values = {}
         self._keys: list = []
         self._values: list = []
         if not isinstance(values, Mapping):
@@ -812,10 +809,12 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
         &#34;&#34;&#34;
         return key in self._keys
 
-    def update(self, item: Mapping = {}) -&gt; None:
+    def update(self, item: Mapping = None) -&gt; None:
         &#34;&#34;&#34;
         Adds a new item to the map
         &#34;&#34;&#34;
+        if item is None:
+            item = {}
         if not isinstance(item, Mapping):
             raise TypeError(&#34;Item must be an instance of Mapping&#34;)
         for key, val in item.items():
@@ -911,7 +910,7 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
 </details>
 </dd>
 <dt id="Enigma.datastructs.Map.update"><code class="name flex">
-<span>def <span class="ident">update</span></span>(<span>self, item: Mapping = {}) ‑> None</span>
+<span>def <span class="ident">update</span></span>(<span>self, item: Mapping = None) ‑> None</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Adds a new item to the map</p></div>
@@ -919,10 +918,12 @@ values (:obj:<code>MutableSequence</code>): values passed to the array. Defaults
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def update(self, item: Mapping = {}) -&gt; None:
+<pre><code class="python">def update(self, item: Mapping = None) -&gt; None:
     &#34;&#34;&#34;
     Adds a new item to the map
     &#34;&#34;&#34;
+    if item is None:
+        item = {}
     if not isinstance(item, Mapping):
         raise TypeError(&#34;Item must be an instance of Mapping&#34;)
     for key, val in item.items():

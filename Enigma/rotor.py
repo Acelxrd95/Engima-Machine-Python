@@ -30,10 +30,7 @@ class Rotor:
 
     @property
     def check_notch(self) -> bool:
-        if n2c(self.curr_pos) in self.notch:
-            return True
-        else:
-            return False
+        return n2c(self.curr_pos) in self.notch
 
     def __repr__(self) -> str:
         """
@@ -53,7 +50,6 @@ class Rotor:
         Reset the rotor to its initial position.
         """
         self.shiftPosition(self.abs_pos)
-        pass
 
     def changeRingsett(self, pos: int) -> None:
         """

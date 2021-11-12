@@ -95,10 +95,7 @@ def isspecial(char: str) -> bool:
     """
     Checks whether the given character is an allowed special characters
     """
-    if char in sp_dict.keys():
-        return True
-    else:
-        return False
+    return char in sp_dict.keys()
 
 
 def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -> str:
@@ -158,8 +155,6 @@ def transformsp(char: str, settings: Array = Array(int, values=[1, 1, 1, 1])) ->
             char = sp2norm(char[0]) + char[1:-1] + sp2norm(char[-1])
         else:
             char = sp2norm(char[0], settings[2], settings[3]) + char[1:]
-    else:
-        char = char
     return char
 
 

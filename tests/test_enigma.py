@@ -98,7 +98,7 @@ class EnsureCipher(unittest.TestCase):
         reflect_test = random.choice(["A", "B", "C"])
         ring_test = []
         stckr_test = []
-        for i in range(3):
+        for _ in range(3):
             settin_test.append(random.choice(alphali))
             rot_test.append(random.randint(1, 8))
             ring_test.append(random.choice(alphali))

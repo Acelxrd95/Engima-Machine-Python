@@ -129,7 +129,6 @@ class Enigma:
         """
         Resets the settings for the enigma machine to the settings it was initialized with
         """
-        self.initsettings
         self.__init__(*self.initsettings)
 
     def applySettings(self, reset: bool = False) -> None:
@@ -212,7 +211,7 @@ class Enigma:
                 elif not ring.isalpha():
                     raise ValueError("The ring setting must a letter between A and Z")
             if isinstance(ring, int):
-                if not ring > 0 and ring <= 26:
+                if ring <= 0 or ring >= 26:
                     raise ValueError(
                         "The ring setting must be between 1 and 26 inclusive"
                     )
@@ -310,7 +309,8 @@ class Enigma:
         self.reflectorCheck(reflectr)
         self.reflector = reflectr
 
-    def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal["Z"]]) -> Rotor:
+    @staticmethod
+    def spawnRotorInstances(key: str, notch: Union[tuple, Literal["Z"]]) -> Rotor:
         """
         Spawns a rotor instance
         """
@@ -334,7 +334,6 @@ class Enigma:
             self.enc_settings[2] = enc_special
         if enc_whitesp is not None:
             self.enc_settings[3] = enc_whitesp
-        pass
 
     def advanceRotor(self) -> None:
         """
@@ -357,7 +356,7 @@ class Enigma:
             for l1, l2 in self.plugboard:
                 if char == l1:
                     return l2
-                elif char == l2:
+                if char == l2:
                     return l1
         return char
 
@@ -380,8 +379,6 @@ class Enigma:
 
         # NOTE backward encipher
         for i in range(3):
-            if eChar == 23:
-                pass
             offset = self.rotors[i].abs_pos
             eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
             # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding

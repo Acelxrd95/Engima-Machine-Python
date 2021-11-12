@@ -157,7 +157,6 @@ class Enigma:
         &#34;&#34;&#34;
         Resets the settings for the enigma machine to the settings it was initialized with
         &#34;&#34;&#34;
-        self.initsettings
         self.__init__(*self.initsettings)
 
     def applySettings(self, reset: bool = False) -&gt; None:
@@ -240,7 +239,7 @@ class Enigma:
                 elif not ring.isalpha():
                     raise ValueError(&#34;The ring setting must a letter between A and Z&#34;)
             if isinstance(ring, int):
-                if not ring &gt; 0 and ring &lt;= 26:
+                if ring &lt;= 0 or ring &gt;= 26:
                     raise ValueError(
                         &#34;The ring setting must be between 1 and 26 inclusive&#34;
                     )
@@ -338,7 +337,8 @@ class Enigma:
         self.reflectorCheck(reflectr)
         self.reflector = reflectr
 
-    def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
+    @staticmethod
+    def spawnRotorInstances(key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
         &#34;&#34;&#34;
         Spawns a rotor instance
         &#34;&#34;&#34;
@@ -362,7 +362,6 @@ class Enigma:
             self.enc_settings[2] = enc_special
         if enc_whitesp is not None:
             self.enc_settings[3] = enc_whitesp
-        pass
 
     def advanceRotor(self) -&gt; None:
         &#34;&#34;&#34;
@@ -385,7 +384,7 @@ class Enigma:
             for l1, l2 in self.plugboard:
                 if char == l1:
                     return l2
-                elif char == l2:
+                if char == l2:
                     return l1
         return char
 
@@ -408,8 +407,6 @@ class Enigma:
 
         # NOTE backward encipher
         for i in range(3):
-            if eChar == 23:
-                pass
             offset = self.rotors[i].abs_pos
             eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
             # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
@@ -647,7 +644,6 @@ duperot_instance= Flase,
         &#34;&#34;&#34;
         Resets the settings for the enigma machine to the settings it was initialized with
         &#34;&#34;&#34;
-        self.initsettings
         self.__init__(*self.initsettings)
 
     def applySettings(self, reset: bool = False) -&gt; None:
@@ -730,7 +726,7 @@ duperot_instance= Flase,
                 elif not ring.isalpha():
                     raise ValueError(&#34;The ring setting must a letter between A and Z&#34;)
             if isinstance(ring, int):
-                if not ring &gt; 0 and ring &lt;= 26:
+                if ring &lt;= 0 or ring &gt;= 26:
                     raise ValueError(
                         &#34;The ring setting must be between 1 and 26 inclusive&#34;
                     )
@@ -828,7 +824,8 @@ duperot_instance= Flase,
         self.reflectorCheck(reflectr)
         self.reflector = reflectr
 
-    def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
+    @staticmethod
+    def spawnRotorInstances(key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
         &#34;&#34;&#34;
         Spawns a rotor instance
         &#34;&#34;&#34;
@@ -852,7 +849,6 @@ duperot_instance= Flase,
             self.enc_settings[2] = enc_special
         if enc_whitesp is not None:
             self.enc_settings[3] = enc_whitesp
-        pass
 
     def advanceRotor(self) -&gt; None:
         &#34;&#34;&#34;
@@ -875,7 +871,7 @@ duperot_instance= Flase,
             for l1, l2 in self.plugboard:
                 if char == l1:
                     return l2
-                elif char == l2:
+                if char == l2:
                     return l1
         return char
 
@@ -898,8 +894,6 @@ duperot_instance= Flase,
 
         # NOTE backward encipher
         for i in range(3):
-            if eChar == 23:
-                pass
             offset = self.rotors[i].abs_pos
             eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
             # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
@@ -1056,7 +1050,7 @@ def ringsetCheck(ring_setting: Union[MutableSequence, tuple]) -&gt; None:
             elif not ring.isalpha():
                 raise ValueError(&#34;The ring setting must a letter between A and Z&#34;)
         if isinstance(ring, int):
-            if not ring &gt; 0 and ring &lt;= 26:
+            if ring &lt;= 0 or ring &gt;= 26:
                 raise ValueError(
                     &#34;The ring setting must be between 1 and 26 inclusive&#34;
                 )
@@ -1091,6 +1085,23 @@ def rotorsCheck(rotors: Union[MutableSequence, tuple]) -&gt; None:
             and str(roman2den(rot)) not in storage.rotors
         ):
             raise KeyError(f&#34;The rotor {rot} is not a valid rotor id&#34;)</code></pre>
+</details>
+</dd>
+<dt id="Enigma.enigma.Enigma.spawnRotorInstances"><code class="name flex">
+<span>def <span class="ident">spawnRotorInstances</span></span>(<span>key: str, notch: Union[tuple, Literal['Z']]) ‑> <a title="Enigma.rotor.Rotor" href="rotor.html#Enigma.rotor.Rotor">Rotor</a></span>
+</code></dt>
+<dd>
+<div class="desc"><p>Spawns a rotor instance</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@staticmethod
+def spawnRotorInstances(key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
+    &#34;&#34;&#34;
+    Spawns a rotor instance
+    &#34;&#34;&#34;
+    return Rotor(key, notch)</code></pre>
 </details>
 </dd>
 <dt id="Enigma.enigma.Enigma.startposCheck"><code class="name flex">
@@ -1195,7 +1206,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
         for l1, l2 in self.plugboard:
             if char == l1:
                 return l2
-            elif char == l2:
+            if char == l2:
                 return l1
     return char</code></pre>
 </details>
@@ -1226,8 +1237,7 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     if enc_special is not None:
         self.enc_settings[2] = enc_special
     if enc_whitesp is not None:
-        self.enc_settings[3] = enc_whitesp
-    pass</code></pre>
+        self.enc_settings[3] = enc_whitesp</code></pre>
 </details>
 </dd>
 <dt id="Enigma.enigma.Enigma.decipher"><code class="name flex">
@@ -1306,8 +1316,6 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
 
     # NOTE backward encipher
     for i in range(3):
-        if eChar == 23:
-            pass
         offset = self.rotors[i].abs_pos
         eChar = int(self.rotors[i].tyre.index(n2c(eChar + offset)))
         # print(n2c(eChar), eChar % 26, self.rotors[self.rotors[i]].abs_pos) DEV debuging character encoding
@@ -1331,7 +1339,6 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
     &#34;&#34;&#34;
     Resets the settings for the enigma machine to the settings it was initialized with
     &#34;&#34;&#34;
-    self.initsettings
     self.__init__(*self.initsettings)</code></pre>
 </details>
 </dd>
@@ -1408,22 +1415,6 @@ def startposCheck(start_pos: Union[MutableSequence, tuple]) -&gt; None:
         rotkey = storage.rotors[i][&#34;key&#34;]
         rotnotch = storage.rotors[i][&#34;notch&#34;]
         self.rotors.insert(self.spawnRotorInstances(rotkey, rotnotch))</code></pre>
-</details>
-</dd>
-<dt id="Enigma.enigma.Enigma.spawnRotorInstances"><code class="name flex">
-<span>def <span class="ident">spawnRotorInstances</span></span>(<span>self, key: str, notch: Union[tuple, Literal['Z']]) ‑> <a title="Enigma.rotor.Rotor" href="rotor.html#Enigma.rotor.Rotor">Rotor</a></span>
-</code></dt>
-<dd>
-<div class="desc"><p>Spawns a rotor instance</p></div>
-<details class="source">
-<summary>
-<span>Expand source code</span>
-</summary>
-<pre><code class="python">def spawnRotorInstances(self, key: str, notch: Union[tuple, Literal[&#34;Z&#34;]]) -&gt; Rotor:
-    &#34;&#34;&#34;
-    Spawns a rotor instance
-    &#34;&#34;&#34;
-    return Rotor(key, notch)</code></pre>
 </details>
 </dd>
 </dl>

@@ -46,8 +46,7 @@ def addCustomRotor(
                 raise Exception(
                     f"There letter {k} was found as dupelicate the key provided"
                 )
-            else:
-                tmpkey.append(k)
+            tmpkey.append(k)
     if len(notch) < 1:
         raise Exception("There must be at least one Notch key")
     if isinstance(notch, str) and len(notch) >= 2:
@@ -77,6 +76,5 @@ def addCustomReflector(reflector_id: str, key: str, allowdupes: bool = False) ->
                 raise Exception(
                     f"There letter {k} was found as dupelicatein the key provided"
                 )
-            else:
-                tmpkey.append(k)
+            tmpkey.append(k)
     reflectors.update({reflector_id: key})
