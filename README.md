@@ -1,6 +1,6 @@
 <!-- @format -->
 
-# Engima-Machine-Python
+# Enigma-Machine-Python
 
 This project is a software implementation for the Enigma encryption machine used by the German military in World War II. The Enigma encryption is a type of substitution cipher where a character is passed through a few parameters in order to encrypt it to another character, but the power of the enigma as opposed to for example a Caesar cipher is that typing the same letter results in a different output due to the encryption of the letters dependant on the rotor’s chosen, their positions, their ring settings and the plugboard wiring. All these are factors that would change the output cipher
 
@@ -34,9 +34,10 @@ This project is a software implementation for the Enigma encryption machine used
 # Installation
 
 1. clone repository from github using \
-   `git clone`https://github.com/Acelxrd95/Engima-Machine-Python.git
-2. run `python setup.py install`
-3. run tests with `python tests/test_enigma.py` to make sure that dependancies are up to date
+   `git clone`https://github.com/Acelxrd95/Enigma-Machine-Python.git
+2. cd into the directory by using `cd Enigma-Machine-Python`
+3. run `python setup.py install`
+4. run tests with `python tests/test_enigma.py` to make sure that dependancies are up to date
 
 # Usage
 
