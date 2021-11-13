@@ -17,7 +17,7 @@ class Rotor:
     """
 
     def __init__(self, tyre: str, notch: Union[str, tuple[str, ...]]) -> None:
-        if 26 != len(tyre):
+        if len(tyre) != 26:
             print("Rotor Tyre must be equal to Alphabets entered")
         self.tyre = Array(str, values=tyre)
         self.notch = Array(str, values=notch)
