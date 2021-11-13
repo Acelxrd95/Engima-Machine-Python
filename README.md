@@ -36,7 +36,7 @@ This project is a software implementation for the Enigma encryption machine used
 1. clone repository from github using \
    `git clone`https://github.com/Acelxrd95/Enigma-Machine-Python.git
 2. cd into the directory by using `cd Enigma-Machine-Python`
-3. run `python setup.py install`
+3. run `pip install .`
 4. run tests with `python tests/test_enigma.py` to make sure that dependancies are up to date
 
 # Usage
