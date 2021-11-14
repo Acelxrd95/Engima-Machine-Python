@@ -2,15 +2,13 @@
 
 # Enigma machine Modules
 
-> Auto-generated documentation modules index.
-
-Full list of [Enigma machine](README.md#enigma-machine-index) project modules.
-
--   [Enigma machine Index](README.md#enigma-machine-index)
--   [Enigma](Enigma/index.md#enigma)
-    -   [Cli](Enigma/cli.md#cli)
-    -   [Datastructs](Enigma/datastructs.md#datastructs)
-    -   [Enigma](Enigma/enigma.md#enigma)
-    -   [Rotor](Enigma/rotor.md#rotor)
-    -   [Storage](Enigma/storage.md#storage)
-    -   [Utils](Enigma/utils.md#utils)
+-   [Enigma machine Index](#enigma-machine-python)
+-   [Enigma-Machine-Python](#enigma-machine-python)
+-   [Table-of-Contents](#table-of-contents)
+-   [Demo-Preview](#demo-preview)
+-   [Features](#features)
+-   [Prerequisite](#prerequisite)
+-   [Installation](#installation)
+-   [Usage](#usage)
+-   [Running-the-tests](#running-the-tests)
+    -   [Enigma machine Modules](MODULES.md#enigma-machine-modules)

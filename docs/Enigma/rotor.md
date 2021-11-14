@@ -4,7 +4,7 @@
 
 > Auto-generated documentation for [Enigma.rotor](blob/master/Enigma/rotor.py) module.
 
--   [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Rotor
+-   [Enigma machine](..\README.md#enigma-machine-python) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Rotor
     -   [Rotor](#rotor)
         -   [Rotor().\_\_repr\_\_](#rotor__repr__)
         -   [Rotor().abs_pos](#rotorabs_pos)
@@ -35,7 +35,7 @@ The Enigma rotors consist of a couple of settings and properties.
 
 ### Rotor().\_\_repr\_\_
 
-[[find in source code]](blob/master/Enigma/rotor.py#L38)
+[[find in source code]](blob/master/Enigma/rotor.py#L35)
 
 ```python
 def __repr__() -> str:
@@ -54,7 +54,7 @@ def abs_pos() -> int:
 
 ### Rotor().changeRingsett
 
-[[find in source code]](blob/master/Enigma/rotor.py#L58)
+[[find in source code]](blob/master/Enigma/rotor.py#L54)
 
 ```python
 def changeRingsett(pos: int) -> None:
@@ -73,7 +73,7 @@ def check_notch() -> bool:
 
 ### Rotor().reset
 
-[[find in source code]](blob/master/Enigma/rotor.py#L51)
+[[find in source code]](blob/master/Enigma/rotor.py#L48)
 
 ```python
 def reset():
@@ -83,7 +83,7 @@ Reset the rotor to its initial position.
 
 ### Rotor().shiftPosition
 
-[[find in source code]](blob/master/Enigma/rotor.py#L67)
+[[find in source code]](blob/master/Enigma/rotor.py#L63)
 
 ```python
 def shiftPosition(pos: int, dirct: int = 1) -> None:

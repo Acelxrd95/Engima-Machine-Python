@@ -4,7 +4,7 @@
 
 > Auto-generated documentation for [Enigma.enigma](blob/master/Enigma/enigma.py) module.
 
--   [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Enigma
+-   [Enigma machine](..\README.md#enigma-machine-python) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Enigma
     -   [Enigma](#enigma)
         -   [Enigma().\_\_repr\_\_](#enigma__repr__)
         -   [Enigma().advanceRotor](#enigmaadvancerotor)
@@ -23,7 +23,7 @@
         -   [Enigma().setDupeRot](#enigmasetduperot)
         -   [Enigma().setReflector](#enigmasetreflector)
         -   [Enigma().setRotor](#enigmasetrotor)
-        -   [Enigma().spawnRotorInstances](#enigmaspawnrotorinstances)
+        -   [Enigma.spawnRotorInstances](#enigmaspawnrotorinstances)
         -   [Enigma.startposCheck](#enigmastartposcheck)
 
 ## Enigma
@@ -108,7 +108,7 @@ Returns the current rotor position's string representation.
 
 ### Enigma().advanceRotor
 
-[[find in source code]](blob/master/Enigma/enigma.py#L339)
+[[find in source code]](blob/master/Enigma/enigma.py#L338)
 
 ```python
 def advanceRotor() -> None:
@@ -118,7 +118,7 @@ Advances the rotors acording to the notch and their positions
 
 ### Enigma().applySettings
 
-[[find in source code]](blob/master/Enigma/enigma.py#L135)
+[[find in source code]](blob/master/Enigma/enigma.py#L134)
 
 ```python
 def applySettings(reset: bool = False) -> None:
@@ -128,7 +128,7 @@ Applies the settings to the individual components of the enigma
 
 ### Enigma().applyplugboard
 
-[[find in source code]](blob/master/Enigma/enigma.py#L352)
+[[find in source code]](blob/master/Enigma/enigma.py#L351)
 
 ```python
 def applyplugboard(char: str) -> str:
@@ -153,7 +153,7 @@ Allows the user to change the encryption settings for enc_nums, enc_capitals, en
 
 ### Enigma().decipher
 
-[[find in source code]](blob/master/Enigma/enigma.py#L416)
+[[find in source code]](blob/master/Enigma/enigma.py#L413)
 
 ```python
 def decipher(string: str) -> str:
@@ -163,7 +163,7 @@ Calls the [Enigma().encipher](#enigmaencipher) method to decipher the string the
 
 ### Enigma().encipher
 
-[[find in source code]](blob/master/Enigma/enigma.py#L394)
+[[find in source code]](blob/master/Enigma/enigma.py#L391)
 
 ```python
 def encipher(string: str, decipher: bool = False) -> str:
@@ -173,7 +173,7 @@ Loops on the string and if bool is false the string is sent to the `transformsp`
 
 ### Enigma().encryptChar
 
-[[find in source code]](blob/master/Enigma/enigma.py#L364)
+[[find in source code]](blob/master/Enigma/enigma.py#L363)
 
 ```python
 def encryptChar(char: str) -> str:
@@ -183,7 +183,7 @@ Loops the character on the selected rotors for encryption. Goes forward starting
 
 ### Enigma.encsettingCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L147)
+[[find in source code]](blob/master/Enigma/enigma.py#L146)
 
 ```python
 @staticmethod
@@ -199,7 +199,7 @@ Checks for the types of values in enc_nums, enc_capitals, enc_special and enc_wh
 
 ### Enigma.plugboardCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L180)
+[[find in source code]](blob/master/Enigma/enigma.py#L179)
 
 ```python
 @staticmethod
@@ -210,7 +210,7 @@ Checks for the types of values in the plugboard.
 
 ### Enigma.reflectorCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L224)
+[[find in source code]](blob/master/Enigma/enigma.py#L223)
 
 ```python
 @staticmethod
@@ -231,7 +231,7 @@ Resets the settings for the enigma machine to the settings it was initialized wi
 
 ### Enigma.ringsetCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L197)
+[[find in source code]](blob/master/Enigma/enigma.py#L196)
 
 ```python
 @staticmethod
@@ -242,7 +242,7 @@ Checks for the types of values in the ring settings.
 
 ### Enigma.rotorsCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L234)
+[[find in source code]](blob/master/Enigma/enigma.py#L233)
 
 ```python
 @staticmethod
@@ -263,7 +263,7 @@ Sets the duperot_instance setting which allows for rotors of the same instance t
 
 ### Enigma().setReflector
 
-[[find in source code]](blob/master/Enigma/enigma.py#L306)
+[[find in source code]](blob/master/Enigma/enigma.py#L305)
 
 ```python
 def setReflector(reflectr: str) -> None:
@@ -273,7 +273,7 @@ Setter for the reflector
 
 ### Enigma().setRotor
 
-[[find in source code]](blob/master/Enigma/enigma.py#L278)
+[[find in source code]](blob/master/Enigma/enigma.py#L277)
 
 ```python
 def setRotor(
@@ -285,11 +285,12 @@ def setRotor(
 
 Initializes the rotor instance
 
-### Enigma().spawnRotorInstances
+### Enigma.spawnRotorInstances
 
-[[find in source code]](blob/master/Enigma/enigma.py#L313)
+[[find in source code]](blob/master/Enigma/enigma.py#L312)
 
 ```python
+@staticmethod
 def spawnRotorInstances(
     key: str,
     notch: Union[(tuple, Literal['Z'])],
@@ -304,7 +305,7 @@ Spawns a rotor instance
 
 ### Enigma.startposCheck
 
-[[find in source code]](blob/master/Enigma/enigma.py#L251)
+[[find in source code]](blob/master/Enigma/enigma.py#L250)
 
 ```python
 @staticmethod

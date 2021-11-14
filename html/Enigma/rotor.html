@@ -45,7 +45,7 @@ class Rotor:
     &#34;&#34;&#34;
 
     def __init__(self, tyre: str, notch: Union[str, tuple[str, ...]]) -&gt; None:
-        if 26 != len(tyre):
+        if len(tyre) != 26:
             print(&#34;Rotor Tyre must be equal to Alphabets entered&#34;)
         self.tyre = Array(str, values=tyre)
         self.notch = Array(str, values=notch)
@@ -141,7 +141,7 @@ class Rotor:
     &#34;&#34;&#34;
 
     def __init__(self, tyre: str, notch: Union[str, tuple[str, ...]]) -&gt; None:
-        if 26 != len(tyre):
+        if len(tyre) != 26:
             print(&#34;Rotor Tyre must be equal to Alphabets entered&#34;)
         self.tyre = Array(str, values=tyre)
         self.notch = Array(str, values=notch)

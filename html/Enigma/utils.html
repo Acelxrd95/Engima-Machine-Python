@@ -126,7 +126,7 @@ def isspecial(char: str) -&gt; bool:
     return char in sp_dict.keys()
 
 
-def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -&gt; str:
+def sp2norm(char: str, sp_setting: int) -&gt; str:
     &#34;&#34;&#34;
     Replaces special characters with normal characters to allow encryption
     &#34;&#34;&#34;
@@ -135,7 +135,14 @@ def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -&gt; str:
             char = sp_dict[char]
         elif sp_setting == 2:
             char = &#34;&#34;
-    elif char.isspace():
+    return char
+
+
+def whsp2norm(char: str, whitesp_setting: int) -&gt; str:
+    &#34;&#34;&#34;
+    Replaces white spaces with normal characters to allow encryption
+    &#34;&#34;&#34;
+    if char.isspace():
         if whitesp_setting == 1:
             char = &#34;QYQ&#34;
         elif whitesp_setting == 2:
@@ -167,7 +174,7 @@ def up2low(char: str, setting: int) -&gt; str:
     return char
 
 
-def transformsp(char: str, settings: Array = Array(int, values=[1, 1, 1, 1])) -&gt; str:
+def transformsp(char: str, settings: Array) -&gt; str:
     &#34;&#34;&#34;
     Parses and transforms special characters to normal characters to allow encryption
     &#34;&#34;&#34;
@@ -178,11 +185,21 @@ def transformsp(char: str, settings: Array = Array(int, values=[1, 1, 1, 1])) -&
             char = up2low(char, settings[1])
     elif char.isnumeric():
         char = num2word(char, settings[0])
-    if char != &#34;&#34; and (isspecial(char[0]) or char.isspace()):
+    if isspecial(char[0]):
         if char[0] == &#34;$&#34;:
-            char = sp2norm(char[0]) + char[1:-1] + sp2norm(char[-1])
+            char = sp2norm(char[0], 1) + char[1:-1] + sp2norm(char[-1], 1)
         else:
-            char = sp2norm(char[0], settings[2], settings[3]) + char[1:]
+            char = sp2norm(char[0], settings[2]) + char[1:]
+    elif char.isspace():
+        char = whsp2norm(char[0], settings[3]) + char[1:]
+    if not (
+        char.isalpha()
+        or char.isnumeric()
+        or char.isspace()
+        or isspecial(char)
+        or char == &#34;&#34;
+    ):
+        raise ValueError(f&#34;{char} is not a valid character&#34;)
     return char
 
 
@@ -397,7 +414,7 @@ def rmspecial(word: str) -&gt; str:
 </details>
 </dd>
 <dt id="Enigma.utils.sp2norm"><code class="name flex">
-<span>def <span class="ident">sp2norm</span></span>(<span>char: str, sp_setting: int = 1, whitesp_setting: int = 1) ‑> str</span>
+<span>def <span class="ident">sp2norm</span></span>(<span>char: str, sp_setting: int) ‑> str</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Replaces special characters with normal characters to allow encryption</p></div>
@@ -405,7 +422,7 @@ def rmspecial(word: str) -&gt; str:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -&gt; str:
+<pre><code class="python">def sp2norm(char: str, sp_setting: int) -&gt; str:
     &#34;&#34;&#34;
     Replaces special characters with normal characters to allow encryption
     &#34;&#34;&#34;
@@ -414,16 +431,11 @@ def rmspecial(word: str) -&gt; str:
             char = sp_dict[char]
         elif sp_setting == 2:
             char = &#34;&#34;
-    elif char.isspace():
-        if whitesp_setting == 1:
-            char = &#34;QYQ&#34;
-        elif whitesp_setting == 2:
-            char = &#34;&#34;
     return char</code></pre>
 </details>
 </dd>
 <dt id="Enigma.utils.transformsp"><code class="name flex">
-<span>def <span class="ident">transformsp</span></span>(<span>char: str, settings: <a title="Enigma.datastructs.Array" href="datastructs.html#Enigma.datastructs.Array">Array</a> = &lt;Enigma.datastructs.Array object&gt;) ‑> str</span>
+<span>def <span class="ident">transformsp</span></span>(<span>char: str, settings: <a title="Enigma.datastructs.Array" href="datastructs.html#Enigma.datastructs.Array">Array</a>) ‑> str</span>
 </code></dt>
 <dd>
 <div class="desc"><p>Parses and transforms special characters to normal characters to allow encryption</p></div>
@@ -431,7 +443,7 @@ def rmspecial(word: str) -&gt; str:
 <summary>
 <span>Expand source code</span>
 </summary>
-<pre><code class="python">def transformsp(char: str, settings: Array = Array(int, values=[1, 1, 1, 1])) -&gt; str:
+<pre><code class="python">def transformsp(char: str, settings: Array) -&gt; str:
     &#34;&#34;&#34;
     Parses and transforms special characters to normal characters to allow encryption
     &#34;&#34;&#34;
@@ -442,11 +454,21 @@ def rmspecial(word: str) -&gt; str:
             char = up2low(char, settings[1])
     elif char.isnumeric():
         char = num2word(char, settings[0])
-    if char != &#34;&#34; and (isspecial(char[0]) or char.isspace()):
+    if isspecial(char[0]):
         if char[0] == &#34;$&#34;:
-            char = sp2norm(char[0]) + char[1:-1] + sp2norm(char[-1])
+            char = sp2norm(char[0], 1) + char[1:-1] + sp2norm(char[-1], 1)
         else:
-            char = sp2norm(char[0], settings[2], settings[3]) + char[1:]
+            char = sp2norm(char[0], settings[2]) + char[1:]
+    elif char.isspace():
+        char = whsp2norm(char[0], settings[3]) + char[1:]
+    if not (
+        char.isalpha()
+        or char.isnumeric()
+        or char.isspace()
+        or isspecial(char)
+        or char == &#34;&#34;
+    ):
+        raise ValueError(f&#34;{char} is not a valid character&#34;)
     return char</code></pre>
 </details>
 </dd>
@@ -465,6 +487,27 @@ def rmspecial(word: str) -&gt; str:
     &#34;&#34;&#34;
     if setting == 1:
         char = f&#34;^{char}&#34;
+    return char</code></pre>
+</details>
+</dd>
+<dt id="Enigma.utils.whsp2norm"><code class="name flex">
+<span>def <span class="ident">whsp2norm</span></span>(<span>char: str, whitesp_setting: int) ‑> str</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Replaces white spaces with normal characters to allow encryption</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def whsp2norm(char: str, whitesp_setting: int) -&gt; str:
+    &#34;&#34;&#34;
+    Replaces white spaces with normal characters to allow encryption
+    &#34;&#34;&#34;
+    if char.isspace():
+        if whitesp_setting == 1:
+            char = &#34;QYQ&#34;
+        elif whitesp_setting == 2:
+            char = &#34;&#34;
     return char</code></pre>
 </details>
 </dd>
@@ -496,6 +539,7 @@ def rmspecial(word: str) -&gt; str:
 <li><code><a title="Enigma.utils.sp2norm" href="#Enigma.utils.sp2norm">sp2norm</a></code></li>
 <li><code><a title="Enigma.utils.transformsp" href="#Enigma.utils.transformsp">transformsp</a></code></li>
 <li><code><a title="Enigma.utils.up2low" href="#Enigma.utils.up2low">up2low</a></code></li>
+<li><code><a title="Enigma.utils.whsp2norm" href="#Enigma.utils.whsp2norm">whsp2norm</a></code></li>
 </ul>
 </li>
 </ul>

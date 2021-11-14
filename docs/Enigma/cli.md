@@ -1,10 +1,12 @@
+<!-- @format -->
+
 # Cli
 
 > Auto-generated documentation for [Enigma.cli](blob/master/Enigma/cli.py) module.
 
-- [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Cli
-    - [main](#main)
-    - [verifRots](#verifrots)
+-   [Enigma machine](..\README.md#enigma-machine-python) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Cli
+    -   [main](#main)
+    -   [verifRots](#verifrots)
 
 ## main
 

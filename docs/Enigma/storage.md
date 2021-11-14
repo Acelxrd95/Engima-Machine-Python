@@ -1,14 +1,16 @@
+<!-- @format -->
+
 # Storage
 
 > Auto-generated documentation for [Enigma.storage](blob/master/Enigma/storage.py) module.
 
-- [Enigma machine](..\README.md#enigma-machine-index) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Storage
-    - [addCustomReflector](#addcustomreflector)
-    - [addCustomRotor](#addcustomrotor)
+-   [Enigma machine](..\README.md#enigma-machine-python) / [Modules](..\MODULES.md#enigma-machine-modules) / [Enigma](index.md#enigma) / Storage
+    -   [addCustomReflector](#addcustomreflector)
+    -   [addCustomRotor](#addcustomrotor)
 
 ## addCustomReflector
 
-[[find in source code]](blob/master/Enigma/storage.py#L63)
+[[find in source code]](blob/master/Enigma/storage.py#L62)
 
 ```python
 def addCustomReflector(

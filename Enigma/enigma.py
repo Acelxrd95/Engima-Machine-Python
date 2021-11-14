@@ -403,7 +403,7 @@ class Enigma:
             normalized_str = string
         for char in normalized_str:
             # if all settings are on ignore or and the character isn't an alphabet character the character is not changed else encrypt the character
-            if self.enc_settings == [0, 0, 0, 0] and not char.isalpha():
+            if not char.isalpha():
                 retstr += char
             else:
                 char = char.upper()

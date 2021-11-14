@@ -1,5 +1,6 @@
 import unittest
 import pycipher
+from Enigma.datastructs import Array
 import Enigma.enigma as en
 from faker import Faker
 import random
@@ -129,7 +130,7 @@ class UtilsTest(unittest.TestCase):
         string = 'ABC(defGHIj)kl123.,"/"\\"'
         encoded_str = ""
         for char in string:
-            encoded_str += transformsp(char)
+            encoded_str += transformsp(char, Array(int, values=[1, 1, 1, 1]))
         self.assertEqual(
             encoded_str,
             "JXAJXBJXCKZKDEFJXGJXHJXIJKZKKLJMJONEJMJJMJTWOJMJJMJTHREEJMJYJYZZZXXXYXXXYZYXX",
@@ -147,7 +148,7 @@ class UtilsTest(unittest.TestCase):
         string = fake.paragraph()
         encoded_str = ""
         for char in string:
-            encoded_str += transformsp(char)
+            encoded_str += transformsp(char, Array(int, values=[1, 1, 1, 1]))
         decoded_str = rmspecial(encoded_str)
         self.assertEqual(decoded_str, string)
 

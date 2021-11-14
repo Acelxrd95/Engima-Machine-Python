@@ -98,7 +98,7 @@ def isspecial(char: str) -> bool:
     return char in sp_dict.keys()
 
 
-def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -> str:
+def sp2norm(char: str, sp_setting: int) -> str:
     """
     Replaces special characters with normal characters to allow encryption
     """
@@ -107,7 +107,14 @@ def sp2norm(char: str, sp_setting: int = 1, whitesp_setting: int = 1) -> str:
             char = sp_dict[char]
         elif sp_setting == 2:
             char = ""
-    elif char.isspace():
+    return char
+
+
+def whsp2norm(char: str, whitesp_setting: int) -> str:
+    """
+    Replaces white spaces with normal characters to allow encryption
+    """
+    if char.isspace():
         if whitesp_setting == 1:
             char = "QYQ"
         elif whitesp_setting == 2:
@@ -139,7 +146,7 @@ def up2low(char: str, setting: int) -> str:
     return char
 
 
-def transformsp(char: str, settings: Array = Array(int, values=[1, 1, 1, 1])) -> str:
+def transformsp(char: str, settings: Array) -> str:
     """
     Parses and transforms special characters to normal characters to allow encryption
     """
@@ -150,11 +157,21 @@ def transformsp(char: str, settings: Array = Array(int, values=[1, 1, 1, 1])) ->
             char = up2low(char, settings[1])
     elif char.isnumeric():
         char = num2word(char, settings[0])
-    if char != "" and (isspecial(char[0]) or char.isspace()):
+    if isspecial(char[0]):
         if char[0] == "$":
-            char = sp2norm(char[0]) + char[1:-1] + sp2norm(char[-1])
+            char = sp2norm(char[0], 1) + char[1:-1] + sp2norm(char[-1], 1)
         else:
-            char = sp2norm(char[0], settings[2], settings[3]) + char[1:]
+            char = sp2norm(char[0], settings[2]) + char[1:]
+    elif char.isspace():
+        char = whsp2norm(char[0], settings[3]) + char[1:]
+    if not (
+        char.isalpha()
+        or char.isnumeric()
+        or char.isspace()
+        or isspecial(char)
+        or char == ""
+    ):
+        raise ValueError(f"{char} is not a valid character")
     return char
 
 
