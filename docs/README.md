@@ -12,7 +12,6 @@ This project is a software implementation for the Enigma encryption machine used
 -   [Installation](#Installation)
 -   [Usage](#Usage)
 -   [Running-the-tests](#Running-the-tests)
--   [Todo](#Todo)
 
 # Demo-Preview
 
