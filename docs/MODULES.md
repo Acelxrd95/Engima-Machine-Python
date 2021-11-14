@@ -2,13 +2,11 @@
 
 # Enigma machine Modules
 
--   [Enigma machine Index](#enigma-machine-python)
--   [Enigma-Machine-Python](#enigma-machine-python)
--   [Table-of-Contents](#table-of-contents)
--   [Demo-Preview](#demo-preview)
--   [Features](#features)
--   [Prerequisite](#prerequisite)
--   [Installation](#installation)
--   [Usage](#usage)
--   [Running-the-tests](#running-the-tests)
-    -   [Enigma machine Modules](MODULES.md#enigma-machine-modules)
+Full list of [Enigma machine](README.md#enigma-machine-index) project modules.
+
+-   [Enigma](Enigma\index.md#enigma)
+    -   [Datastructs](Enigma\datastructs.md#datastructs)
+    -   [Enigma](Enigma\enigma.md#enigma)
+    -   [Rotor](Enigma\rotor.md#rotor)
+    -   [Storage](Enigma\storage.md#storage)
+    -   [Utils](Enigma\utils.md#utils)
