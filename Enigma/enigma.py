@@ -392,22 +392,18 @@ class Enigma:
         """
         Loops on the string and if bool is false the string is sent to the `transformsp` function to transform the special characters to encryptable characters if bool is false then automatically skips past the transform special characters function and then loops on the string and the sends each character to the `encryptChar` method to be encrypted
         """
-        normalized_str = ""
         retstr = ""
-        # if not deciphering transform all special characters to encryptable characters
-        if not decipher and self.enc_settings != [0, 0, 0, 0]:
-            for char in string:
-                normalized_str += transformsp(char, self.enc_settings)
-        # if all settings are on ignore or is deciphering the string is not changed
-        else:
-            normalized_str = string
-        for char in normalized_str:
+        for char in string:
+            # if not deciphering transform all special characters to encryptable characters
+            if not decipher and self.enc_settings != [0, 0, 0, 0]:
+                char = transformsp(char, self.enc_settings)
             # if all settings are on ignore or and the character isn't an alphabet character the character is not changed else encrypt the character
             if not char.isalpha():
                 retstr += char
             else:
                 char = char.upper()
-                retstr += self.encryptChar(char)
+                for c in char:
+                    retstr += self.encryptChar(c)
         return retstr
 
     def decipher(self, string: str) -> str:
@@ -419,3 +415,4 @@ class Enigma:
 
 if __name__ == "__main__":
     print('use "import enigma" to access functions')
+    print(Enigma().encipher("a7a neeek"))
